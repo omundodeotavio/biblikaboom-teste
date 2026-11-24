@@ -208,8 +208,9 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .pf-desafio.feito{background:linear-gradient(135deg,#2fa35a,#1b6e3c)}
 .pf-rot{font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#ffe27a}.pf-desafio b{font-size:16px}.pf-cont{font-size:13px;font-weight:700;opacity:.9}
 .pf-botoes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.pf-b{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;color:var(--tinta);border:3px solid #000;border-radius:18px;padding:10px 6px;box-shadow:0 5px 0 #000;font:inherit;cursor:pointer;transition:transform .15s}
-.pf-b:active{transform:translateY(3px);box-shadow:0 2px 0 #000}.pf-b span{font-size:26px;line-height:1}.pf-b b{font-weight:900;font-size:15px}.pf-b small{font-size:12px;color:#6b5a80;font-weight:700}
+.pf-b{display:flex;flex-direction:column;align-items:center;gap:2px;background:linear-gradient(180deg,#5a2d91,#3b1c60);color:#fff;border:3px solid #000;border-radius:18px;padding:8px 6px 10px;box-shadow:0 5px 0 #000,inset 0 2px 0 rgba(255,255,255,.18);font:inherit;cursor:pointer;transition:transform .15s}
+.pf-b img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 4px 6px rgba(0,0,0,.45));transition:transform .2s}.pf-b:hover img{transform:scale(1.08) rotate(-3deg)}
+.pf-b:active{transform:translateY(3px);box-shadow:0 2px 0 #000}.pf-b b{font-family:var(--cartoon);font-weight:400;font-size:19px;color:var(--ouro);-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill;text-shadow:0 2px 0 var(--tinta);line-height:1.1}.pf-b small{font-size:11px;color:var(--lilas);font-weight:800}
 .toast{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));translate:-50% 0;z-index:120;display:flex;align-items:center;gap:10px;background:#fff;color:var(--tinta);border:3px solid #000;border-radius:999px;padding:8px 18px 8px 8px;box-shadow:0 6px 0 #000,0 14px 30px rgba(0,0,0,.4);font-size:15px;max-width:calc(100% - 32px);animation:toastIn .4s cubic-bezier(.2,1.5,.4,1) both}
 .toast.sai{animation:toastOut .35s ease forwards}.toast img{width:34px;border-radius:5px}.toast-ic{font-size:26px;width:36px;text-align:center}
 .toast.grande{background:var(--ouro);font-size:17px}
@@ -230,7 +231,8 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .med-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .med{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:var(--roxo-esc);border:3px solid #000;border-radius:18px;padding:14px 10px;opacity:.55}
 .med.tem{opacity:1;background:linear-gradient(160deg,#5a2d91,#3b1c60);border-color:var(--ouro);box-shadow:0 0 18px rgba(255,200,61,.35)}
-.med-ic{font-size:40px}.med b{font-size:15px}.med small{font-size:12px;color:var(--lilas)}.med .botao{margin-top:6px;font-size:14px}
+.med-img{width:88px;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}.med:not(.tem) .med-img{filter:grayscale(1) brightness(.55);opacity:.7}
+.med-tier{font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lilas)}.med.tem.t-ouro .med-tier{color:#ffd34d}.med.tem.t-prata .med-tier{color:#dfe6f0}.med.tem.t-bronze .med-tier{color:#e0a070}.med b{font-size:15px}.med small{font-size:12px;color:var(--lilas)}.med .botao{margin-top:6px;font-size:14px}
 .med-av{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:10px}
 .mav{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.mav img{width:76px;height:76px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover}.mav b{font-size:13px}.mav small{font-size:11px;color:var(--lilas)}
 .mav.bloq img{filter:grayscale(1) brightness(.6);border-color:var(--lilas)}
@@ -1043,7 +1045,17 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .rodape .linha-r{gap:8px;flex-wrap:nowrap}
 .rodape img{width:26px}
 .rodape p{font-size:10.5px;letter-spacing:.06em;line-height:1.45;text-align:left;max-width:300px}
-@media (max-width:780px){.hero{height:min(92vw,62svh)}.palco-img{object-position:68% 18%!important}}
+@media (max-width:780px){.hero{height:min(150vw,84svh)}.palco-img{object-position:50% 0%!important}
+  .palco::before{background:linear-gradient(0deg,var(--roxo) 0%,rgba(59,28,96,.9) 7%,rgba(59,28,96,.55) 16%,rgba(59,28,96,.15) 28%,transparent 38%),linear-gradient(180deg,rgba(46,17,80,.55) 0%,transparent 12%)!important}
+  .hero-marca .logo-img{--w:min(62vw,280px)!important}
+  .pos-hero{padding-top:calc(min(62vw,280px) * .5 + 6px)!important}
+  .pos-hero-acoes{margin:4px 0 10px}
+  .pago-selo{margin:6px 16px 4px}
+  .prog-faixa{margin:16px auto 40px;gap:12px}
+  .faixa-roxa.pos-hero .titulo{margin-top:8px;margin-bottom:8px}
+  .faixa-roxa .modos{margin-top:96px!important;row-gap:76px!important}
+  .modo .fan{--cw:104px}
+}
 @media (min-width:1600px){.hero-omdo{width:90px}}
 
 /* ---------- Botão Jogar dentro de cada modo ---------- */
@@ -2557,15 +2569,15 @@ function ehPremiumOuDegusta(){return (typeof ehPremium==="function"&&ehPremium()
 const GR_ALBUM=[["pent","Pentateuco"],["hist","Históricos"],["poet","Poéticos"],["prof","Proféticos"],["evan","Evangelhos"],["atap","Atos e Apocalipse"],["cart","Cartas"]];
 const grupoDe=c=>c.g==="atos"||c.g==="apoc"?"atap":c.g;
 const MEDALHAS=[
-  {id:"v1",ic:"🏆",t:"Primeira vitória",d:"Ganhe sua primeira partida",ok:S=>S.vit>=1},
-  {id:"v10",ic:"🥇",t:"Campeão",d:"Ganhe 10 partidas",ok:S=>S.vit>=10},
-  {id:"v50",ic:"👑",t:"Lenda do Biblikaboom",d:"Ganhe 50 partidas",ok:S=>S.vit>=50},
-  {id:"bk1",ic:"💥",t:"Biblikaboom!",d:"Feche os 3 grupos no Supremo",ok:S=>S.bkb>=1},
-  {id:"pd",ic:"⚡",t:"Poder ativado",d:"Vença uma rodada com uma carta Biblikaboom",ok:S=>S.poder>=1},
-  {id:"s3",ic:"🔥",t:"Pegando fogo",d:"Jogue 3 dias seguidos",ok:S=>S.seq.n>=3},
-  {id:"s7",ic:"🌟",t:"Semana completa",d:"Jogue 7 dias seguidos",ok:S=>S.seq.n>=7},
-  ...GR_ALBUM.map(([g,n])=>({id:"g-"+g,ic:"📜",t:"Conhece "+(g==="atap"?"Atos e Apocalipse":"os "+n),d:"Complete os "+n+" no álbum",ok:S=>albumGrupo(g).every(c=>S.album[c.p])})),
-  {id:"expert",ic:"🎓",t:"Expert da Bíblia",d:"Complete o álbum com os 66 livros",ok:S=>Object.keys(S.album).length>=66,cert:true}
+  {id:"v1",tier:"bronze",ic:"🏆",t:"Primeira vitória",d:"Ganhe sua primeira partida",ok:S=>S.vit>=1},
+  {id:"v10",tier:"prata",ic:"🥇",t:"Campeão",d:"Ganhe 10 partidas",ok:S=>S.vit>=10},
+  {id:"v50",tier:"ouro",ic:"👑",t:"Lenda do Biblikaboom",d:"Ganhe 50 partidas",ok:S=>S.vit>=50},
+  {id:"bk1",tier:"prata",ic:"💥",t:"Biblikaboom!",d:"Feche os 3 grupos no Supremo",ok:S=>S.bkb>=1},
+  {id:"pd",tier:"bronze",ic:"⚡",t:"Poder ativado",d:"Vença uma rodada com uma carta Biblikaboom",ok:S=>S.poder>=1},
+  {id:"s3",tier:"bronze",ic:"🔥",t:"Pegando fogo",d:"Jogue 3 dias seguidos",ok:S=>S.seq.n>=3},
+  {id:"s7",tier:"prata",ic:"🌟",t:"Semana completa",d:"Jogue 7 dias seguidos",ok:S=>S.seq.n>=7},
+  ...GR_ALBUM.map(([g,n])=>({id:"g-"+g,tier:["hist","prof","cart"].includes(g)?"prata":"bronze",ic:"📜",t:"Conhece "+(g==="atap"?"Atos e Apocalipse":"os "+n),d:"Complete os "+n+" no álbum",ok:S=>albumGrupo(g).every(c=>S.album[c.p])})),
+  {id:"expert",tier:"ouro",ic:"🎓",t:"Expert da Bíblia",d:"Complete o álbum com os 66 livros",ok:S=>Object.keys(S.album).length>=66,cert:true}
 ];
 function albumGrupo(g){return CARTAS.filter(c=>grupoDe(c)===g)}
 /* desafio do dia */
@@ -2595,7 +2607,7 @@ function ganharXP(n,motivo){const S=PROG.S,antes=nivelDe(S.xp);S.xp+=n;const dep
   if(dep>antes){toast(`<b>Nível ${dep}!</b> Você subiu de nível`,{ic:"🚀",cls:"grande"});SOM.brilho();
     AV_NIVEL.forEach((nv,i)=>{if(nv===dep)toast(`Novo personagem liberado: <b>${OMDO_AV[i]}</b>`,{img:omdoSrc(i)})})}
 }
-function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Medalha: <b>${m.t}</b>`,{ic:m.ic,cls:"grande"});SOM.ganhou();S.xp+=40}})}
+function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Medalha de ${m.tier}: <b>${m.t}</b>`,{img:`arte/med/${m.tier}.webp`,cls:"grande"});SOM.ganhou();S.xp+=40}})}
 function marcarDia(){const S=PROG.S,d=hoje();if(S.seq.dia===d)return;
   S.seq.n=S.seq.dia&&diaN(d)-diaN(S.seq.dia)===1?S.seq.n+1:1;S.seq.dia=d;if(S.seq.n>1)toast(`<b>${S.seq.n} dias seguidos!</b> Continue assim`,{ic:"🔥"})}
 /* eventos vindos do jogo */
@@ -2630,9 +2642,9 @@ function progFaixaHTML(){
       ${S.seq.n>0?`<span class="pf-fogo" title="Dias seguidos">🔥<b>${S.seq.n}</b></span>`:""}</div>
     <div class="pf-desafio${S.des.feito?" feito":""}"><span class="pf-rot">Desafio do dia</span><b>${D.t}</b><span class="pf-cont">${S.des.feito?"✔ Completo! +50 XP":`${dc}/${D.meta} · vale 50 XP`}</span></div>
     <div class="pf-botoes">
-      <button type="button" class="pf-b" id="abrir-album"><span>📖</span><b>Álbum</b><small>${nAlb}/66</small></button>
-      <button type="button" class="pf-b" id="abrir-medalhas"><span>🏅</span><b>Medalhas</b><small>${nMed}/${MEDALHAS.length}</small></button>
-      <button type="button" class="pf-b" id="abrir-liga"><span>🏆</span><b>Ranking</b><small>com amigos</small></button>
+      <button type="button" class="pf-b" id="abrir-album"><img src="arte/ic/album.webp" alt=""><b>Álbum</b><small>${nAlb}/66</small></button>
+      <button type="button" class="pf-b" id="abrir-medalhas"><img src="arte/ic/medalhas.webp" alt=""><b>Medalhas</b><small>${nMed}/${MEDALHAS.length}</small></button>
+      <button type="button" class="pf-b" id="abrir-liga"><img src="arte/ic/ranking.webp" alt=""><b>Ranking</b><small>com amigos</small></button>
     </div></div>`;
 }
 /* álbum */
@@ -2656,7 +2668,7 @@ function medalhasTela(){
   limpar();F="medalhas";camada.innerHTML="";const S=PROG.S;
   tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
   <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Minhas</span><span class="c2">medalhas</span></h1><p>Cada medalha vale +40 XP. Complete o álbum para ganhar o certificado de Expert da Bíblia!</p></div></section>
-  <section class="on-corpo"><div class="miolo"><div class="med-grade">${MEDALHAS.map(m=>`<div class="med${S.med[m.id]?" tem":""}"><span class="med-ic">${S.med[m.id]?m.ic:"🔒"}</span><b>${m.t}</b><small>${m.d}</small>${m.cert&&S.med[m.id]?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}</div>`).join("")}</div>
+  <section class="on-corpo"><div class="miolo"><div class="med-grade">${MEDALHAS.map(m=>`<div class="med${S.med[m.id]?" tem":""} t-${m.tier}"><img class="med-img" src="arte/med/${m.tier}.webp" alt="Medalha de ${m.tier}"><span class="med-tier">${m.tier}</span><b>${m.t}</b><small>${m.d}</small>${m.cert&&S.med[m.id]?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}</div>`).join("")}</div>
   <h2 class="ex-tit">Personagens</h2><p class="ex-sub">Suba de nível para liberar novos personagens.</p>
   <div class="med-av">${OMDO_AV.map((n,i)=>`<div class="mav${avLiberado(i)?"":" bloq"}"><img src="${omdoSrc(i)}" alt=""><b>${n}</b><small>${avLiberado(i)?"Liberado":"Nível "+AV_NIVEL[i]}</small></div>`).join("")}</div>
   </div></section>`;topo();
@@ -2796,7 +2808,7 @@ function inicio(){
   tela.innerHTML=`<div class="inicio">
   <header class="hero">
   <div class="palco" id="hero-arte" role="img" aria-label="Otávio segurando as cartas Mateus, Gênesis e Apocalipse, com cartas do Biblikaboom voando ao redor">
-    <img class="palco-img" src="arte/keyart.webp" srcset="arte/keyart-900.webp 900w, arte/keyart.webp 1536w" sizes="100vw" alt="">
+    <picture><source media="(max-width:780px)" srcset="arte/hero-celular-540.webp 540w, arte/hero-celular.webp 800w" sizes="100vw"><img class="palco-img" src="arte/keyart.webp" srcset="arte/keyart-900.webp 900w, arte/keyart.webp 1536w" sizes="100vw" alt=""></picture>
     <span class="palco-estante" aria-hidden="true"></span>
     <span class="palco-brilho"></span>
     <span class="faisca f1"></span><span class="faisca f2"></span><span class="faisca f3"></span><span class="faisca f4"></span><span class="faisca f5"></span><span class="faisca f6"></span>
