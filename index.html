@@ -179,6 +179,77 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 @keyframes vitNome{from{transform:scale(.3);opacity:0}}
 .vit-toque{position:absolute;z-index:4;bottom:max(3vh,18px);left:0;right:0;text-align:center;margin:0;color:var(--lilas);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;animation:vitEntra .4s 1.6s both}
 @media (prefers-reduced-motion:reduce){.vit-raios,.vit-corpo,.vit-retrato,.vit-nome{animation:none}}
+.pago-selo{margin:4px auto 0;text-align:center;font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--lilas)}
+.pago-selo b{color:var(--ouro);font-size:16px}.pago-selo.premium{color:var(--ouro)}
+.paywall{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:16px;background:rgba(20,6,36,.82);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:auto}
+.pw-caixa{position:relative;width:min(100%,460px);background:linear-gradient(180deg,#5a2d91,#3b1c60);border:4px solid var(--tinta);border-radius:28px;box-shadow:0 10px 0 var(--tinta),0 30px 60px rgba(0,0,0,.5);padding:90px 22px 22px;text-align:center;color:#fff;margin-top:70px}
+.pw-heroi{position:absolute;left:50%;top:-80px;translate:-50% 0;height:170px;width:auto;filter:drop-shadow(0 0 20px rgba(255,214,90,.6));animation:vitPula 1.6s ease-in-out infinite alternate}
+.pw-caixa h2{margin:0;font-family:var(--cartoon);font-weight:400;font-size:clamp(30px,8vw,40px);color:var(--ouro);-webkit-text-stroke:.06em var(--tinta);paint-order:stroke fill;text-shadow:0 4px 0 var(--tinta)}
+.pw-sub{margin:8px 0 0;font-size:16px;line-height:1.45;color:#efe6ff}.pw-sub b{color:var(--ouro)}
+.pw-oferta{margin-top:16px;background:#fff;color:var(--tinta);border:3px solid var(--tinta);border-radius:20px;padding:16px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.pw-oferta .pw-sub{color:#4b3a5e}.pw-oferta .pw-sub b{color:var(--roxo)}
+.pw-selo{background:var(--roxo);color:var(--ouro);font-weight:900;font-size:13px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:5px 14px}
+.pw-oferta ul{list-style:none;margin:6px 0;padding:0;text-align:left;font-size:15px;line-height:1.4;display:grid;gap:6px}
+.pw-oferta li::before{content:"✔";color:#2fa35a;font-weight:900;margin-right:8px}
+.pw-preco{margin:4px 0;font-family:var(--cartoon);font-size:38px;color:var(--roxo)}.pw-preco small{font-family:var(--texto);font-size:14px;color:#6b5a80;font-weight:700}
+.pw-conta,.pw-cod{color:var(--tinta);width:min(100%,280px);text-align:center;font-size:22px;letter-spacing:.08em}
+.pw-erro{margin:0;min-height:1.2em;color:#c2185b;font-weight:700;font-size:14px}
+.pw-fechar{margin-top:16px}
+.pf-av.bloq{opacity:.45;filter:grayscale(.8);cursor:not-allowed;position:relative}.pf-av.bloq::after{content:"🔒";position:absolute;top:4px;right:6px;font-size:14px}
+.pw-de{margin:2px 0 -6px;color:#6b5a80;font-weight:700}.pw-de s{color:#c2185b}
+.pw-lanc{background:#e8327c;color:#fff;font-weight:900;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 12px;margin-top:-4px}
+.prog-faixa{margin:14px auto 8px;width:min(100%,760px);display:grid;gap:10px}
+.pf-eu{display:flex;align-items:center;gap:12px;background:var(--roxo-esc);border:3px solid #000;border-radius:20px;padding:10px 14px}
+.pf-eu>img{width:58px;height:58px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover;background:#efe6ff}
+.pf-eu>div{flex:1;min-width:0;display:grid;gap:4px}.pf-eu b{font-size:17px}.pf-nv{font-weight:900;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ouro)}
+.pf-barra{height:10px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden}.pf-barra i{display:block;height:100%;background:linear-gradient(90deg,#ffd34d,#ff9d1f);border-radius:99px;transition:width .6s}
+.pf-fogo{font-size:26px;display:flex;align-items:center;gap:2px}.pf-fogo b{font-family:var(--cartoon);font-size:24px;color:var(--ouro)}
+.pf-desafio{display:grid;gap:2px;background:linear-gradient(135deg,#e8327c,#a92e88);border:3px solid #000;border-radius:20px;padding:10px 14px;box-shadow:0 5px 0 #000}
+.pf-desafio.feito{background:linear-gradient(135deg,#2fa35a,#1b6e3c)}
+.pf-rot{font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#ffe27a}.pf-desafio b{font-size:16px}.pf-cont{font-size:13px;font-weight:700;opacity:.9}
+.pf-botoes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pf-b{display:flex;flex-direction:column;align-items:center;gap:2px;background:#fff;color:var(--tinta);border:3px solid #000;border-radius:18px;padding:10px 6px;box-shadow:0 5px 0 #000;font:inherit;cursor:pointer;transition:transform .15s}
+.pf-b:active{transform:translateY(3px);box-shadow:0 2px 0 #000}.pf-b span{font-size:26px;line-height:1}.pf-b b{font-weight:900;font-size:15px}.pf-b small{font-size:12px;color:#6b5a80;font-weight:700}
+.toast{position:fixed;left:50%;top:max(14px,env(safe-area-inset-top));translate:-50% 0;z-index:120;display:flex;align-items:center;gap:10px;background:#fff;color:var(--tinta);border:3px solid #000;border-radius:999px;padding:8px 18px 8px 8px;box-shadow:0 6px 0 #000,0 14px 30px rgba(0,0,0,.4);font-size:15px;max-width:calc(100% - 32px);animation:toastIn .4s cubic-bezier(.2,1.5,.4,1) both}
+.toast.sai{animation:toastOut .35s ease forwards}.toast img{width:34px;border-radius:5px}.toast-ic{font-size:26px;width:36px;text-align:center}
+.toast.grande{background:var(--ouro);font-size:17px}
+@keyframes toastIn{from{transform:translateY(-120%);opacity:0}}@keyframes toastOut{to{transform:translateY(-120%);opacity:0}}
+.alb-barra{height:14px;border-radius:99px;background:rgba(255,255,255,.15);overflow:hidden;max-width:520px;margin:8px 0}.alb-barra i{display:block;height:100%;background:linear-gradient(90deg,#ffd34d,#ff9d1f)}
+.alb-gt{display:flex;align-items:center;gap:10px;margin:22px 0 10px;font-family:var(--cartoon);font-weight:400;font-size:26px;color:#fff;border-left:8px solid var(--c);padding-left:10px}.alb-gt small{font-family:var(--texto);font-size:14px;color:var(--lilas)}
+.alb-grade,.med-grade,.med-av,.lg-lista,.lg-minhas{width:100%;align-self:stretch}
+.alb-gt{align-self:stretch}
+.lg-ver .titulo .c2{font-size:clamp(28px,8vw,56px);overflow-wrap:anywhere}
+.alb-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.alb-c{display:flex;flex-direction:column;align-items:center;gap:4px;background:none;border:0;padding:0;color:#fff;font:inherit;font-size:12px;font-weight:700;cursor:pointer;min-width:0}
+.alb-c img{width:100%;border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.alb-c.vazio{cursor:default;opacity:.55}.alb-q{width:100%;aspect-ratio:480/744;border-radius:8px;border:3px dashed var(--lilas);display:grid;place-items:center;font-family:var(--cartoon);font-size:34px;color:var(--lilas)}
+.alb-zoom{position:fixed;inset:0;z-index:95;display:grid;place-items:center;padding:16px;background:rgba(20,6,36,.85);overflow:auto}
+.alb-zc{width:min(100%,380px);display:flex;flex-direction:column;align-items:center;gap:12px}.alb-zc>img{width:min(100%,300px);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+.alb-zc.cert{width:min(100%,760px)}.alb-zc.cert>img{width:100%}
+.alb-cur{background:#fff;color:var(--tinta);border:3px solid #000;border-radius:18px;padding:12px 16px;text-align:center;width:100%}.alb-cur b{font-family:var(--cartoon);font-size:40px;color:var(--roxo);display:block}.alb-cur p{margin:4px 0;font-weight:700}.alb-cur small{color:#6b5a80}
+.med-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.med{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:var(--roxo-esc);border:3px solid #000;border-radius:18px;padding:14px 10px;opacity:.55}
+.med.tem{opacity:1;background:linear-gradient(160deg,#5a2d91,#3b1c60);border-color:var(--ouro);box-shadow:0 0 18px rgba(255,200,61,.35)}
+.med-ic{font-size:40px}.med b{font-size:15px}.med small{font-size:12px;color:var(--lilas)}.med .botao{margin-top:6px;font-size:14px}
+.med-av{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:10px}
+.mav{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.mav img{width:76px;height:76px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover}.mav b{font-size:13px}.mav small{font-size:11px;color:var(--lilas)}
+.mav.bloq img{filter:grayscale(1) brightness(.6);border-color:var(--lilas)}
+.bau{position:fixed;inset:0;z-index:96;display:grid;place-items:center;padding:16px;background:rgba(20,6,36,.8)}
+.bau-caixa{width:min(100%,380px);text-align:center;background:linear-gradient(180deg,#5a2d91,#3b1c60);border:4px solid #000;border-radius:28px;padding:24px;box-shadow:0 10px 0 #000;color:#fff}
+.bau-caixa h2{margin:6px 0;font-family:var(--cartoon);font-weight:400;font-size:40px;color:var(--ouro);-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill}
+.bau-ic{font-size:84px;animation:bauBalanca 1s ease-in-out infinite alternate}.bau-ic.abre{animation:vitSobe .6s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes bauBalanca{from{transform:rotate(-8deg)}to{transform:rotate(8deg) scale(1.08)}}
+.lg-minhas{display:grid;gap:10px;margin-bottom:16px}
+.lg-item{display:flex;justify-content:space-between;align-items:center;background:#fff;color:var(--tinta);border:3px solid #000;border-radius:18px;padding:12px 16px;box-shadow:0 5px 0 #000;font:inherit;cursor:pointer}.lg-item b{font-size:17px}.lg-item span{font-weight:800;color:var(--roxo)}
+.on-apelido-in{width:100%;font:inherit;font-size:16px;padding:10px 12px;border-radius:12px;border:3px solid #000;margin:6px 0}
+.lg-ver .miolo{display:flex;flex-direction:column;gap:12px}.lg-cod{margin:0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}.lg-cod b{font-family:var(--cartoon);font-size:28px;color:var(--ouro);letter-spacing:.1em}
+.lg-abas{align-self:flex-start}
+.lg-lista{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.lg-m{display:flex;align-items:center;gap:10px;background:var(--roxo-esc);border:3px solid #000;border-radius:18px;padding:8px 14px}
+.lg-m.eu{border-color:var(--ouro);box-shadow:0 0 14px rgba(255,200,61,.4)}.lg-m.top1{background:linear-gradient(90deg,#7a5a10,#3b1c60)}
+.lg-pos{font-family:var(--cartoon);font-size:26px;width:36px;text-align:center}.lg-m img{width:48px;height:48px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover}
+.lg-n{flex:1;min-width:0;display:grid}.lg-n b{font-size:16px;overflow-wrap:anywhere}.lg-n small{font-size:12px;color:var(--lilas)}
+.lg-xp{font-family:var(--cartoon);font-size:26px;color:var(--ouro);display:flex;align-items:baseline;gap:3px}.lg-xp small{font-family:var(--texto);font-size:11px;font-weight:800;color:var(--lilas)}
 .rodape{background:var(--roxo-esc);padding-block:24px 32px;text-align:center}
 .rodape .linha-r{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
 .rodape img{width:34px}
@@ -1472,6 +1543,7 @@ const SEAT_POS={1:["top"],2:["tl","tr"],3:["left","top","right"]};
 const SEAT_ANG={bottom:90,left:180,top:-90,right:0,tl:-130,tr:-50};
 const maoEls=new Map();
 function supIniciar(){
+  if(!liberar())return;
   limpar();camada.innerHTML="";SUPSEL=null;maoEls.clear();
   SP=supNovo(Number(SUPPREF.robos),SUPPREF.regra==="avancado",SUPPREF.nivel);
   CARTAS.forEach(c=>{const i=new Image();i.src=img(c)});
@@ -1653,6 +1725,7 @@ function supFim(quem,grupos,jaMostrou){
     const v=quem===0,S=SP;let src,ret;
     if(S.online){const av=S.avOmdo?S.avOmdo[quem]:0;src=vitSrcOmdo(av);ret=omdoSrc(av)}
     else if(v){src=vitSrcOmdo(PERFIL.av);ret=omdoSrc(PERFIL.av)}else{src=vitSrcRival(S.av[quem]);ret=avatarSrc(S.av[quem])}
+    if(typeof progEv==="function"){progEv("partida",{modo:"supremo"});if(v){progEv("vitoria",{modo:"supremo"});progEv("biblikaboom",{cartas:S.maos[0]})}}
     vitoriaShow({src,retrato:ret,nome:v?(PERFIL.nome||"Você"):S.nomes[quem],frase:"fez Biblikaboom!",voce:v},()=>supFim(quem,grupos,true));return}
   supRelogioParar();limpar();{const ac=$("#sacoes");if(ac)ac.innerHTML=""}F="sup-fim";const g=quem===0;
   const origem=c=>quem===0?maoEls.get(c.p):$("#rival-"+quem);
@@ -1916,12 +1989,13 @@ try{const s=localStorage.getItem("bkb-fast-nivel");if(s&&PADRAO[s])document.quer
 document.addEventListener("keydown",e=>{if(F!=="fast"||document.querySelector(".confirma"))return;if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();avancar()}});
 return {montar};
 })();
-function fastInicio(){limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
+function fastInicio(){if(!liberar())return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
 
 /* ================= Jogo online (sala com código, 2 jogadores) ================= */
 /* ---------- Perfil do jogador: apelido + avatar dos personagens do O Mundo de Otávio ---------- */
-const OMDO_AV=["Otávio","Nina","Ozório","Joca","Gabi","Rubinho","Cacá","Dani","Helena","Magu"];
-const omdoSrc=i=>`arte/omdo/${String(i+1).padStart(2,"0")}.webp`;
+/* avatares do jogador: personagens bíblicos (mesmos 16 dos adversários) */
+const OMDO_AV=["Moisés","Davi","Ester","Daniel","Rute","Josué","Débora","Samuel","Gideão","Miriã","Elias","Noé","Jonas","Sara","Pedro","Lídia"];
+const omdoSrc=i=>`arte/av/${String((i||0)%16+1).padStart(2,"0")}.webp`;
 const PERFIL=(()=>{try{const p=JSON.parse(localStorage.getItem("bkb-perfil")||"null");if(p&&p.nome)return p}catch(e){}return {nome:"",av:0}})();
 function salvarPerfil(){try{localStorage.setItem("bkb-perfil",JSON.stringify(PERFIL))}catch(e){}}
 let perfilDepois=null;
@@ -1934,7 +2008,7 @@ function perfilTela(depois){
     <h1 class="titulo"><span class="c1">Monte o seu</span><span class="c2">Perfil</span></h1>
     <label class="on-apelido">Seu apelido<input id="pf-apelido" maxlength="14" autocomplete="nickname" placeholder="Ex.: Super Davi"></label>
     <h2 class="pf-sub">Escolha o seu avatar</h2>
-    <div class="pf-grade" role="radiogroup" aria-label="Avatar">${OMDO_AV.map((n,i)=>`<button type="button" class="pf-av" data-pfav="${i}" role="radio" aria-checked="${PERFIL.av===i}"><img src="${omdoSrc(i)}" alt=""><span>${n}</span></button>`).join("")}</div>
+    <div class="pf-grade" role="radiogroup" aria-label="Avatar">${OMDO_AV.map((n,i)=>`<button type="button" class="pf-av${avLiberado(i)?"":" bloq"}" ${avLiberado(i)?"":"disabled"} data-pfav="${i}" role="radio" aria-checked="${PERFIL.av===i}"><img src="${omdoSrc(i)}" alt=""><span>${n}</span></button>`).join("")}</div>
     <button type="button" class="botao" id="pf-salvar">Salvar perfil</button>
   </div></section>`;
   const inp=$("#pf-apelido");inp.value=PERFIL.nome;$("#pf-nome").textContent=PERFIL.nome||"Seu apelido";
@@ -1988,6 +2062,7 @@ function aviso(t,erro=false){const a=$("#on-aviso");if(a){a.textContent=t;a.clas
 function guardaNome(){return limpaNome(PERFIL.nome)}
 async function pronto(){if(ON.carregando)await ON.carregando;if(!ON.db||!ON.id){aviso("Não consegui conectar ao modo online agora. Confira se você está conectado na sua conta.",true);return false}return true}
 async function onlineCriar(){
+  if(!liberar())return;
   if(!await pronto())return;const nome=guardaNome();
   aviso("Criando a sala…");
   let cod,ok=false;
@@ -1998,6 +2073,7 @@ async function onlineCriar(){
   ouvir();
 }
 async function onlineEntrar(){
+  if(!liberar())return;
   if(!await pronto())return;const nome=guardaNome();
   const cod=($("#on-cod").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
   if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
@@ -2029,8 +2105,8 @@ function eu(d){return ON.papel==="P"?d.host:d.guest}
 function ele(d){return ON.papel==="P"?d.guest:d.host}
 /* J visto do meu lado: eu sempre sou "P" na tela */
 function jVista(d){
-  const C=jDe(d.estado,d.modo);if(ON.papel==="P"){C.rival={n:esc(ele(d).nome),src:omdoSrc(ele(d).av)};return C}
-  return {modo:d.modo,P:C.R,R:C.P,pote:C.pote,usado:{P:C.usado.R,R:C.usado.P},vez:outro(C.vez),rival:{n:esc(ele(d).nome),src:omdoSrc(ele(d).av)},cartas:C.cartas};
+  const C=jDe(d.estado,d.modo);if(ON.papel==="P"){C.rival={n:esc(ele(d).nome),src:omdoSrc(ele(d).av),av:ele(d).av};return C}
+  return {modo:d.modo,P:C.R,R:C.P,pote:C.pote,usado:{P:C.usado.R,R:C.usado.P},vez:outro(C.vez),rival:{n:esc(ele(d).nome),src:omdoSrc(ele(d).av),av:ele(d).av},cartas:C.cartas};
 }
 function paraTimer(){if(ON.timer)clearInterval(ON.timer);ON.timer=null}
 function desenhar(d,novo){
@@ -2085,6 +2161,7 @@ function desenhar(d,novo){
   }
   if(d.fase==="fim"){
     const g=d.venc===meu,el=ele(d);
+    if(novo&&typeof progEv==="function"){progEv("partida",{modo:d.modo});if(g)progEv("vitoria",{modo:d.modo})}
     if(novo&&!document.querySelector(".vitoria"))vitoriaShow(g?{src:vitSrcOmdo(PERFIL.av),retrato:omdoSrc(PERFIL.av),nome:PERFIL.nome||"Você",frase:"venceu!",voce:true}:{src:vitSrcOmdo(el.av),retrato:omdoSrc(el.av),nome:limpaNome(el.nome),frase:"venceu!"});
     mesa({p:J.P[0]||null,r:J.R[0]||null,aberta:false,m1:g?"Você venceu!":RN()+" venceu",cls:g?"ganhou":"perdeu",m2:""});
     camada.innerHTML=`<div class="fim${g?"":" perdeu"}" role="dialog" aria-modal="true" aria-labelledby="fim-t"><div class="caixa">
@@ -2159,6 +2236,7 @@ function supOnInicio(){
     if(!db||!ON.id)aviso("O jogo online com amigos chega em breve nesta versão. Por enquanto, jogue contra os adversários bíblicos.",true)}).catch(()=>{});
 }
 async function supOnCriar(){
+  if(!liberar())return;
   if(!await pronto())return;aviso("Criando a sala…");
   let cod,ok=false;
   for(let t=0;t<6&&!ok;t++){cod=codigoNovo();const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);ok=!s||!s.exists||(Date.now()-(s.data().criado||0)>6*3600e3)}
@@ -2169,6 +2247,7 @@ async function supOnCriar(){
   supOnOuvir();
 }
 async function supOnEntrar(){
+  if(!liberar())return;
   if(!await pronto())return;
   const cod=($("#so-cod").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
   if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
@@ -2395,7 +2474,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)r
 /* ================= Tela de vitória: personagem de corpo inteiro com as cartas no alto ================= */
 const VIT_OMDO=new Set([0,1,2,3,4,5,6,7,8,9]);
 function vitSrcRival(a){return `arte/vit/${String(a+1).padStart(2,"0")}.webp`}
-function vitSrcOmdo(av){return VIT_OMDO.has(av)?`arte/vito/${String(av+1).padStart(2,"0")}.webp`:null}
+function vitSrcOmdo(av){return vitSrcRival((av||0)%16)}
 function vitoriaShow({src,retrato,nome,frase,voce},depois){
   const o=document.createElement("div");o.className="vitoria"+(voce?" voce":"");o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.setAttribute("aria-label",nome+" "+frase);
   o.innerHTML=`<canvas class="confete" aria-hidden="true"></canvas><div class="vit-raios" aria-hidden="true"></div>
@@ -2407,6 +2486,282 @@ function vitoriaShow({src,retrato,nome,frase,voce},depois){
   let foi=false;const ir=()=>{if(foi)return;foi=true;o.classList.add("sai");setTimeout(()=>{o.remove();if(depois)depois()},380)};
   o.addEventListener("click",ir);setTimeout(ir,3600);
 }
+
+/* ================= Modo pago: 1 dia de degustação grátis, depois compra única libera para sempre ================= */
+const PAGO={ativo:false,preco:"R$ 24,90",de:"R$ 34,90",lancamento:true,loja:""};
+function hoje(){const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+function ehPremium(){try{return localStorage.getItem("bkb-premium")==="1"}catch(e){return false}}
+function diaInicio(){try{return localStorage.getItem("bkb-degusta")}catch(e){return null}}
+function emDegustacao(){const d=diaInicio();return !d||d===hoje()}
+function marcarInicio(){try{if(!diaInicio())localStorage.setItem("bkb-degusta",hoje())}catch(e){}}
+/* devolve true se pode jogar agora (e já conta a partida); senão mostra a tela de liberar */
+function liberar(){
+  if(!PAGO.ativo||ehPremium()||(typeof TUT!=="undefined"&&TUT.on))return true;
+  if(emDegustacao()){marcarInicio();pagoSelo();return true}
+  paywall();return false;
+}
+function pagoSelo(){const s=document.querySelector("#pago-selo");if(!s)return;if(!PAGO.ativo){s.hidden=true;return}
+  if(ehPremium()){s.innerHTML=`<b>★</b> Biblikaboom Completo`;s.classList.add("premium");return}
+  s.innerHTML=emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Degustação encerrada · <b>libere o jogo completo</b>`;}
+function paywall(){
+  if(document.querySelector(".paywall"))return;
+  const d=document.createElement("div");d.className="paywall";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","pw-t");
+  d.innerHTML=`<div class="pw-caixa">
+    <img class="pw-heroi" src="${(typeof PERFIL!=="undefined"&&vitSrcOmdo(PERFIL.av))||"arte/vito/01.webp"}" alt="">
+    <h2 id="pw-t">Que jogador!</h2>
+    <p class="pw-sub">O seu <b>dia de degustação</b> acabou. Libere o Biblikaboom Completo e continue a sua jornada pela Bíblia.</p>
+    <div class="pw-oferta">
+      <span class="pw-selo">Biblikaboom Completo</span>
+      <ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Medalhas e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li></ul>
+      ${PAGO.lancamento?`<p class="pw-de">de <s>${PAGO.de}</s> por</p>`:""}<p class="pw-preco">${PAGO.preco}<small> compra única</small></p>${PAGO.lancamento?`<span class="pw-lanc">Preço de lançamento</span>`:""}
+      <button type="button" class="botao" id="pw-adulto">Liberar o jogo completo</button>
+    </div>
+    <button type="button" class="sair pw-fechar" id="pw-fechar">Voltar</button>
+  </div>`;
+  document.body.appendChild(d);$("#pw-adulto").focus({preventScroll:true});SOM.brilho();
+}
+/* porta para adultos: conta simples antes de ir para a compra */
+function pwPortaAdulto(){
+  const a=6+Math.floor(Math.random()*4),b=3+Math.floor(Math.random()*6);
+  const c=document.querySelector(".pw-oferta");if(!c)return;
+  c.innerHTML=`<span class="pw-selo">Área dos pais</span><p class="pw-sub">Para continuar, responda: quanto é <b>${a} × ${b}</b>?</p>
+    <input id="pw-conta" class="on-cod pw-conta" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Resposta">
+    <button type="button" class="botao" id="pw-conta-ok" data-r="${a*b}">Continuar</button><p class="pw-erro" id="pw-erro" role="status"></p>`;
+  $("#pw-conta").focus();
+}
+function pwCompra(){
+  const c=document.querySelector(".pw-oferta");if(!c)return;
+  c.innerHTML=`<span class="pw-selo">Biblikaboom Completo · ${PAGO.preco}</span>
+    ${PAGO.loja?`<a class="botao" href="${PAGO.loja}" target="_blank" rel="noopener">Comprar na loja do O Mundo de Otávio</a>`:`<p class="pw-sub">A compra pela loja do O Mundo de Otávio abre em breve.</p>`}
+    <p class="pw-sub" style="margin-top:14px">Já comprou? Digite o código que chegou no seu e-mail.</p>
+    <input id="pw-cod" class="on-cod pw-cod" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="BKB-XXXX-XXXX" aria-label="Código de liberação">
+    <button type="button" class="botao sec" id="pw-cod-ok">Liberar</button><p class="pw-erro" id="pw-erro" role="status"></p>`;
+}
+function pwValidar(){
+  const v=($("#pw-cod").value||"").toUpperCase().trim(),e=$("#pw-erro");
+  e.textContent="A ativação dos códigos chega junto com a loja. Guarde o seu código!";
+}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!b.closest(".paywall"))return;e.stopImmediatePropagation();SOM.clique();
+  if(b.id==="pw-fechar"){document.querySelector(".paywall").remove();if(F!=="inicio")inicio()}
+  else if(b.id==="pw-adulto")pwCompra();
+  else if(b.id==="pw-conta-ok"){if(Number($("#pw-conta").value)===Number(b.dataset.r))pwCompra();else{$("#pw-erro").textContent="Resposta errada. Peça ajuda a um adulto.";$("#pw-conta").value=""}}
+  else if(b.id==="pw-cod-ok")pwValidar();
+},true);
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="pw-conta")$("#pw-conta-ok").click()});
+
+/* ================= Progresso da criança: XP, níveis, álbum, medalhas, avatares, desafio do dia, sequência, baú ================= */
+const PROG=(()=>{
+  const K="bkb-prog";
+  const base={xp:0,album:{},med:{},vit:0,rod:0,bkb:0,poder:0,part:0,seq:{dia:null,n:0},bau:null,des:{dia:null,c:{},feito:false},novas:0};
+  let S;try{S=Object.assign({},base,JSON.parse(localStorage.getItem(K)||"{}"))}catch(e){S=Object.assign({},base)}
+  const salvar=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}if(typeof ligaSync==="function")ligaSync()};
+  return {S,salvar};
+})();
+const diaN=d=>{const [a,m,x]=d.split("-").map(Number);return Math.floor(Date.UTC(a,m-1,x)/864e5)};
+function nivelDe(xp){return Math.floor(Math.sqrt(xp/60))+1}
+function xpDoNivel(n){return 60*(n-1)*(n-1)}
+/* avatares bíblicos: 6 liberados no começo, o resto vai liberando por nível */
+const AV_NIVEL=[1,1,1,1,1,1,2,3,4,5,6,7,8,9,10,12];
+function avLiberado(i){return nivelDe(PROG.S.xp)>=(AV_NIVEL[i]||1)}
+function ehPremiumOuDegusta(){return (typeof ehPremium==="function"&&ehPremium())||(typeof emDegustacao==="function"&&emDegustacao())}
+/* medalhas */
+const GR_ALBUM=[["pent","Pentateuco"],["hist","Históricos"],["poet","Poéticos"],["prof","Proféticos"],["evan","Evangelhos"],["atap","Atos e Apocalipse"],["cart","Cartas"]];
+const grupoDe=c=>c.g==="atos"||c.g==="apoc"?"atap":c.g;
+const MEDALHAS=[
+  {id:"v1",ic:"🏆",t:"Primeira vitória",d:"Ganhe sua primeira partida",ok:S=>S.vit>=1},
+  {id:"v10",ic:"🥇",t:"Campeão",d:"Ganhe 10 partidas",ok:S=>S.vit>=10},
+  {id:"v50",ic:"👑",t:"Lenda do Biblikaboom",d:"Ganhe 50 partidas",ok:S=>S.vit>=50},
+  {id:"bk1",ic:"💥",t:"Biblikaboom!",d:"Feche os 3 grupos no Supremo",ok:S=>S.bkb>=1},
+  {id:"pd",ic:"⚡",t:"Poder ativado",d:"Vença uma rodada com uma carta Biblikaboom",ok:S=>S.poder>=1},
+  {id:"s3",ic:"🔥",t:"Pegando fogo",d:"Jogue 3 dias seguidos",ok:S=>S.seq.n>=3},
+  {id:"s7",ic:"🌟",t:"Semana completa",d:"Jogue 7 dias seguidos",ok:S=>S.seq.n>=7},
+  ...GR_ALBUM.map(([g,n])=>({id:"g-"+g,ic:"📜",t:"Conhece "+(g==="atap"?"Atos e Apocalipse":"os "+n),d:"Complete os "+n+" no álbum",ok:S=>albumGrupo(g).every(c=>S.album[c.p])})),
+  {id:"expert",ic:"🎓",t:"Expert da Bíblia",d:"Complete o álbum com os 66 livros",ok:S=>Object.keys(S.album).length>=66,cert:true}
+];
+function albumGrupo(g){return CARTAS.filter(c=>grupoDe(c)===g)}
+/* desafio do dia */
+const DESAFIOS=[
+  {id:"rod3",t:"Vença 3 rodadas",meta:3,k:"rod"},
+  {id:"pos",t:"Vença uma rodada escolhendo Posição na Bíblia",meta:1,k:"pos"},
+  {id:"vit",t:"Ganhe uma partida",meta:1,k:"vit"},
+  {id:"nova2",t:"Coloque 2 cartas novas no álbum",meta:2,k:"nova"},
+  {id:"prof",t:"Vença uma rodada com uma carta dos Proféticos",meta:1,k:"prof"},
+  {id:"sup",t:"Jogue uma partida de Supremo",meta:1,k:"sup"},
+  {id:"cur",t:"Vença 2 rodadas com Números Curiosos",meta:2,k:"cur"},
+  {id:"evan",t:"Vença uma rodada com um Evangelho",meta:1,k:"evan"}
+];
+function desafioHoje(){const d=hoje();const i=diaN(d)%DESAFIOS.length;const D=DESAFIOS[(i+DESAFIOS.length)%DESAFIOS.length];
+  if(PROG.S.des.dia!==d)PROG.S.des={dia:d,c:{},feito:false};return D}
+function desafioConta(k,n=1){const D=desafioHoje(),S=PROG.S;if(D.k!==k||S.des.feito)return;
+  S.des.c[k]=(S.des.c[k]||0)+n;if(S.des.c[k]>=D.meta){S.des.feito=true;ganharXP(50,"Desafio do dia completo!");SOM.vitoria()}}
+/* toasts */
+let fila=[],mostrando=false;
+function toast(txt,{ic="✨",img=null,cls=""}={}){fila.push({txt,ic,img,cls});if(!mostrando)proxToast()}
+function proxToast(){const t=fila.shift();if(!t){mostrando=false;return}mostrando=true;
+  const el=document.createElement("div");el.className="toast "+t.cls;el.setAttribute("role","status");
+  el.innerHTML=`${t.img?`<img src="${t.img}" alt="">`:`<span class="toast-ic">${t.ic}</span>`}<span>${t.txt}</span>`;
+  document.body.appendChild(el);setTimeout(()=>el.classList.add("sai"),2200);setTimeout(()=>{el.remove();proxToast()},2550)}
+function ganharXP(n,motivo){const S=PROG.S,antes=nivelDe(S.xp);S.xp+=n;const dep=nivelDe(S.xp);
+  if(motivo)toast(`<b>+${n} XP</b> ${motivo}`,{ic:"⭐"});
+  if(dep>antes){toast(`<b>Nível ${dep}!</b> Você subiu de nível`,{ic:"🚀",cls:"grande"});SOM.brilho();
+    AV_NIVEL.forEach((nv,i)=>{if(nv===dep)toast(`Novo personagem liberado: <b>${OMDO_AV[i]}</b>`,{img:omdoSrc(i)})})}
+}
+function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Medalha: <b>${m.t}</b>`,{ic:m.ic,cls:"grande"});SOM.ganhou();S.xp+=40}})}
+function marcarDia(){const S=PROG.S,d=hoje();if(S.seq.dia===d)return;
+  S.seq.n=S.seq.dia&&diaN(d)-diaN(S.seq.dia)===1?S.seq.n+1:1;S.seq.dia=d;if(S.seq.n>1)toast(`<b>${S.seq.n} dias seguidos!</b> Continue assim`,{ic:"🔥"})}
+/* eventos vindos do jogo */
+function progEv(tipo,dados={}){
+  if(typeof TUT!=="undefined"&&TUT.on&&tipo!=="rodada")return;
+  const S=PROG.S;
+  if(tipo==="rodada"){S.rod++;ganharXP(5);desafioConta("rod");
+    (dados.cartas||[]).forEach(c=>{if(c&&!S.album[c.p]){S.album[c.p]=1;S.novas++;toast(`Nova carta no álbum: <b>${c.n}</b>`,{img:img(c)});S.xp+=15;desafioConta("nova")}});
+    const cp=dados.cartas&&dados.cartas[0];if(cp){if(cp.g==="prof")desafioConta("prof");if(cp.g==="evan")desafioConta("evan")}
+    if(dados.k==="p")desafioConta("pos");if(dados.k==="cur")desafioConta("cur");if(dados.poder){S.poder++}}
+  else if(tipo==="partida"){S.part++;marcarDia();ganharXP(10);if(dados.modo==="supremo")desafioConta("sup")}
+  else if(tipo==="vitoria"){S.vit++;ganharXP(30,"pela vitória");desafioConta("vit")}
+  else if(tipo==="biblikaboom"){S.bkb++;ganharXP(60,"Biblikaboom!");(dados.cartas||[]).forEach(c=>{if(!S.album[c.p]){S.album[c.p]=1;toast(`Nova carta no álbum: <b>${c.n}</b>`,{img:img(c)});S.xp+=15;desafioConta("nova")}})}
+  checarMedalhas();PROG.salvar();
+}
+/* baú do dia: primeira visita do dia */
+function bauDoDia(){const S=PROG.S,d=hoje();if(S.bau===d||!S.part)return;
+  const o=document.createElement("div");o.className="bau";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+  const xp=20+Math.floor(Math.random()*4)*10;
+  o.innerHTML=`<div class="bau-caixa"><div class="bau-ic" aria-hidden="true">🎁</div><h2>Baú do dia!</h2><p>Que bom te ver de volta! Abra o baú para ganhar o seu prêmio.</p><button type="button" class="botao" id="bau-abrir">Abrir baú</button></div>`;
+  document.body.appendChild(o);
+  o.querySelector("#bau-abrir").onclick=()=>{S.bau=d;SOM.boom();o.querySelector(".bau-caixa").innerHTML=`<div class="bau-ic abre" aria-hidden="true">✨</div><h2>+${xp} XP</h2><p>Volte amanhã para abrir outro baú!</p><button type="button" class="botao" id="bau-ok">Bora jogar!</button>`;
+    S.xp+=xp;checarMedalhas();PROG.salvar();o.querySelector("#bau-ok").onclick=()=>{o.remove();if(typeof pagoSelo==="function")inicio()}};
+}
+/* faixa de progresso na tela inicial */
+function progFaixaHTML(){
+  const S=PROG.S,nv=nivelDe(S.xp),a=xpDoNivel(nv),b=xpDoNivel(nv+1),pc=Math.round((S.xp-a)/(b-a)*100),D=desafioHoje(),dc=Math.min(D.meta,S.des.c[D.k]||0);
+  const nAlb=Object.keys(S.album).length,nMed=Object.keys(S.med).length;
+  const av=typeof PERFIL!=="undefined"?PERFIL.av:0,nome=typeof PERFIL!=="undefined"&&PERFIL.nome?soEsc(PERFIL.nome):"Jogador";
+  return `<div class="prog-faixa">
+    <div class="pf-eu"><img src="${omdoSrc(av)}" alt=""><div><b>${nome}</b><span class="pf-nv">Nível ${nv}</span><div class="pf-barra" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do nível"><i style="width:${pc}%"></i></div></div>
+      ${S.seq.n>0?`<span class="pf-fogo" title="Dias seguidos">🔥<b>${S.seq.n}</b></span>`:""}</div>
+    <div class="pf-desafio${S.des.feito?" feito":""}"><span class="pf-rot">Desafio do dia</span><b>${D.t}</b><span class="pf-cont">${S.des.feito?"✔ Completo! +50 XP":`${dc}/${D.meta} · vale 50 XP`}</span></div>
+    <div class="pf-botoes">
+      <button type="button" class="pf-b" id="abrir-album"><span>📖</span><b>Álbum</b><small>${nAlb}/66</small></button>
+      <button type="button" class="pf-b" id="abrir-medalhas"><span>🏅</span><b>Medalhas</b><small>${nMed}/${MEDALHAS.length}</small></button>
+      <button type="button" class="pf-b" id="abrir-liga"><span>🏆</span><b>Ranking</b><small>com amigos</small></button>
+    </div></div>`;
+}
+/* álbum */
+function albumTela(){
+  limpar();F="album";camada.innerHTML="";const S=PROG.S,n=Object.keys(S.album).length;
+  tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
+  <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Meu álbum</span><span class="c2">${n} de 66 livros</span></h1>
+    <div class="alb-barra"><i style="width:${n/66*100}%"></i></div><p>Vença rodadas para colecionar os livros da Bíblia. Toque numa carta para ver a curiosidade dela.</p></div></section>
+  <section class="on-corpo"><div class="miolo">${GR_ALBUM.map(([g,nome])=>{const cs=albumGrupo(g),t=cs.filter(c=>S.album[c.p]).length;
+    return `<h2 class="alb-gt" style="--c:${GRUPOS[g==="atap"?"atos":g][1]}">${nome} <small>${t}/${cs.length}</small>${t===cs.length?" ✔":""}</h2>
+    <div class="alb-grade">${cs.map(c=>S.album[c.p]?`<button type="button" class="alb-c" data-alb="${c.p}"><img src="${img(c)}" alt="${c.n}" loading="lazy"><span>${c.n}</span></button>`:`<div class="alb-c vazio"><span class="alb-q">?</span><span>${c.p}º livro</span></div>`).join("")}</div>`}).join("")}
+  </div></section>`;topo();
+}
+function albumCarta(p){const c=cartaP(p);
+  const d=document.createElement("div");d.className="alb-zoom";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");
+  d.innerHTML=`<div class="alb-zc"><img src="${img(c)}" alt="${c.n}"><div class="alb-cur"><span class="pf-rot">Número curioso</span><b>${c.cur===Infinity?"∞":fmt(c.cur)}</b><p>${c.cd}</p><small>Leia em ${c.cr} (NTLH)</small></div>
+    <button type="button" class="botao" id="alb-fechar">Fechar</button></div>`;
+  document.body.appendChild(d);SOM.virar();d.addEventListener("click",e=>{if(e.target===d||e.target.id==="alb-fechar")d.remove()})}
+/* medalhas */
+function medalhasTela(){
+  limpar();F="medalhas";camada.innerHTML="";const S=PROG.S;
+  tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
+  <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Minhas</span><span class="c2">medalhas</span></h1><p>Cada medalha vale +40 XP. Complete o álbum para ganhar o certificado de Expert da Bíblia!</p></div></section>
+  <section class="on-corpo"><div class="miolo"><div class="med-grade">${MEDALHAS.map(m=>`<div class="med${S.med[m.id]?" tem":""}"><span class="med-ic">${S.med[m.id]?m.ic:"🔒"}</span><b>${m.t}</b><small>${m.d}</small>${m.cert&&S.med[m.id]?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}</div>`).join("")}</div>
+  <h2 class="ex-tit">Personagens</h2><p class="ex-sub">Suba de nível para liberar novos personagens.</p>
+  <div class="med-av">${OMDO_AV.map((n,i)=>`<div class="mav${avLiberado(i)?"":" bloq"}"><img src="${omdoSrc(i)}" alt=""><b>${n}</b><small>${avLiberado(i)?"Liberado":"Nível "+AV_NIVEL[i]}</small></div>`).join("")}</div>
+  </div></section>`;topo();
+}
+function certificado(){
+  const cv=document.createElement("canvas");cv.width=1600;cv.height=1131;const c=cv.getContext("2d");
+  const g=c.createLinearGradient(0,0,0,1131);g.addColorStop(0,"#5a2d91");g.addColorStop(1,"#2e1150");c.fillStyle=g;c.fillRect(0,0,1600,1131);
+  c.strokeStyle="#ffc83d";c.lineWidth=18;c.strokeRect(40,40,1520,1051);c.lineWidth=4;c.strokeRect(70,70,1460,991);
+  c.fillStyle="#ffc83d";c.textAlign="center";c.font="900 54px Montserrat, sans-serif";c.fillText("CERTIFICADO",800,240);
+  c.fillStyle="#fff";c.font="700 40px Montserrat, sans-serif";c.fillText("Certificamos que",800,350);
+  c.fillStyle="#ffc83d";c.font="400 120px 'Luckiest Guy', 'Arial Black', sans-serif";c.fillText((PERFIL.nome||"Jogador").toUpperCase(),800,500);
+  c.fillStyle="#fff";c.font="700 40px Montserrat, sans-serif";c.fillText("completou o álbum com os 66 livros da Bíblia e é",800,600);
+  c.fillStyle="#ffc83d";c.font="400 96px 'Luckiest Guy', 'Arial Black', sans-serif";c.fillText("EXPERT DA BÍBLIA",800,730);
+  c.fillStyle="#e9dcff";c.font="600 30px Montserrat, sans-serif";c.fillText("Biblikaboom · O Mundo de Otávio · "+new Date().toLocaleDateString("pt-BR"),800,900);
+  const url=cv.toDataURL("image/png");
+  const d=document.createElement("div");d.className="alb-zoom";d.innerHTML=`<div class="alb-zc cert"><img src="${url}" alt="Certificado de Expert da Bíblia"><p class="pw-sub">Toque e segure na imagem para salvar e imprimir.</p><button type="button" class="botao" id="alb-fechar">Fechar</button></div>`;
+  document.body.appendChild(d);d.addEventListener("click",e=>{if(e.target===d||e.target.id==="alb-fechar")d.remove()});
+}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.id==="abrir-album"){SOM.clique();albumTela()}
+  else if(b.id==="abrir-medalhas"){SOM.clique();medalhasTela()}
+  else if(b.id==="ver-cert"){SOM.clique();certificado()}
+  else if(b.dataset.alb){albumCarta(Number(b.dataset.alb))}
+});
+
+/* ================= Ranking com amigos: ligas com código ================= */
+const LIGA={db:null,id:null,pronto:null,unsub:null,aba:"sem",cod:null};
+function ligasMinhas(){try{return JSON.parse(localStorage.getItem("bkb-ligas")||"[]")}catch(e){return []}}
+function ligasSalvar(l){try{localStorage.setItem("bkb-ligas",JSON.stringify(l))}catch(e){}}
+function semanaId(){const d=new Date();const t=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate());return Math.floor((t/864e5+3)/7)}
+function xpSemana(){const S=PROG.S,w=semanaId();if(!S.sem||S.sem.id!==w){S.sem={id:w,xp0:S.xp};PROG.salvar()}return S.xp-S.sem.xp0}
+function ligaConectar(){
+  if(LIGA.pronto)return LIGA.pronto;
+  LIGA.pronto=(window.claude?claude.use("db"):Promise.resolve(null)).then(async db=>{LIGA.db=db;const u=db?await claude.use("user"):null;LIGA.id=u?await u.id():null;return !!(db&&LIGA.id)}).catch(()=>false);
+  return LIGA.pronto;
+}
+let ligaT=null;
+function ligaSync(){clearTimeout(ligaT);ligaT=setTimeout(async()=>{const l=ligasMinhas();if(!l.length||!await ligaConectar())return;
+  const eu={id:LIGA.id,nome:limpaNome(PERFIL.nome||"Jogador"),av:PERFIL.av||0,xp:PROG.S.xp,nv:nivelDe(PROG.S.xp),sem:semanaId(),xs:xpSemana(),alb:Object.keys(PROG.S.album).length,t:Date.now()};
+  for(const g of l){try{await LIGA.db.doc("ligas/"+g.cod+"/m/"+LIGA.id).set(eu)}catch(e){}}},1500)}
+function ligaTela(){
+  limpar();F="liga";camada.innerHTML="";if(LIGA.unsub){LIGA.unsub();LIGA.unsub=null}
+  const l=ligasMinhas();
+  tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
+  <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Ranking com</span><span class="c2">os amigos</span></h1>
+    <p>Crie uma liga, mande o código para os amigos e veja quem junta mais XP. Toda segunda-feira começa uma nova disputa da semana!</p></div></section>
+  <section class="on-corpo"><div class="miolo">
+    ${l.length?`<div class="lg-minhas">${l.map(g=>`<button type="button" class="lg-item" data-liga="${g.cod}"><b>${soEsc(g.nome)}</b><span>Código ${g.cod}</span></button>`).join("")}</div>`:""}
+    <div class="on-cartoes">
+      <div class="on-card"><h2>Criar liga</h2><p>Dê um nome para a sua liga.</p><input id="lg-nome" class="on-apelido-in" maxlength="20" placeholder="Ex.: Turma da Escola Bíblica" aria-label="Nome da liga"><button type="button" class="botao" id="lg-criar">Criar liga</button></div>
+      <div class="on-card"><h2>Entrar numa liga</h2><p>Digite o código que o seu amigo mandou.</p><input id="lg-cod" class="on-cod" maxlength="5" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCDE" aria-label="Código da liga"><button type="button" class="botao" id="lg-entrar">Entrar</button></div>
+    </div><p class="on-aviso" id="on-aviso" role="status"></p>
+  </div></section>`;topo();
+  ligaConectar().then(ok=>{if(!ok)aviso("O ranking com amigos chega em breve nesta versão.",true)});
+}
+async function ligaCriar(){
+  if(!await ligaConectar())return aviso("O ranking com amigos chega em breve nesta versão.",true);
+  const nome=limpaNome(($("#lg-nome").value||"").trim()).slice(0,20);if(!nome||nome==="Jogador")return aviso("Escreva um nome para a liga.",true);
+  const L="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let cod="";for(let i=0;i<5;i++)cod+=L[Math.floor(Math.random()*L.length)];
+  try{await LIGA.db.doc("ligas/"+cod).set({nome,criado:Date.now(),dono:LIGA.id})}catch(e){return aviso("Não foi possível criar a liga.",true)}
+  const l=ligasMinhas();l.push({cod,nome});ligasSalvar(l);ligaSync();ligaVer(cod);
+}
+async function ligaEntrar(){
+  if(!await ligaConectar())return aviso("O ranking com amigos chega em breve nesta versão.",true);
+  const cod=($("#lg-cod").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");if(cod.length!==5)return aviso("O código da liga tem 5 letras.",true);
+  const s=await LIGA.db.doc("ligas/"+cod).get().catch(()=>null);if(!s||!s.exists)return aviso("Não achei essa liga. Confira o código.",true);
+  const l=ligasMinhas();if(!l.some(g=>g.cod===cod))l.push({cod,nome:limpaNome(s.data().nome||"Liga")});ligasSalvar(l);ligaSync();ligaVer(cod);
+}
+function ligaVer(cod){
+  LIGA.cod=cod;const g=ligasMinhas().find(x=>x.cod===cod)||{nome:"Liga"};F="liga-ver";
+  tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="abrir-liga">Minhas ligas</button></div></div>
+  <section class="on-corpo lg-ver"><div class="miolo">
+    <h1 class="titulo"><span class="c1">Liga</span><span class="c2">${soEsc(g.nome)}</span></h1>
+    <p class="lg-cod">Código para convidar: <b>${cod}</b> <button type="button" class="sair" id="lg-copiar">Copiar</button></p>
+    <div class="chip-grupo lg-abas" role="group" aria-label="Ranking"><button type="button" data-lgaba="sem" aria-pressed="${LIGA.aba==="sem"}">Desta semana</button><button type="button" data-lgaba="geral" aria-pressed="${LIGA.aba==="geral"}">Geral</button></div>
+    <ol class="lg-lista" id="lg-lista"><li class="pensando">Carregando o ranking</li></ol>
+  </div></section>`;topo();
+  ligaConectar().then(ok=>{if(!ok)return;if(LIGA.unsub)LIGA.unsub();
+    LIGA.unsub=LIGA.db.collection("ligas/"+cod+"/m").onSnapshot(q=>{LIGA.lista=q.docs.filter(x=>x.exists).map(x=>x.data());ligaLista()},()=>{})});
+}
+function ligaLista(){
+  const el=$("#lg-lista");if(!el||!LIGA.lista)return;const w=semanaId();
+  const val=m=>LIGA.aba==="sem"?(m.sem===w?m.xs||0:0):m.xp||0;
+  const L=LIGA.lista.slice().sort((a,b)=>val(b)-val(a));
+  el.innerHTML=L.map((m,i)=>`<li class="lg-m${m.id===LIGA.id?" eu":""}${i<3?" top"+(i+1):""}"><span class="lg-pos">${i<3?["🥇","🥈","🥉"][i]:i+1}</span><img src="${omdoSrc(m.av)}" alt=""><span class="lg-n"><b>${soEsc(m.nome)}${m.id===LIGA.id?" (você)":""}</b><small>Nível ${m.nv||1} · ${m.alb||0}/66 no álbum</small></span><span class="lg-xp">${val(m)}<small>XP</small></span></li>`).join("")||`<li>Ninguém pontuou ainda. Jogue uma partida!</li>`;
+}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.id==="abrir-liga"){SOM.clique();ligaTela()}
+  else if(b.id==="lg-criar")ligaCriar();
+  else if(b.id==="lg-entrar")ligaEntrar();
+  else if(b.dataset.liga){SOM.clique();ligaVer(b.dataset.liga)}
+  else if(b.dataset.lgaba){LIGA.aba=b.dataset.lgaba;document.querySelectorAll("[data-lgaba]").forEach(x=>x.setAttribute("aria-pressed",x===b));ligaLista()}
+  else if(b.id==="lg-copiar"){try{navigator.clipboard.writeText(LIGA.cod).then(()=>b.textContent="Copiado!",()=>{})}catch(err){}}
+});
 
 </script>
 <script>
@@ -2430,7 +2785,7 @@ const logo=t=>`<img class="logo-img" src="arte/logo.webp" alt="Biblikaboom!" sty
 const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
 /* Adversários: personagens bíblicos, sorteados a cada partida */
 const ADVERSARIOS=["Moisés","Davi","Ester","Daniel","Rute","Josué","Débora","Samuel","Gideão","Miriã","Elias","Noé","Jonas","Sara","Pedro","Lídia"].map((n,a)=>({n,a}));
-function sortearRivais(k){return embaralhar(ADVERSARIOS.slice()).slice(0,k)}
+function sortearRivais(k){const eu=typeof PERFIL!=="undefined"?PERFIL.av:-1;return embaralhar(ADVERSARIOS.filter(r=>r.a!==eu)).slice(0,k)}
 const avatarSrc=a=>`arte/av/${String(a+1).padStart(2,"0")}.webp`;
 const RN=()=>J&&J.rival?J.rival.n:"Adversário";
 const ICONE_ROBO=`<svg viewBox="0 0 24 24" fill="none" stroke="#1a0b2b" stroke-width="2.4" stroke-linecap="round"><rect x="4" y="7" width="16" height="12" rx="3" fill="#fff"/><path d="M12 3v4"/><circle cx="9" cy="13" r="1.3" fill="#1a0b2b"/><circle cx="15" cy="13" r="1.3" fill="#1a0b2b"/></svg>`;
@@ -2463,6 +2818,8 @@ function inicio(){
 
   <section class="faixa-roxa pos-hero"><div class="miolo">
     <div class="pos-hero-acoes"><button type="button" class="botao" id="aprender">Aprender jogando</button><button type="button" class="botao sec" id="ver-regras">Como jogar</button></div>
+    <p class="pago-selo" id="pago-selo"></p>
+    ${typeof progFaixaHTML==="function"?progFaixaHTML():""}
     <h2 class="titulo"><span class="c1">Escolha o</span><span class="c2">seu duelo</span></h2>
     <div class="modos">${Object.entries(MODOS).map(([k,m])=>{const v=VISUAL[k];return `
       <div class="modo-wrap${PREF.modo===k?" ativo":""}" data-wrap="${k}"><button type="button" class="modo" data-tilt id="modo-${k}" data-modo="${k}" aria-pressed="${PREF.modo===k}" style="--fundo:${v.fundo};--cor:${v.cor};--w:${v.w};--r:${v.r}">
@@ -2483,6 +2840,8 @@ function inicio(){
   <footer class="rodape"><div class="miolo"><div class="linha-r"><img src="arte/ntlh.webp" alt=""><p><b>NTLH</b> · Baseado na versão bíblica Nova Tradução na Linguagem de Hoje</p></div></div></footer>
   </div>`;
   topo();
+  if(typeof pagoSelo==="function")pagoSelo();
+  if(typeof bauDoDia==="function")setTimeout(()=>{if(F==="inicio"&&!document.getElementById("abertura"))bauDoDia()},900);
 }
 
 /* ---------- Regras ilustradas ---------- */
@@ -2551,6 +2910,7 @@ function regras(){
 
 /* ---------- Partida ---------- */
 function iniciar(){
+  if(!liberar())return;
   limpar();camada.innerHTML="";J=novoJogo(PREF.modo,PREF.nivel);J.rival=sortearRivais(1)[0];ULT=null;DES=null;
   J.cartas.forEach(c=>{const i=new Image();i.src=img(c)});
   fimEm=PREF.tempo!=="0"?Date.now()+Number(PREF.tempo)*60000:null;
@@ -2641,6 +3001,7 @@ function rodada(){
 }
 function revelar(k){
   rodRelParar();F="revelado";const R=resolver(J,k);ULT=R;
+  if(R.res===1&&typeof progEv==="function")setTimeout(()=>progEv("rodada",{cartas:[R.cp,R.cr],k,poder:R.pUsa}),900);
   const v=x=>k==="p"?x.p+"º":fmt(x[k]);
   let m1,cls,m2=`${ATR[k].r}: você ${v(R.cp)} × ${RN()} ${v(R.cr)}`;
   if(J.tempoAcabou){m2="Tempo esgotado, sorteamos um item. "+m2;J.tempoAcabou=false}
@@ -2675,6 +3036,7 @@ function continuar(){
 function boom(){SOM.boom();camada.innerHTML=`<div class="boom" aria-hidden="true">${logo()}</div>`;depois(1800,()=>{if(F!=="fim"&&F!=="sup-fim")camada.innerHTML=""})}
 function terminar(quem,porTempo=false){
   limpar();F="fim";const g=quem==="P";
+  if(typeof progEv==="function"){progEv("partida",{modo:J.modo});if(g)progEv("vitoria",{modo:J.modo})}
   const voceSrc=typeof PERFIL!=="undefined"?vitSrcOmdo(PERFIL.av):null;
   const rivSrc=J.rival.src?(J.rival.av!=null?vitSrcOmdo(J.rival.av):null):vitSrcRival(J.rival.a);
   vitoriaShow(g?{src:voceSrc,retrato:typeof PERFIL!=="undefined"?omdoSrc(PERFIL.av):"",nome:(typeof PERFIL!=="undefined"&&PERFIL.nome)||"Você",frase:"venceu!",voce:true}
@@ -2855,7 +3217,7 @@ function jrRender(){
   const trilha=`<ol class="jr-trilha">${passos.map((p,i)=>`<li class="${i+1<JR.passo?"feito":i+1===JR.passo?"agora":""}"><b>${i+1}</b><span>${p}</span></li>`).join("")}</ol>`;
   let corpo="";
   if(JR.passo===1){
-    const amigos=[0,4,6].map(i=>`<img src="${omdoSrc(i)}" alt="">`).join(""),riv=sortearRivais(3);
+    const amigos=[1,4,14].map(i=>`<img src="${omdoSrc(i)}" alt="">`).join(""),riv=sortearRivais(3);
     corpo=`<div class="cq-opcoes">
       <button type="button" class="cq-op amigos" data-jrcom="amigos"><div class="cq-rostos">${amigos}</div><b>Com amigos</b><span>${sup?"Crie uma sala e chame até 3 amigos com um código. Cada um no seu celular.":"Crie uma sala e chame um amigo com um código. Cada um no seu celular."}</span></button>
       <button type="button" class="cq-op bot" data-jrcom="bot"><div class="cq-rostos">${riv.map(r=>`<img src="${avatarSrc(r.a)}" alt="">`).join("")}</div><b>Contra adversários</b><span>Jogue agora contra personagens da Bíblia, como ${riv[0].n} e ${riv[1].n}.</span></button>
@@ -2869,7 +3231,7 @@ function jrRender(){
     corpo=`<div class="jr-perfil">
       <div class="jr-prev"><img id="jr-img" src="${omdoSrc(PERFIL.av)}" alt=""></div>
       <label class="on-apelido">Seu apelido<input id="jr-apelido" maxlength="14" autocomplete="nickname" placeholder="Ex.: Super Davi"></label>
-      <div class="pf-grade jr-grade" role="radiogroup" aria-label="Avatar">${OMDO_AV.map((n,i)=>`<button type="button" class="pf-av" data-jrav="${i}" role="radio" aria-checked="${PERFIL.av===i}"><img src="${omdoSrc(i)}" alt=""><span>${n}</span></button>`).join("")}</div>
+      <div class="pf-grade jr-grade" role="radiogroup" aria-label="Avatar">${OMDO_AV.map((n,i)=>`<button type="button" class="pf-av${avLiberado(i)?"":" bloq"}" ${avLiberado(i)?"":"disabled"} data-jrav="${i}" role="radio" aria-checked="${PERFIL.av===i}"><img src="${omdoSrc(i)}" alt=""><span>${n}</span></button>`).join("")}</div>
       <button type="button" class="botao" id="jr-ir">${JR.com==="amigos"?"Montar a sala":"Começar a jogar!"}</button></div>`;
   }
   const tit=JR.passo===1?"Com quem você vai jogar?":JR.passo===2?((!sup&&JR.com!=="amigos")?"Escolha o nível e a duração":"Escolha o nível"):"Quem é você no jogo?";
