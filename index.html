@@ -2082,6 +2082,100 @@ return {montar};
 })();
 function fastInicio(){if(!liberar())return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
 
+/* ================= Online fora do Claude: salas ponto a ponto (PeerJS) =================
+   Dentro do Claude usamos o banco do próprio Claude. Fora dele (site/app instalado),
+   quem cria a sala vira o "anfitrião": guarda a sala na memória do aparelho e os
+   outros jogadores se conectam direto nele pelo código da sala. */
+const P2P={peer:null,host:{},conns:{},subs:new Map(),pend:new Map(),rid:0,lib:null,hostConns:new Set(),docs:new Map()};
+function bkbDb(){return window.claude?claude.use("db"):Promise.resolve(p2pDb)}
+function bkbUser(){return window.claude?claude.use("user"):Promise.resolve({id:async()=>p2pUid()})}
+function p2pUid(){let u=null;try{u=localStorage.getItem("bkb-uid")}catch(e){}
+  if(!u){u="u"+Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);try{localStorage.setItem("bkb-uid",u)}catch(e){}}return u}
+function p2pLib(){if(window.Peer)return Promise.resolve();if(P2P.lib)return P2P.lib;
+  P2P.lib=new Promise((ok,erro)=>{const s=document.createElement("script");s.src=window.BKB_PEER_SRC||"https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js";s.onload=ok;s.onerror=()=>{P2P.lib=null;erro(new Error("sem-internet"))};document.head.appendChild(s)});return P2P.lib}
+const p2pSala=p=>p.split("/")[1];
+const p2pPid=c=>"bkb-sala-"+String(c).toUpperCase();
+const p2pClone=v=>v==null?v:JSON.parse(JSON.stringify(v));
+function p2pDocSnap(path,data){return {id:path.split("/").pop(),exists:data!=null,data:()=>p2pClone(data)}}
+function p2pQuerySnap(col,lista){return {docs:lista.map(([p,d])=>p2pDocSnap(p,d))}}
+function p2pFilhos(col){const n=col.split("/").length+1,r=[];P2P.docs.forEach((d,p)=>{if(p.startsWith(col+"/")&&p.split("/").length===n)r.push([p,d])});return r}
+function p2pSnapDe(path,tipo){return tipo==="col"?p2pQuerySnap(path,p2pFilhos(path)):p2pDocSnap(path,P2P.docs.get(path))}
+/* ---- anfitrião: aplica a operação e avisa todo mundo ---- */
+function p2pAplica(op,path,data){
+  if(op==="get")return p2pSnapDe(path,"doc");
+  if(op==="getc")return p2pSnapDe(path,"col");
+  if(op==="set")P2P.docs.set(path,p2pClone(data));
+  else if(op==="update"){const v=P2P.docs.get(path);if(v==null)throw new Error("not-found");P2P.docs.set(path,Object.assign(v,p2pClone(data)))}
+  else if(op==="delete")P2P.docs.delete(path);
+  p2pAvisa(path);return null}
+function p2pAvisa(path){
+  const pai=path.split("/").slice(0,-1).join("/");
+  P2P.subs.forEach(s=>{if(s.path===path||(s.tipo==="col"&&s.path===pai)){try{s.cb(p2pSnapDe(s.path,s.tipo))}catch(e){}}});
+  P2P.hostConns.forEach(c=>{(c._subs||[]).forEach(s=>{if(s.path===path||(s.tipo==="col"&&s.path===pai))p2pEnvia(c,{t:"snap",sid:s.sid,snap:p2pSnapCru(s.path,s.tipo)})})})}
+function p2pSnapCru(path,tipo){return tipo==="col"?{col:p2pFilhos(path)}:{doc:P2P.docs.get(path)??null}}
+function p2pEnvia(c,m){try{if(c.open)c.send(m)}catch(e){}}
+function p2pPeer(id){
+  return p2pLib().then(()=>new Promise((ok,erro)=>{
+    const o=Object.assign({debug:0},window.BKB_PEER_OPTS||{}),p=id?new Peer(id,o):new Peer(o);let feito=false;
+    p.on("open",()=>{feito=true;ok(p)});
+    p.on("error",e=>{if(!feito){feito=true;try{p.destroy()}catch(x){}erro(e)}});
+    setTimeout(()=>{if(!feito){feito=true;try{p.destroy()}catch(x){}erro(new Error("timeout"))}},12000);
+  }))}
+async function p2pVirarAnfitriao(cod){
+  if(P2P.host[cod])return;
+  const p=await p2pPeer(p2pPid(cod));P2P.host[cod]=p;
+  p.on("connection",c=>{c._subs=[];P2P.hostConns.add(c);
+    c.on("data",m=>{if(!m||typeof m!=="object")return;
+      if(m.t==="op"){let r=null,err=null;try{r=p2pAplica(m.op,m.path,m.data)}catch(e){err=String(e.message||e)}
+        p2pEnvia(c,{t:"res",rid:m.rid,err,snap:r?(m.op==="getc"?{col:p2pFilhos(m.path)}:{doc:P2P.docs.get(m.path)??null}):null})}
+      else if(m.t==="sub"){c._subs.push({sid:m.sid,path:m.path,tipo:m.tipo});p2pEnvia(c,{t:"snap",sid:m.sid,snap:p2pSnapCru(m.path,m.tipo)})}
+      else if(m.t==="unsub"){c._subs=c._subs.filter(s=>s.sid!==m.sid)}});
+    c.on("close",()=>P2P.hostConns.delete(c));c.on("error",()=>P2P.hostConns.delete(c))});
+  p.on("disconnected",()=>{try{p.reconnect()}catch(e){}});
+}
+/* ---- convidado: conecta no anfitrião da sala ---- */
+function p2pConectar(cod){
+  if(P2P.conns[cod])return P2P.conns[cod];
+  const pr=(async()=>{
+    if(!P2P.peer||P2P.peer.destroyed)P2P.peer=await p2pPeer(null);
+    return await new Promise((ok,erro)=>{
+      const c=P2P.peer.connect(p2pPid(cod),{reliable:true});let feito=false;
+      const falha=e=>{if(!feito){feito=true;delete P2P.conns[cod];erro(e||new Error("sem-sala"))}};
+      const t=setTimeout(()=>falha(new Error("sem-sala")),9000);
+      const onErr=e=>{if(e&&e.type==="peer-unavailable"&&String(e.message||"").includes(p2pPid(cod)))falha(new Error("sem-sala"))};
+      P2P.peer.on("error",onErr);
+      c.on("open",()=>{clearTimeout(t);feito=true;P2P.peer.off("error",onErr);c._subs=new Map();ok(c)});
+      c.on("data",m=>{if(!m)return;
+        if(m.t==="res"){const f=P2P.pend.get(m.rid);if(f){P2P.pend.delete(m.rid);m.err?f.erro(new Error(m.err)):f.ok(m.snap)}}
+        else if(m.t==="snap"){const s=c._subs&&c._subs.get(m.sid);if(s)s.cb(m.snap.col?p2pQuerySnap(s.path,m.snap.col):p2pDocSnap(s.path,m.snap.doc))}});
+      c.on("close",()=>{delete P2P.conns[cod];if(c._subs)c._subs.forEach(s=>s.err&&s.err(new Error("desconectou")))});
+      c.on("error",()=>falha());
+    })})();
+  P2P.conns[cod]=pr;return pr}
+async function p2pOp(op,path,data){
+  const cod=p2pSala(path);
+  if(P2P.host[cod]){const r=p2pAplica(op,path,data);return r}
+  if(op==="set"&&path.split("/").length===2){await p2pVirarAnfitriao(cod);return p2pAplica(op,path,data)}
+  let c;try{c=await p2pConectar(cod)}catch(e){if(op==="get")return p2pDocSnap(path,null);if(op==="getc")return p2pQuerySnap(path,[]);throw e}
+  const rid=++P2P.rid;
+  const snap=await new Promise((ok,erro)=>{P2P.pend.set(rid,{ok,erro});p2pEnvia(c,{t:"op",rid,op,path,data});setTimeout(()=>{if(P2P.pend.has(rid)){P2P.pend.delete(rid);erro(new Error("timeout"))}},10000)});
+  if(op==="get")return p2pDocSnap(path,snap&&snap.doc);
+  if(op==="getc")return p2pQuerySnap(path,(snap&&snap.col)||[]);
+  return null}
+function p2pOuvir(path,tipo,cb,err){
+  const cod=p2pSala(path);let fim=false,sid="s"+(++P2P.rid),conn=null;
+  if(P2P.host[cod]){const s={path,tipo,cb};P2P.subs.set(sid,s);setTimeout(()=>{if(P2P.subs.has(sid))cb(p2pSnapDe(path,tipo))},0);return ()=>P2P.subs.delete(sid)}
+  p2pConectar(cod).then(c=>{if(fim)return;conn=c;c._subs.set(sid,{path,tipo,cb,err});p2pEnvia(c,{t:"sub",sid,path,tipo})}).catch(e=>{if(err)err(e)});
+  return ()=>{fim=true;if(conn){conn._subs.delete(sid);p2pEnvia(conn,{t:"unsub",sid})}}}
+const p2pDb={
+  doc(path){return {id:path.split("/").pop(),
+    get:()=>p2pOp("get",path),set:d=>p2pOp("set",path,d),update:d=>p2pOp("update",path,d),delete:()=>p2pOp("delete",path),
+    onSnapshot:(cb,err)=>p2pOuvir(path,"doc",cb,err)}},
+  collection(path){return {
+    doc:id=>p2pDb.doc(path+"/"+id),get:()=>p2pOp("getc",path),
+    onSnapshot:(cb,err)=>p2pOuvir(path,"col",cb,err)}}
+};
+
 /* ================= Jogo online (sala com código, 2 jogadores) ================= */
 /* ---------- Perfil do jogador: apelido + avatar dos personagens do O Mundo de Otávio ---------- */
 /* avatares do jogador: personagens bíblicos (mesmos 16 dos adversários) */
@@ -2146,7 +2240,7 @@ async function onlineInicio(modo){
   </div></section>`;
   $("#on-eu-n").textContent=PERFIL.nome;
   topo();
-  ON.carregando=(window.claude?claude.use("db"):Promise.resolve(null)).then(async db=>{ON.db=db;const u=db?await claude.use("user"):null;ON.id=u?await u.id():null;
+  ON.carregando=bkbDb().then(async db=>{ON.db=db;const u=db?await bkbUser():null;ON.id=u?await u.id():null;
     if(!db||!ON.id)aviso("O jogo online com amigos chega em breve nesta versão de testes. Por enquanto, jogue contra os adversários bíblicos.",true)});
 }
 function aviso(t,erro=false){const a=$("#on-aviso");if(a){a.textContent=t;a.classList.toggle("erro",erro)}}
@@ -2160,7 +2254,7 @@ async function onlineCriar(){
   for(let t=0;t<6&&!ok;t++){cod=codigoNovo();const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);ok=!s||!s.exists||(Date.now()-(s.data().criado||0)>6*3600e3)}
   ON.cod=cod;ON.papel="P";
   try{await sala().set({modo:PREF.modo,criado:Date.now(),fase:"espera",seq:0,seg:({facil:60,medio:40,dificil:20})[PREF.nivel]||40,host:{id:ON.id,nome,av:PERFIL.av},guest:null})}
-  catch(e){aviso("Não foi possível criar a sala. Você precisa de acesso de participante a este jogo.",true);return}
+  catch(e){aviso("Não foi possível criar a sala. Confira a internet e tente de novo.",true);return}
   ouvir();
 }
 async function onlineEntrar(){
@@ -2170,7 +2264,7 @@ async function onlineEntrar(){
   if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
   aviso("Procurando a sala…");
   const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);
-  if(!s||!s.exists){aviso("Não achei essa sala. Confira o código.",true);return}
+  if(!s||!s.exists){aviso("Não achei essa sala. Confira o código e se o aparelho de quem criou está com a sala aberta.",true);return}
   const d=s.data();
   if(d.host&&d.host.id===ON.id){ON.cod=cod;ON.papel="P";return ouvir()}
   if(d.guest&&d.guest.id!==ON.id){aviso("Essa sala já está cheia.",true);return}
@@ -2179,7 +2273,7 @@ async function onlineEntrar(){
     const av=PERFIL.av;
     const J0=novoJogo(d.modo,"medio");
     try{await sala().update({guest:{id:ON.id,nome,av},estado:estadoDe(J0),fase:"escolher",ult:null,des:null,venc:null,seq:(d.seq||0)+1})}
-    catch(e){aviso("Não foi possível entrar. Você precisa de acesso de participante a este jogo.",true);return}
+    catch(e){aviso("Não foi possível entrar. Confira a internet e tente de novo.",true);return}
   }
   ouvir();
 }
@@ -2323,7 +2417,7 @@ function supOnInicio(){
     <p class="on-aviso" id="on-aviso" role="status"></p>
   </div></section>`;
   $("#on-eu-n").textContent=PERFIL.nome;topo();
-  ON.carregando=(window.claude?claude.use("db"):Promise.resolve(null)).then(async db=>{ON.db=db;const u=db?await claude.use("user"):null;ON.id=u?await u.id():null;
+  ON.carregando=bkbDb().then(async db=>{ON.db=db;const u=db?await bkbUser():null;ON.id=u?await u.id():null;
     if(!db||!ON.id)aviso("O jogo online com amigos chega em breve nesta versão. Por enquanto, jogue contra os adversários bíblicos.",true)}).catch(()=>{});
 }
 async function supOnCriar(){
@@ -2334,7 +2428,7 @@ async function supOnCriar(){
   SO.cod=cod;SO.host=true;
   try{await soSala().set({tipo:"supremo",criado:Date.now(),host:ON.id,regra:SUPPREF.regra||"basico",fase:"espera",jog:[],estado:null,seq:0});
     await soJog().doc(ON.id).set({id:ON.id,nome:limpaNome(PERFIL.nome),av:PERFIL.av,t:Date.now()})}
-  catch(e){aviso("Não foi possível criar a sala. Você precisa de acesso de participante a este jogo.",true);return}
+  catch(e){aviso("Não foi possível criar a sala. Confira a internet e tente de novo.",true);return}
   supOnOuvir();
 }
 async function supOnEntrar(){
@@ -2344,7 +2438,7 @@ async function supOnEntrar(){
   if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
   aviso("Procurando a sala…");
   const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);
-  if(!s||!s.exists){aviso("Não achei essa sala. Confira o código.",true);return}
+  if(!s||!s.exists){aviso("Não achei essa sala. Confira o código e se o aparelho de quem criou está com a sala aberta.",true);return}
   const d=s.data();
   if(d.tipo!=="supremo"){aviso("Esse código é de uma sala de "+((MODOS[d.modo]||{}).nome||"outro jogo")+". Entre por esse modo.",true);return}
   SO.cod=cod;SO.host=d.host===ON.id;
@@ -2354,7 +2448,7 @@ async function supOnEntrar(){
     const lista=await soJog().get().catch(()=>null);const n=lista?lista.docs.filter(x=>x.exists).length:0;
     if(n>=4&&!(lista.docs.some(x=>x.id===ON.id))){aviso("Essa sala já está cheia (4 jogadores).",true);return}
     try{await soJog().doc(ON.id).set({id:ON.id,nome:limpaNome(PERFIL.nome),av:PERFIL.av,t:Date.now()})}
-    catch(e){aviso("Não foi possível entrar. Você precisa de acesso de participante a este jogo.",true);return}
+    catch(e){aviso("Não foi possível entrar. Confira a internet e tente de novo.",true);return}
   }
   supOnOuvir();
 }
