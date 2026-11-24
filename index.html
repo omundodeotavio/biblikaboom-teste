@@ -979,6 +979,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
   .smetas .meta b{font-size:22px}.smetas .meta span{font-size:12px}
 }
 @media (min-width:1600px){.retrato{width:104px;height:104px}.leque-r{width:180px;height:92px}.leque-r img{width:56px;margin-left:-28px}.assento .rn{font-size:24px}.smsg span{font-size:18px}.sc-nome{font-size:14px}}
+@media (max-width:699px) and (max-height:760px){.smesa .retrato{width:42px;height:42px}.smesa .leque-r{width:74px;height:34px;margin-top:0}.smesa .leque-r img{width:22px;margin-left:-11px}.smesa .smsg{min-height:40px;margin-top:4px}.smesa .sacoes{min-height:40px}.smesa .scentro{min-height:0}}
 @media (max-width:699px){.smesa-topo{padding-right:96px;flex-wrap:nowrap}.smesa .emblema b{display:none}.smesa .placar .pl:first-child{display:none}.smesa .pl{font-size:12px}.retrato{width:52px;height:52px}.leque-r{width:90px;height:46px}.leque-r img{width:28px;margin-left:-14px}.assento .rn{font-size:14px}}
 @media (prefers-reduced-motion:reduce){.anel svg,.assento.ativo .retrato,.sdica{animation:none}.scarta{transition:none}}
 
@@ -1872,7 +1873,10 @@ function supDistribuir(fim){
   }
   depois(t+350,()=>{$("#smao").classList.remove("chegando");fim()});
 }
-function cartaW(){const w=$("#smao").clientWidth;return Math.round(Math.max(60,Math.min(124,w/(innerWidth<700?5.4:8.5),innerHeight*(innerWidth<700?.135:innerHeight<820?.1:.118))))}
+const supCel=()=>innerWidth<700,supSobe=()=>innerHeight<760?.86:1.12;
+function cartaW(){const w=$("#smao").clientWidth;
+  if(supCel()){const n=(SP&&SP.maos&&SP.maos[0]?SP.maos[0].length:12),pr=Math.ceil(n/2);return Math.round(Math.max(50,Math.min((w-12)/(pr*.74+.26),(innerHeight-(innerHeight<760?528:524))/(1.43+supSobe()),118)))}
+  return Math.round(Math.max(60,Math.min(124,w/(innerWidth<700?5.4:8.5),innerHeight*(innerWidth<700?.135:innerHeight<820?.1:.118))))}
 /* Ordem da mão: cada coringa fica junto do grupo que ele ajuda a fechar (no Avançado, no buraco da sequência) */
 function supOrdemMao(mao,avancado){
   const pl=supPlano(mao.filter(c=>c!==SUPSEL||mao.length<13),avancado),cor=mao.filter(ehCoringa),pos=new Map();
@@ -1890,7 +1894,9 @@ function atualizarMao(){
   const box=$("#smao");if(!box)return;
   const S=SP,om=supOrdemMao(S.maos[0],S.avancado),mao=om.ordem,n=mao.length,podeD=S.vez===0&&S.fase==="descartar";
   for(const [p,el] of maoEls)if(!mao.find(c=>c.p===p)){el.remove();maoEls.delete(p)}
-  const W=box.clientWidth,cw=cartaW();box.style.setProperty("--cw",cw+"px");box.style.height=Math.round(cw*1.62+((n-1)/2)**2*Math.min(2.2,cw*.022)+30)+"px";
+  const W=box.clientWidth,cw=cartaW();box.style.setProperty("--cw",cw+"px");
+  const cel=supCel(),pr=Math.ceil(n/2),subir=cw*supSobe();
+  if(cel)box.style.height=Math.round(cw*1.43+subir+34)+"px";else box.style.height=Math.round(cw*1.62+((n-1)/2)**2*Math.min(2.2,cw*.022)+30)+"px";
   const step=n>1?Math.min(cw*.78,(W-cw*1.5)/(n-1+2.4*.3)):0,ang=Math.min(4.2,46/Math.max(n,1)),k=Math.min(2.2,cw*.022);
   const gk=c=>{const d=om.pos.get(c);return d?d.g:c.g};let gaps=0;const gb=mao.map((c,i)=>{if(i&&gk(c)!==gk(mao[i-1]))gaps++;return gaps});
   const gw=Math.min(step*.6,cw*.3),larg=step*(n-1)+gaps*gw;
@@ -1902,9 +1908,13 @@ function atualizarMao(){
     const off=i-(n-1)/2,sel=SUPSEL===c,nova=S.nova===c;
     if(ehCoringa(c)){const dest=om.pos.get(c),g=dest&&dest.g!=="apoc"?dest.g:null;el.classList.toggle("coringa-de",!!g);el.style.setProperty("--c",g?corTipo(g):corTipo(c.g));
       el.querySelector(".sc-nome").textContent=g?c.n+" · coringa de "+GRUPOS[g][0]:c.n;}
-    const yMax=((n-1)/2)**2*k,x=i*step+gb[i]*gw-larg/2,y=off*off*k-yMax,rot=off*ang;
+    let x,y,rot,z=i+1;
+    if(cel){/* celular: duas fileiras, a de cima um pouco atrás */
+      const r=i<pr?0:1,m=r?n-pr:pr,j=r?i-pr:i,o=j-(m-1)/2,st=m>1?Math.min(cw*.9,(W-12-cw)/(m-1)):0;
+      x=o*st;y=o*o*1.4-(r?14:subir+14);rot=o*2.2;z=r?60+j:j+1;
+    }else{const yMax=((n-1)/2)**2*k;x=i*step+gb[i]*gw-larg/2;y=off*off*k-yMax;rot=off*ang}
     el.style.transform=sel?`translate(${x}px,${y-cw*.42}px) rotate(${rot*.4}deg) scale(1.14)`:`translate(${x}px,${y}px) rotate(${rot}deg)`;
-    el.style.zIndex=sel?200:i+1;
+    el.style.zIndex=sel?200:z;
     el.classList.toggle("sel",sel);el.classList.toggle("nova",nova);el.classList.toggle("pode",podeD);
     el.setAttribute("aria-label",c.n+(S.avancado&&!ehCoringa(c)?", número "+numDe(c):"")+(nova?", carta nova":"")+(sel?", selecionada":""));
     el.setAttribute("aria-pressed",sel);el.tabIndex=podeD?0:-1;
