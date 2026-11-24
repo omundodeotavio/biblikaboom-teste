@@ -1114,19 +1114,19 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .palco{position:absolute!important;inset:0!important;overflow:hidden;aspect-ratio:auto!important;width:auto!important;height:auto!important}
 .palco-img{inset:-2%!important;left:-2%!important;right:auto!important;top:-2%!important;width:104%!important;height:104%!important;object-position:62% 30%!important;-webkit-mask-image:none!important;mask-image:none!important}
 .palco::before{background:linear-gradient(0deg,var(--roxo) 0%,rgba(59,28,96,.92) 8%,rgba(59,28,96,.72) 18%,rgba(59,28,96,.45) 30%,rgba(59,28,96,.2) 42%,rgba(59,28,96,.06) 52%,transparent 60%),linear-gradient(180deg,rgba(46,17,80,.5) 0%,transparent 22%)!important}
-.hero-omdo{position:absolute;z-index:5;top:calc(env(safe-area-inset-top,0px) + 12px);left:max(14px,env(safe-area-inset-left,0px));width:clamp(46px,5vw,70px);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
-.hero-marca{position:absolute;z-index:6;left:50%;bottom:0;translate:-50% 52%;pointer-events:none}
-.hero-marca .logo-img{--w:clamp(250px,38vw,520px)!important;margin:0!important;filter:drop-shadow(0 14px 26px rgba(0,0,0,.6))!important;animation:marcaEntra .9s .2s cubic-bezier(.2,1.5,.4,1) backwards}
+.hero-omdo{position:fixed;z-index:60;top:calc(env(safe-area-inset-top,0px) + 12px);left:max(14px,env(safe-area-inset-left,0px));width:clamp(46px,5vw,70px);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.hero-marca{position:absolute;z-index:6;left:50%;bottom:0;translate:-50% 52%;pointer-events:none;width:max-content}.hero-marca .logo-img{max-width:94vw}
+.hero-marca .logo-img{--w:clamp(300px,46vw,640px)!important;margin:0!important;filter:drop-shadow(0 14px 26px rgba(0,0,0,.6))!important;animation:marcaEntra .9s .2s cubic-bezier(.2,1.5,.4,1) backwards}
 @keyframes marcaEntra{from{opacity:0;transform:scale(.6) rotate(-6deg)}}
-.pos-hero{padding-top:calc(clamp(250px,38vw,520px) * .5)!important}
+.pos-hero{padding-top:calc(clamp(300px,46vw,640px) * .5)!important}
 .pos-hero-acoes{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:-6px 0 6px}
 .rodape .linha-r{gap:8px;flex-wrap:nowrap}
 .rodape img{width:26px}
 .rodape p{font-size:10.5px;letter-spacing:.06em;line-height:1.45;text-align:left;max-width:300px}
 @media (max-width:780px){.hero{height:min(150vw,84svh)}.palco-img{object-position:50% 0%!important}
   .palco::before{background:linear-gradient(0deg,var(--roxo) 0%,rgba(59,28,96,.9) 7%,rgba(59,28,96,.55) 16%,rgba(59,28,96,.15) 28%,transparent 38%),linear-gradient(180deg,rgba(46,17,80,.55) 0%,transparent 12%)!important}
-  .hero-marca .logo-img{--w:min(62vw,280px)!important}
-  .pos-hero{padding-top:calc(min(62vw,280px) * .5 + 6px)!important}
+  .hero-marca .logo-img{--w:min(84vw,380px)!important}
+  .pos-hero{padding-top:calc(min(84vw,380px) * .5 + 6px)!important}
   .pos-hero-acoes{margin:4px 0 10px}
   .pago-selo{margin:6px 16px 4px}
   .prog-faixa{margin:16px auto 40px;gap:12px}
@@ -1209,7 +1209,6 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .ec-barra{cursor:pointer;font:inherit;color:#fff;position:fixed;z-index:59;top:calc(env(safe-area-inset-top,0px) + 10px);left:calc(env(safe-area-inset-left,0px) + 10px);display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#4fd07f,var(--verde));border:3px solid var(--tinta);border-radius:18px;padding:7px 14px 7px 10px;box-shadow:0 5px 0 var(--tinta),0 8px 24px rgba(0,0,0,.45);max-width:calc(100vw - 130px);animation:ecChama 1.6s 1.2s ease-in-out 3}@keyframes ecChama{50%{transform:scale(1.06)}}
 .ec-barra-t{display:flex;flex-direction:column;align-items:flex-start;font:400 clamp(19px,5vw,24px)/1.05 var(--cartoon);color:#fff;-webkit-text-stroke:.1em var(--tinta);paint-order:stroke fill;text-align:left}.ec-barra-t small{font:800 12px var(--texto);-webkit-text-stroke:0;margin-bottom:2px}.ec-barra:active{transform:translateY(4px)}
 .ec-barra .botao{font-size:clamp(17px,4.6vw,21px);padding:8px 14px 5px;box-shadow:0 4px 0 var(--tinta);white-space:nowrap}
-.inicio .hero-omdo{top:calc(env(safe-area-inset-top,0px) + 78px)}
 @media (max-width:460px){.ec-barra .ec-mini{display:none}}
 @media (prefers-reduced-motion:reduce){.ec-barra{animation:none}}
 .ec-barra .ec-mini i{width:22px;height:30px;font-size:16px}
