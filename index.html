@@ -953,7 +953,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .abertura{position:fixed;inset:0;z-index:200;overflow:hidden;cursor:pointer;background:#2e1150}
 .ab-livros{position:absolute;inset:0;pointer-events:none;background:url("arte/estante.webp") center bottom/auto 210px repeat;opacity:.34;filter:blur(1.6px) saturate(.7) hue-rotate(-8deg);mix-blend-mode:screen}
 .ab-livros::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(46,17,80,.1) 0%,rgba(46,17,80,.6) 90%)}
-.ab-palco{position:absolute;z-index:1;left:0;right:0;top:0;margin:auto;aspect-ratio:2/3;width:min(100vw,calc(64svh * .6667));
+.ab-palco{position:absolute;z-index:1;left:0;right:0;top:max(-48px,min(0px,calc(100svh - 150vw - 240px)));margin:0 auto;aspect-ratio:2/3;width:100vw;
   -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 74%,rgba(0,0,0,.55) 88%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 74%,rgba(0,0,0,.55) 88%,transparent 100%)}
 .ab-palco picture,.ab-arte{display:block;width:100%;height:100%}
 .ab-arte{max-width:none;object-fit:cover;object-position:50% 0;transform-origin:50% 62%;clip-path:circle(0% at 50% 62%);
@@ -963,17 +963,23 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .ab-anel{position:absolute;z-index:2;left:var(--ax,50%);top:var(--ay,40%);width:20px;height:20px;translate:-50% -50%;border-radius:50%;pointer-events:none;
   box-shadow:0 0 0 6px rgba(255,214,90,.95),0 0 40px 18px rgba(255,190,60,.8),inset 0 0 30px rgba(255,240,200,.9);opacity:0;animation:abAnel 1.5s .35s cubic-bezier(.7,0,.2,1) forwards}
 @keyframes abAnel{0%{opacity:1;width:20px;height:20px}70%{opacity:.9}100%{opacity:0;width:260vmax;height:260vmax}}
-.ab-flash{position:absolute;z-index:7;inset:0;pointer-events:none;background:radial-gradient(circle at var(--ax,50%) var(--ay,40%),#fff 0%,#fff3d0 14%,rgba(255,214,110,.85) 30%,rgba(255,200,90,0) 62%);opacity:0;animation:abFlash 1.4s .25s ease-out}
+.ab-flash{position:absolute;z-index:7;inset:0;pointer-events:none;background:radial-gradient(circle at var(--ax,50%) var(--ay,40%),#fff 0%,#fff 18%,#fff1c4 34%,rgba(255,206,100,.92) 55%,rgba(255,190,80,.6) 100%);opacity:0;animation:abFlash 1.6s .2s ease-out}
 .abertura.logo .ab-flash{animation:abFlash2 .6s ease-out}
-@keyframes abFlash{0%{opacity:0}15%{opacity:1}35%{opacity:1}100%{opacity:0}}
-@keyframes abFlash2{0%{opacity:0}15%{opacity:.7}100%{opacity:0}}
+@keyframes abPulsaCalmo{from{opacity:.35}to{opacity:.85}}
+@keyframes abFlash{0%{opacity:0}12%{opacity:1}38%{opacity:1}100%{opacity:0}}
+@keyframes abFlash2{0%{opacity:0}15%{opacity:.85}100%{opacity:0}}
 .abertura.logo .ab-palco{animation:abTreme .45s ease-out}
 @keyframes abTreme{20%{transform:translate(-6px,4px)}40%{transform:translate(5px,-4px)}60%{transform:translate(-3px,2px)}80%{transform:translate(2px,-1px)}}
-.ab-pulso{position:absolute;z-index:2;left:var(--ax,50%);top:var(--ay,40%);width:var(--aw,60vw);aspect-ratio:1.4;translate:-50% -50%;pointer-events:none;border-radius:50%;mix-blend-mode:screen;
-  background:radial-gradient(ellipse,rgba(255,236,170,.95) 0%,rgba(255,200,80,.6) 28%,rgba(255,160,40,.18) 55%,transparent 72%);opacity:0;
-  animation:abPulsoEntra 1.4s .3s ease-out forwards,abPulsa 1.6s 1.9s ease-in-out infinite alternate}
-@keyframes abPulsoEntra{0%{opacity:0;scale:.2}25%{opacity:1;scale:1.6}100%{opacity:.55;scale:1}}
-@keyframes abPulsa{from{opacity:.25;scale:.9}to{opacity:.75;scale:1.12}}
+.ab-pulso{position:absolute;z-index:2;left:var(--ax,50%);top:var(--ay,40%);width:calc(var(--aw,60vw) * 1.25);aspect-ratio:1.5;pointer-events:none;border-radius:50%;
+  background:radial-gradient(ellipse closest-side,rgba(255,240,190,.55) 0%,rgba(255,215,110,.5) 38%,rgba(255,190,60,.85) 62%,rgba(255,170,40,.35) 80%,transparent 100%);
+  opacity:0;transform:translate(-50%,-50%) scale(.3);animation:abPulsoEntra 1.4s .3s ease-out forwards,abPulsa 1.3s 1.7s ease-in-out infinite alternate}
+@keyframes abPulsoEntra{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}30%{opacity:1;transform:translate(-50%,-50%) scale(1.5)}100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}}
+@keyframes abPulsa{from{opacity:.3;transform:translate(-50%,-50%) scale(.92)}to{opacity:.95;transform:translate(-50%,-50%) scale(1.1)}}
+.ab-reflexo{position:absolute;z-index:3;left:var(--ax,50%);top:var(--ay,40%);width:var(--aw,60vw);aspect-ratio:1.55;transform:translate(-50%,-50%);pointer-events:none;overflow:hidden;border-radius:18px;
+  -webkit-mask-image:radial-gradient(ellipse closest-side,#000 70%,transparent);mask-image:radial-gradient(ellipse closest-side,#000 70%,transparent)}
+.ab-reflexo::before{content:"";position:absolute;top:-30%;bottom:-30%;width:38%;left:-60%;transform:skewX(-22deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15) 30%,rgba(255,252,235,.85) 50%,rgba(255,255,255,.15) 70%,transparent);animation:abReflexo 2.6s 2.1s ease-in-out infinite}
+@keyframes abReflexo{0%{left:-60%}55%,100%{left:130%}}
 .ab-voo{position:absolute;inset:0;z-index:3;pointer-events:none;perspective:1000px;overflow:hidden}
 .ab-voo img{position:absolute;left:0;top:0;width:var(--w,74px);border-radius:7%/4.5%;box-shadow:0 0 22px rgba(255,200,80,.65),0 12px 24px rgba(0,0,0,.55);will-change:transform,opacity;opacity:0}
 .ab-particulas{position:absolute;inset:0;z-index:4;width:100%;height:100%;pointer-events:none;mix-blend-mode:screen}
@@ -991,6 +997,13 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .abertura.saindo .ab-logo{animation:abLogoSai .85s cubic-bezier(.6,0,.4,1) forwards}
 @keyframes abLogoSai{to{transform:scale(4);opacity:0}}
 @keyframes abSai{60%{opacity:1;filter:brightness(1.8)}to{opacity:0;filter:brightness(2.4) blur(4px)}}
+/* tablets em pé: arte centralizada com as laterais esfumadas */
+@media (min-aspect-ratio:3/5) and (max-aspect-ratio:1/1){
+  .ab-palco{top:0;width:calc((100svh - 280px) * .6667);
+    -webkit-mask-image:linear-gradient(180deg,#000 74%,transparent),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;
+    mask-image:linear-gradient(180deg,#000 74%,transparent),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
+}
+@media (max-height:720px) and (max-aspect-ratio:1/1){.ab-logo{width:min(58vw,calc(15svh * 1.3))}.ab-texto{gap:8px}}
 /* telas largas: Otávio inteiro à direita, logo à esquerda */
 @media (min-aspect-ratio:1/1){
   .ab-palco{aspect-ratio:2/3;height:100svh;width:auto;left:auto;right:max(4vw,calc(50vw - 640px));margin:0;
@@ -998,7 +1011,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
   .ab-texto{left:max(6vw,calc(50vw - 600px));bottom:auto;top:50%;translate:0 -50%;width:min(38vw,500px)}
   .ab-logo{width:100%}
 }
-@media (prefers-reduced-motion:reduce){.ab-pulso{animation:none;opacity:.4}.ab-arte,.ab-anel,.ab-flash,.abertura.logo .ab-logo,.abertura.logo .ab-btn,.abertura.logo .ab-palco{animation:none!important}.ab-arte{clip-path:none}.ab-logo{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ab-pulso{animation:abPulsaCalmo 2.4s ease-in-out infinite alternate;transform:translate(-50%,-50%)}.ab-reflexo::before{animation-duration:4s}.ab-arte,.ab-anel,.abertura.logo .ab-logo,.abertura.logo .ab-btn,.abertura.logo .ab-palco{animation:none!important}.ab-arte{clip-path:none}.ab-logo{opacity:1;transform:none}}
 
 /* ---------- Escolha: amigos ou adversário ---------- */
 .cq{position:fixed;inset:0;z-index:70;display:grid;place-items:center;padding:16px;background:rgba(10,3,20,.78);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);animation:celFundo .25s ease}
@@ -1117,6 +1130,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
   <div class="ab-palco"><picture><img class="ab-arte" src="arte/hero-celular.webp" alt="Otávio estendendo a mão com as cartas do Biblikaboom"></picture></div>
   <div class="ab-anel" aria-hidden="true"></div>
   <div class="ab-pulso" aria-hidden="true"></div>
+  <div class="ab-reflexo" aria-hidden="true"></div>
   <div class="ab-voo" aria-hidden="true"></div>
   <canvas class="ab-particulas" aria-hidden="true"></canvas>
   <div class="ab-texto">
