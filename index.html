@@ -236,6 +236,54 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .med-tier{font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lilas)}.med.tem.t-ouro .med-tier{color:#ffd34d}.med.tem.t-prata .med-tier{color:#dfe6f0}.med.tem.t-bronze .med-tier{color:#e0a070}.med b{font-size:15px}.med small{font-size:12px;color:var(--lilas)}.med .botao{margin-top:6px;font-size:14px}
 .med-av{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:10px}
 .mav{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.mav img{width:76px;height:76px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover}.mav b{font-size:13px}.mav small{font-size:11px;color:var(--lilas)}
+/* galeria de troféus */
+.gt-sala{background:radial-gradient(ellipse at 50% 0%,#5b2a92 0%,#2a1046 55%,#1a0830 100%);padding:18px 0 34px}
+.gt-sala .miolo{display:flex;flex-direction:column;align-items:center;text-align:center}
+.gt-tit{margin:4px 0 10px}.gt-tit .c1{color:#ffd34d}
+.gt-placar{display:grid;grid-template-columns:auto auto;align-items:center;gap:4px 12px;background:rgba(0,0,0,.35);border:2px solid rgba(255,211,77,.45);border-radius:18px;padding:10px 18px;color:#fff}
+.gt-placar>b{font-family:var(--cartoon);font-size:46px;line-height:1;color:#ffd34d;text-shadow:0 0 18px rgba(255,200,61,.6)}
+.gt-placar>span{font-weight:800;font-size:14px;line-height:1.25;text-align:left}
+.gt-barra{grid-column:1/-1;height:10px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden;min-width:200px}.gt-barra i{display:block;height:100%;background:linear-gradient(90deg,#ffb020,#ffe27a);box-shadow:0 0 12px #ffd34d}
+.gt-dica{color:#e6d6ff;font-size:14px;margin:12px 0 18px;max-width:46ch}
+.gt-estante{width:100%;max-width:980px;display:grid;grid-template-columns:repeat(3,1fr);row-gap:30px;padding:22px 14px 30px;border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),transparent 30%),repeating-linear-gradient(90deg,#2c1148 0 46px,#271041 46px 48px),#2a1046;
+  border:10px solid #6b3a1f;border-image:linear-gradient(180deg,#9a5a2c,#5a2e14) 1;box-shadow:inset 0 0 50px rgba(0,0,0,.75),0 18px 40px rgba(0,0,0,.6)}
+@media (min-width:760px){.gt-estante{grid-template-columns:repeat(5,1fr)}.gt-slot{min-height:220px}.gt-img{height:170px}}
+.gt-slot{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;min-height:178px;padding:22px 4px 0;background:none;border:0;color:#fff;font:inherit;cursor:pointer;min-width:0}
+.gt-slot::after{content:"";position:absolute;left:-14px;right:-14px;bottom:-14px;height:16px;z-index:0;
+  background:linear-gradient(180deg,#c98a4d 0,#a0602e 30%,#6e3a17 100%);box-shadow:0 8px 14px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,230,190,.5)}
+.gt-luz{position:absolute;z-index:0;top:-22px;left:50%;width:120%;height:calc(100% + 8px);translate:-50% 0;pointer-events:none;opacity:.12;
+  background:radial-gradient(ellipse 50% 22% at 50% 92%,rgba(255,226,150,.55),transparent 70%),linear-gradient(180deg,rgba(255,236,180,.5),rgba(255,226,150,.05) 85%);
+  clip-path:polygon(42% 0,58% 0,100% 100%,0 100%)}
+.gt-slot::before{content:"";position:absolute;top:-24px;left:50%;width:26px;height:8px;translate:-50% 0;border-radius:0 0 12px 12px;background:#1a0a2c;box-shadow:inset 0 -2px 0 #555}
+.gt-slot.tem::before{background:#3a2a10;box-shadow:inset 0 -3px 0 #ffe9a8,0 4px 14px 4px rgba(255,220,140,.7)}
+.gt-slot.tem .gt-luz{opacity:1;animation:gtLuz 4s ease-in-out infinite alternate}
+@keyframes gtLuz{from{opacity:.85}to{opacity:1}}
+.gt-img{position:relative;z-index:1;height:128px;width:auto;max-width:100%;object-fit:contain;filter:brightness(0) opacity(.35);transition:transform .25s}
+.gt-slot.tem .gt-img{filter:drop-shadow(0 0 14px rgba(255,214,120,.45)) drop-shadow(0 8px 8px rgba(0,0,0,.55))}
+.gt-slot.tem:hover .gt-img,.gt-slot.tem:focus-visible .gt-img{transform:translateY(-6px) scale(1.06)}
+.gt-slot.tem.t-ouro .gt-img{animation:gtOuro 3s ease-in-out infinite alternate}
+@keyframes gtOuro{to{filter:drop-shadow(0 0 24px rgba(255,214,90,.8)) drop-shadow(0 8px 8px rgba(0,0,0,.55))}}
+.gt-cad{position:absolute;z-index:2;top:50%;left:50%;translate:-50% -70%;font-family:var(--cartoon);font-size:40px;color:rgba(230,214,255,.55)}
+.gt-placa{position:relative;z-index:2;margin:6px 0 2px;max-width:100%;padding:3px 8px;border-radius:6px;font-weight:800;font-size:11px;line-height:1.15;
+  background:linear-gradient(180deg,#5c4a2a,#3b2d16);color:#cbb88f;border:1px solid #2a1e0c}
+.gt-slot.tem .gt-placa{background:linear-gradient(180deg,#ffe48a,#d9a72a);color:#3a2306;border-color:#8a6510;box-shadow:0 2px 6px rgba(0,0,0,.5)}
+.gt-novo{position:absolute;z-index:3;top:0;right:4px;background:#ff3d7f;color:#fff;font-weight:900;font-size:11px;padding:3px 8px;border-radius:99px;border:2px solid #fff;rotate:8deg;animation:gtNovo 1s ease-in-out infinite alternate}
+@keyframes gtNovo{to{scale:1.12}}
+.gt-slot.novo .gt-img{animation:gtChega .9s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes gtChega{from{transform:translateY(-40px) scale(.4);opacity:0}}
+.gt-zc{width:min(100%,380px);display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;color:#fff}
+.gt-zpalco{position:relative;width:240px;height:300px;display:grid;place-items:center}
+.gt-zpalco img{position:relative;z-index:1;max-height:290px;width:auto;animation:gtFlutua 2.6s ease-in-out infinite alternate}
+.gt-zc:not(.tem) .gt-zpalco img{filter:brightness(0) opacity(.4);animation:none}
+.gt-zraios{position:absolute;inset:-40px;background:repeating-conic-gradient(from 0deg,rgba(255,220,120,.28) 0 10deg,transparent 10deg 24deg);border-radius:50%;
+  -webkit-mask-image:radial-gradient(circle,#000 20%,transparent 68%);mask-image:radial-gradient(circle,#000 20%,transparent 68%);animation:gtGira 14s linear infinite}
+.gt-zc:not(.tem) .gt-zraios{display:none}
+@keyframes gtGira{to{rotate:360deg}}@keyframes gtFlutua{to{transform:translateY(-10px)}}
+.gt-ztier{font-weight:900;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#e0a070}.gt-zc.t-ouro .gt-ztier{color:#ffd34d}.gt-zc.t-prata .gt-ztier{color:#dfe6f0}
+.gt-zc h2{font-family:var(--cartoon);font-weight:400;font-size:32px;margin:0}.gt-zc p{margin:0 0 6px;color:#e6d6ff}
+@media (min-width:760px){.gt-sala .gt-slot{min-height:226px}.gt-sala .gt-img{height:176px}}
+@media (prefers-reduced-motion:reduce){.gt-slot .gt-img,.gt-zpalco img,.gt-zraios,.gt-novo,.gt-luz{animation:none!important}}
 .mav.bloq img{filter:grayscale(1) brightness(.6);border-color:var(--lilas)}
 .bau{position:fixed;inset:0;z-index:96;display:grid;place-items:center;padding:16px;background:rgba(20,6,36,.8)}
 .bau-caixa{width:min(100%,380px);text-align:center;background:linear-gradient(180deg,#5a2d91,#3b1c60);border:4px solid #000;border-radius:28px;padding:24px;box-shadow:0 10px 0 #000;color:#fff}
@@ -2608,7 +2656,7 @@ const MEDALHAS=[
   {id:"pd",tier:"bronze",ic:"⚡",t:"Poder ativado",d:"Vença uma rodada com uma carta Biblikaboom",ok:S=>S.poder>=1},
   {id:"s3",tier:"bronze",ic:"🔥",t:"Pegando fogo",d:"Jogue 3 dias seguidos",ok:S=>S.seq.n>=3},
   {id:"s7",tier:"prata",ic:"🌟",t:"Semana completa",d:"Jogue 7 dias seguidos",ok:S=>S.seq.n>=7},
-  ...GR_ALBUM.map(([g,n])=>({id:"g-"+g,tier:["hist","prof","cart"].includes(g)?"prata":"bronze",ic:"📜",t:"Conhece "+(g==="atap"?"Atos e Apocalipse":"os "+n),d:"Complete os "+n+" no álbum",ok:S=>albumGrupo(g).every(c=>S.album[c.p])})),
+  ...GR_ALBUM.map(([g,n])=>({id:"g-"+g,tier:["hist","prof","cart"].includes(g)?"prata":"bronze",ic:"📜",t:{pent:"Guardião da Lei",hist:"Herói dos Reis",poet:"Coração de Salmista",prof:"Voz dos Profetas",evan:"Pescador de Gente",atap:"Fogo do Espírito",cart:"Mensageiro das Cartas"}[g],d:"Complete os "+n+" no álbum",ok:S=>albumGrupo(g).every(c=>S.album[c.p])})),
   {id:"expert",tier:"ouro",ic:"🎓",t:"Expert da Bíblia",d:"Complete o álbum com os 66 livros",ok:S=>Object.keys(S.album).length>=66,cert:true}
 ];
 function albumGrupo(g){return CARTAS.filter(c=>grupoDe(c)===g)}
@@ -2639,7 +2687,7 @@ function ganharXP(n,motivo){const S=PROG.S,antes=nivelDe(S.xp);S.xp+=n;const dep
   if(dep>antes){toast(`<b>Nível ${dep}!</b> Você subiu de nível`,{ic:"🚀",cls:"grande"});SOM.brilho();
     AV_NIVEL.forEach((nv,i)=>{if(nv===dep)toast(`Novo personagem liberado: <b>${OMDO_AV[i]}</b>`,{img:omdoSrc(i)})})}
 }
-function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Troféu de ${m.tier}: <b>${m.t}</b>`,{img:`arte/trofeu/${m.tier}.webp`,cls:"grande"});SOM.ganhou();S.xp+=40}})}
+function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Troféu de ${m.tier}: <b>${m.t}</b>`,{img:`arte/trofeu/${m.id}.webp`,cls:"grande"});SOM.ganhou();S.xp+=40}})}
 function marcarDia(){const S=PROG.S,d=hoje();if(S.seq.dia===d)return;
   S.seq.n=S.seq.dia&&diaN(d)-diaN(S.seq.dia)===1?S.seq.n+1:1;S.seq.dia=d;if(S.seq.n>1)toast(`<b>${S.seq.n} dias seguidos!</b> Continue assim`,{ic:"🔥"})}
 /* eventos vindos do jogo */
@@ -2695,16 +2743,40 @@ function albumCarta(p){const c=cartaP(p);
   d.innerHTML=`<div class="alb-zc"><img src="${img(c)}" alt="${c.n}"><div class="alb-cur"><span class="pf-rot">Número curioso</span><b>${c.cur===Infinity?"∞":fmt(c.cur)}</b><p>${c.cd}</p><small>Leia em ${c.cr} (NTLH)</small></div>
     <button type="button" class="botao" id="alb-fechar">Fechar</button></div>`;
   document.body.appendChild(d);SOM.virar();d.addEventListener("click",e=>{if(e.target===d||e.target.id==="alb-fechar")d.remove()})}
-/* medalhas */
+/* galeria de troféus: prateleiras iluminadas */
 function medalhasTela(){
   limpar();F="medalhas";camada.innerHTML="";const S=PROG.S;
+  const vistos=new Set(S.trVisto||[]),tem=MEDALHAS.filter(m=>S.med[m.id]),n=tem.length,tot=MEDALHAS.length;
+  const ord=[...tem,...MEDALHAS.filter(m=>!S.med[m.id])];
+  const slot=m=>{const ok=!!S.med[m.id],nv=ok&&!vistos.has(m.id);
+    return `<button type="button" class="gt-slot${ok?" tem":""}${nv?" novo":""} t-${m.tier}" data-trofeu="${m.id}" aria-label="${ok?"Troféu "+m.t:"Troféu bloqueado: "+m.d}">
+      <span class="gt-luz" aria-hidden="true"></span>${nv?'<span class="gt-novo">NOVO!</span>':""}
+      <img class="gt-img" src="arte/trofeu/${m.id}.webp" alt="" loading="lazy">${ok?"":'<span class="gt-cad" aria-hidden="true">?</span>'}
+      <span class="gt-placa">${ok?m.t:"???"}</span></button>`};
   tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
-  <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Meus</span><span class="c2">troféus</span></h1><p>Cada missão cumprida dá um troféu e +40 XP. Complete o álbum para ganhar o certificado de Expert da Bíblia!</p></div></section>
-  <section class="on-corpo"><div class="miolo"><div class="med-grade">${MEDALHAS.map(m=>`<div class="med${S.med[m.id]?" tem":""} t-${m.tier}"><img class="med-img" src="arte/trofeu/${m.tier}.webp" alt="Troféu de ${m.tier}"><span class="med-tier">${m.tier}</span><b>${m.t}</b><small>${m.d}</small>${m.cert&&S.med[m.id]?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}</div>`).join("")}</div>
+  <section class="gt-sala"><div class="miolo">
+    <h1 class="titulo gt-tit"><span class="c1">Galeria de</span><span class="c2">troféus</span></h1>
+    <div class="gt-placar"><b>${n}</b><span>de ${tot} troféus<br>conquistados</span><div class="gt-barra"><i style="width:${Math.round(n/tot*100)}%"></i></div></div>
+    <p class="gt-dica">${n===0?"Sua estante está esperando! Cumpra missões para ganhar o primeiro troféu.":n===tot?"Estante completa! Você é uma lenda do Biblikaboom!":"Toque num troféu para ver a missão. Cada troféu vale +40 XP!"}</p>
+    <div class="gt-estante">${ord.map(slot).join("")}</div>
+  </div></section>
+  <section class="on-corpo"><div class="miolo">
   <h2 class="ex-tit">Personagens</h2><p class="ex-sub">Suba de nível para liberar novos personagens.</p>
   <div class="med-av">${OMDO_AV.map((n,i)=>`<div class="mav${avLiberado(i)?"":" bloq"}"><img src="${omdoSrc(i)}" alt=""><b>${n}</b><small>${avLiberado(i)?"Liberado":"Nível "+AV_NIVEL[i]}</small></div>`).join("")}</div>
   </div></section>`;topo();
+  S.trVisto=tem.map(m=>m.id);PROG.salvar();
 }
+function trofeuVer(id){
+  const m=MEDALHAS.find(x=>x.id===id);if(!m)return;const S=PROG.S,ok=!!S.med[id];
+  const d=document.createElement("div");d.className="alb-zoom gt-zoom";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");
+  const dt=ok?new Date(S.med[id]+"T12:00:00").toLocaleDateString("pt-BR"):"";
+  d.innerHTML=`<div class="gt-zc${ok?" tem":""} t-${m.tier}"><div class="gt-zpalco"><span class="gt-zraios" aria-hidden="true"></span><img src="arte/trofeu/${m.id}.webp" alt="Troféu ${m.t}"></div>
+    <span class="gt-ztier">Troféu de ${m.tier}</span><h2>${ok?m.t:"Ainda bloqueado"}</h2><p>${ok?m.d+"<br><small>Conquistado em "+dt+"</small>":"Missão: <b>"+m.d+"</b>"}</p>
+    ${m.cert&&ok?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}<button type="button" class="botao" id="gt-fechar">Fechar</button></div>`;
+  document.body.appendChild(d);ok?SOM.ganhou():SOM.clique();
+  d.addEventListener("click",e=>{if(e.target===d||e.target.id==="gt-fechar")d.remove()});
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-trofeu]");if(b)trofeuVer(b.dataset.trofeu)});
 function certificado(){
   const cv=document.createElement("canvas");cv.width=1600;cv.height=1131;const c=cv.getContext("2d");
   const g=c.createLinearGradient(0,0,0,1131);g.addColorStop(0,"#5a2d91");g.addColorStop(1,"#2e1150");c.fillStyle=g;c.fillRect(0,0,1600,1131);
