@@ -678,14 +678,14 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .assento.ativo{transform:translateY(4px) scale(1.06)}
 .assento.ativo .retrato{animation:vezPulsa .8s ease-in-out infinite alternate}
 @keyframes vezPulsa{from{box-shadow:0 0 0 0 var(--cor),0 6px 0 rgba(0,0,0,.45)}to{box-shadow:0 0 0 8px color-mix(in srgb,var(--cor) 35%,transparent),0 0 30px var(--cor),0 6px 0 rgba(0,0,0,.45)}}
-.scentro{position:relative;display:grid;place-items:center;height:100%;min-height:100px}
-.anel,.ponteiro{position:absolute;left:50%;top:50%;width:min(240px,62vw,26vh);aspect-ratio:1;translate:-50% -50%;pointer-events:none}
+.scentro{position:relative;z-index:4;display:grid;place-items:center;height:100%;min-height:100px}
+.anel,.ponteiro{position:absolute;left:50%;top:50%;width:min(300px,66vw,27vh);aspect-ratio:1;translate:-50% -50%;pointer-events:none}
 .anel svg{width:100%;height:100%;animation:anelGira 14s linear infinite;filter:drop-shadow(0 0 10px rgba(255,190,50,.7))}
 @keyframes anelGira{to{transform:rotate(360deg)}}
 .ponteiro{transition:transform .7s cubic-bezier(.3,1.3,.5,1)}
 .ponteiro i{position:absolute;right:-26px;top:50%;width:0;height:0;margin-top:-16px;border-left:28px solid #ffd34d;border-top:16px solid transparent;border-bottom:16px solid transparent;filter:drop-shadow(0 0 8px rgba(255,200,60,.9))}
 .smesa .monte{position:relative;z-index:2;flex-direction:column;gap:4px}
-.smesa .monte .pilha{position:relative;width:clamp(56px,min(9vw,9vh),110px);aspect-ratio:480/744}
+.smesa .monte .pilha{position:relative;width:clamp(64px,min(22vw,11vh),150px);aspect-ratio:480/744}
 .smesa .monte .pilha img{position:absolute;inset:0;width:100%;height:100%;border-radius:6%/3.9%;transform:translate(calc(var(--k) * -1.5px),calc(var(--k) * -3px)) rotate(calc((var(--k) - 2) * 2deg));box-shadow:0 2px 0 rgba(0,0,0,.4),0 12px 20px rgba(0,0,0,.5)}
 .smesa .monte-rot{align-items:center;flex-direction:row;gap:6px;background:rgba(26,11,43,.8);border:2px solid #000;border-radius:999px;padding:3px 12px}
 .smesa .monte-rot b{font-size:20px}
@@ -723,6 +723,15 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 @keyframes chegaMao{from{translate:0 -42vh;scale:.35;opacity:0}}
 .smesa.sua-vez .smao::before{content:"";position:absolute;left:10%;right:10%;bottom:-20px;height:70%;background:radial-gradient(ellipse at 50% 100%,rgba(255,200,60,.35),transparent 70%);pointer-events:none}
 .smesa .gritar-box,.smesa .botao.gritar{z-index:260}
+@media (min-width:700px){
+  .smesa .pos-top{flex-direction:row;align-items:center;gap:12px;background:rgba(26,11,43,.35);border-radius:999px;padding:4px 18px 4px 6px}
+  .smesa .pos-top .leque-r{margin-top:0;height:auto;align-self:center;width:120px;height:44px}
+  .smesa .pos-top .leque-r img{transform-origin:50% 160%;top:-2px}
+  .smesa .pos-top .rn{margin-top:0}
+  .smesa .scentro{min-height:calc(clamp(64px,min(22vw,11vh),150px) * 1.55 + 80px)}
+  .smesa .smsg{margin-top:12px}
+  .smesa .monte-rot{font-size:15px}.smesa .monte-rot b{font-size:26px}
+}
 @media (min-width:900px){
   .smesa.n4 .pos-left{position:absolute;left:2%;top:30%}
   .smesa.n4 .pos-right{position:absolute;right:2%;top:30%}
@@ -1518,7 +1527,7 @@ function supDistribuir(fim){
   }
   depois(t+350,()=>{$("#smao").classList.remove("chegando");fim()});
 }
-function cartaW(){const w=$("#smao").clientWidth;return Math.round(Math.max(60,Math.min(124,w/(innerWidth<700?5.4:8.5),innerHeight*(innerWidth<700?.135:.118))))}
+function cartaW(){const w=$("#smao").clientWidth;return Math.round(Math.max(60,Math.min(124,w/(innerWidth<700?5.4:8.5),innerHeight*(innerWidth<700?.135:innerHeight<820?.1:.118))))}
 /* Ordem da mão: cada coringa fica junto do grupo que ele ajuda a fechar (no Avançado, no buraco da sequência) */
 function supOrdemMao(mao,avancado){
   const pl=supPlano(mao.filter(c=>c!==SUPSEL||mao.length<13),avancado),cor=mao.filter(ehCoringa),pos=new Map();
