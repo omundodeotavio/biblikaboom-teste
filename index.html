@@ -197,6 +197,8 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .pw-erro{margin:0;min-height:1.2em;color:#c2185b;font-weight:700;font-size:14px}
 .pw-fechar{margin-top:16px}
 .pf-av.bloq{opacity:.45;filter:grayscale(.8);cursor:not-allowed;position:relative}.pf-av.bloq::after{content:"🔒";position:absolute;top:4px;right:6px;font-size:14px}
+.pw-link{margin-top:8px;background:none;border:0;color:var(--roxo);font:inherit;font-weight:800;font-size:13px;text-decoration:underline;cursor:pointer}
+.pw-letra{margin:6px 0 0;font-size:11px;line-height:1.4;color:#6b5a80;max-width:36ch}
 .pw-de{margin:2px 0 -6px;color:#6b5a80;font-weight:700}.pw-de s{color:#c2185b}
 .pw-lanc{background:#e8327c;color:#fff;font-weight:900;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 12px;margin-top:-4px}
 .prog-faixa{margin:14px auto 8px;width:min(100%,760px);display:grid;gap:10px}
@@ -2733,34 +2735,45 @@ function vitoriaShow({src,retrato,nome,frase,voce},depois){
   o.addEventListener("click",ir);setTimeout(ir,3600);
 }
 
-/* ================= Modo pago: 1 dia de degustação grátis, depois compra única libera para sempre ================= */
-const PAGO={ativo:false,preco:"R$ 24,90",de:"R$ 34,90",lancamento:true,loja:""};
+/* ================= Modo pago: 1 dia de degustação grátis, depois assinatura anual (renova todo ano) =================
+   Produto nas lojas: assinatura auto-renovável "biblikaboom_anual" (1 ano).
+   Lançamento: oferta de entrada no 1º ano (R$ 24,90), depois R$ 34,90 por ano.
+   O app nativo chama window.bkbAssinatura(validaAteISO) quando a loja confirma ou renova. */
+const PAGO={ativo:false,preco:"R$ 24,90",de:"R$ 34,90",lancamento:true,produto:"biblikaboom_anual",loja:""};
 function hoje(){const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-function ehPremium(){try{return localStorage.getItem("bkb-premium")==="1"}catch(e){return false}}
+function validaAte(){try{return localStorage.getItem("bkb-assinatura-ate")}catch(e){return null}}
+function ehPremium(){const v=validaAte();return !!v&&new Date(v).getTime()>Date.now()}
+function jaAssinou(){return !!validaAte()}
+window.bkbAssinatura=function(ateISO){try{if(ateISO)localStorage.setItem("bkb-assinatura-ate",ateISO);else localStorage.removeItem("bkb-assinatura-ate")}catch(e){}
+  const p=document.querySelector(".paywall");if(p&&ehPremium())p.remove();pagoSelo()};
+const dataBR=iso=>{try{return new Date(iso).toLocaleDateString("pt-BR")}catch(e){return ""}};
 function diaInicio(){try{return localStorage.getItem("bkb-degusta")}catch(e){return null}}
 function emDegustacao(){const d=diaInicio();return !d||d===hoje()}
 function marcarInicio(){try{if(!diaInicio())localStorage.setItem("bkb-degusta",hoje())}catch(e){}}
 /* devolve true se pode jogar agora (e já conta a partida); senão mostra a tela de liberar */
 function liberar(){
   if(!PAGO.ativo||ehPremium()||(typeof TUT!=="undefined"&&TUT.on))return true;
-  if(emDegustacao()){marcarInicio();pagoSelo();return true}
+  if(!jaAssinou()&&emDegustacao()){marcarInicio();pagoSelo();return true}
   paywall();return false;
 }
 function pagoSelo(){const s=document.querySelector("#pago-selo");if(!s)return;if(!PAGO.ativo){s.hidden=true;return}
-  if(ehPremium()){s.innerHTML=`<b>★</b> Biblikaboom Completo`;s.classList.add("premium");return}
-  s.innerHTML=emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Degustação encerrada · <b>libere o jogo completo</b>`;}
+  if(ehPremium()){s.innerHTML=`<b>★</b> Biblikaboom Completo · renova em ${dataBR(validaAte())}`;s.classList.add("premium");return}
+  s.classList.remove("premium");
+  s.innerHTML=jaAssinou()?`Sua assinatura venceu · <b>renove para continuar</b>`:emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Degustação encerrada · <b>libere o jogo completo</b>`;}
 function paywall(){
   if(document.querySelector(".paywall"))return;
   const d=document.createElement("div");d.className="paywall";d.setAttribute("role","dialog");d.setAttribute("aria-modal","true");d.setAttribute("aria-labelledby","pw-t");
   d.innerHTML=`<div class="pw-caixa">
     <img class="pw-heroi" src="${(typeof PERFIL!=="undefined"&&vitSrcOmdo(PERFIL.av))||"arte/vito/01.webp"}" alt="">
-    <h2 id="pw-t">Que jogador!</h2>
-    <p class="pw-sub">O seu <b>dia de degustação</b> acabou. Libere o Biblikaboom Completo e continue a sua jornada pela Bíblia.</p>
+    <h2 id="pw-t">${jaAssinou()?"Que saudade!":"Que jogador!"}</h2>
+    <p class="pw-sub">${jaAssinou()?"A sua assinatura do Biblikaboom venceu. Renove e continue de onde parou: seus troféus, álbum e personagens estão guardados.":"O seu <b>dia de degustação</b> acabou. Libere o Biblikaboom Completo por um ano inteiro e continue a sua jornada pela Bíblia."}</p>
     <div class="pw-oferta">
       <span class="pw-selo">Biblikaboom Completo</span>
-      <ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Troféus das missões e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li></ul>
-      ${PAGO.lancamento?`<p class="pw-de">de <s>${PAGO.de}</s> por</p>`:""}<p class="pw-preco">${PAGO.preco}<small> compra única</small></p>${PAGO.lancamento?`<span class="pw-lanc">Preço de lançamento</span>`:""}
-      <button type="button" class="botao" id="pw-adulto">Liberar o jogo completo</button>
+      <ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Troféus das missões e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li><li><b>Novidades durante o ano</b>: novos desafios, troféus e temporadas</li></ul>
+      ${PAGO.lancamento?`<p class="pw-de">de <s>${PAGO.de}</s> por</p>`:""}<p class="pw-preco">${PAGO.lancamento?PAGO.preco:PAGO.de}<small> por ano</small></p>${PAGO.lancamento?`<span class="pw-lanc">Preço de lançamento no 1º ano</span>`:""}
+      <button type="button" class="botao" id="pw-adulto">${jaAssinou()?"Renovar por 1 ano":"Assinar por 1 ano"}</button>
+      <button type="button" class="pw-link" id="pw-restaurar">Já assinei: restaurar assinatura</button>
+      <p class="pw-letra">Assinatura anual com renovação automática${PAGO.lancamento?`: ${PAGO.preco} no primeiro ano e ${PAGO.de} por ano nas renovações`:` de ${PAGO.de} por ano`}. A cobrança é feita na sua conta da App Store ou do Google Play. Cancele quando quiser nos ajustes da loja, até 24 horas antes da renovação.</p>
     </div>
     <button type="button" class="sair pw-fechar" id="pw-fechar">Voltar</button>
   </div>`;
@@ -2768,10 +2781,10 @@ function paywall(){
 }
 function pwCompra(){
   const c=document.querySelector(".pw-oferta");if(!c)return;
-  /* No app das lojas, aqui entra a compra integrada (App Store / Google Play) */
-  if(window.BKB_LOJA&&typeof window.BKB_LOJA.comprar==="function"){window.BKB_LOJA.comprar();return}
-  c.innerHTML=`<span class="pw-selo">Biblikaboom Completo · ${PAGO.preco}</span>
-    <p class="pw-sub">A compra é feita pelo app Biblikaboom na <b>App Store</b> e no <b>Google Play</b>, que chega em breve.</p>
+  /* No app das lojas, aqui entra a assinatura integrada (App Store / Google Play) */
+  if(window.BKB_LOJA&&typeof window.BKB_LOJA.comprar==="function"){window.BKB_LOJA.comprar(PAGO.produto);return}
+  c.innerHTML=`<span class="pw-selo">Biblikaboom Completo · ${PAGO.lancamento?PAGO.preco:PAGO.de} por ano</span>
+    <p class="pw-sub">A assinatura é feita pelo app Biblikaboom na <b>App Store</b> e no <b>Google Play</b>, que chega em breve.</p>
     <button type="button" class="botao sec" id="pw-restaurar">Restaurar compra</button><p class="pw-erro" id="pw-erro" role="status"></p>`;
 }
 function pwRestaurar(){
