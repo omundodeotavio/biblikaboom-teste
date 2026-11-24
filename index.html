@@ -154,6 +154,21 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .callout{display:flex;gap:12px;align-items:flex-start;background:rgba(0,0,0,.22);border-radius:14px;padding:12px 14px;max-width:44ch}
 .callout .n{font-family:var(--cartoon);font-size:34px;line-height:1;color:var(--ouro)}
 .figura{position:relative;display:grid;place-items:center;min-height:260px}
+.cena-cine{min-height:min(80vh,660px);display:flex;align-items:center;overflow:hidden;padding-block:60px}
+.cena-cine .cc-arte{position:absolute;inset:0;overflow:hidden}
+.cena-cine .cc-arte img{position:absolute;right:0;top:0;height:100%;width:auto;aspect-ratio:3/2;max-width:none;object-fit:cover;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%);mask-image:linear-gradient(90deg,transparent 0%,#000 30%);transform-origin:78% 95%;animation:ccMexe 7s ease-in-out infinite alternate}
+.cena-cine .cc-arte::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(59,28,96,.9) 0%,rgba(59,28,96,.6) 32%,transparent 52%),linear-gradient(0deg,var(--roxo) 0%,transparent 22%),linear-gradient(180deg,var(--roxo-esc) 0%,transparent 16%)}
+.cena-cine .miolo{display:block;position:relative;width:100%}
+.cena-cine .miolo>div{max-width:min(46%,520px)}
+.cena-cine p{text-shadow:0 2px 10px rgba(20,0,40,.7)}
+@keyframes ccMexe{0%{transform:scale(1.06) rotate(-1.2deg) translate(-1%,.5%)}50%{transform:scale(1.08) rotate(0) translate(0,-1%)}100%{transform:scale(1.06) rotate(1.2deg) translate(1%,.5%)}}
+@media (max-width:760px){
+  .cena-cine{display:block;min-height:0;padding-block:0 36px}
+  .cena-cine .cc-arte{position:relative;aspect-ratio:4/3.4;margin-bottom:-18%}
+  .cena-cine .cc-arte img{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-position:66% 40%;-webkit-mask-image:none;mask-image:none}
+  .cena-cine .cc-arte::after{background:linear-gradient(0deg,var(--roxo) 4%,rgba(59,28,96,.6) 22%,transparent 45%),linear-gradient(180deg,var(--roxo-esc) 0%,transparent 14%)}
+  .cena-cine .miolo>div{max-width:none}}
+@media (prefers-reduced-motion:reduce){.cena-cine .cc-arte img{animation:none}}
 .figura img{filter:drop-shadow(0 14px 18px rgba(0,0,0,.35))}
 .leque{position:relative;width:min(100%,380px);height:300px}
 .leque img{position:absolute;width:46%;top:0;left:27%;transform-origin:50% 110%}
@@ -2117,12 +2132,12 @@ function regras(){
   tela.innerHTML=`
   <div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}<img class="omdo-t" src="arte/omdo.webp" alt="O Mundo de Otávio"></span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
 
-  <section class="bloco" style="--bg:var(--ouro);--fg:var(--tinta);--t1:var(--roxo);--t2:var(--tinta);--dest:var(--roxo)"><div class="miolo">
-    <div><h2 class="titulo"><span class="c1">Como</span><span class="c2">começa</span></h2>
+  <section class="bloco cena-cine" style="--bg:var(--roxo);--t1:var(--ouro);--t2:#fff;--dest:var(--ouro)">
+    <div class="cc-arte" role="img" aria-label="Otávio segurando o monte de cartas bem perto da câmera: só a carta de cima aparece"><img src="arte/mao-cena.webp" srcset="arte/mao-cena-900.webp 900w, arte/mao-cena.webp 1600w" sizes="100vw" alt=""></div>
+    <div class="miolo"><div><h2 class="titulo"><span class="c1">Como</span><span class="c2">começa</span></h2>
       <p>As cartas são embaralhadas e divididas igualmente. Cada jogador forma um monte nas mãos e <span class="destaque">só pode ver a carta de cima</span>.</p>
-      <p>Na tela, a sua carta aparece à esquerda. A do adversário fica virada até a hora de comparar.</p></div>
-    <div class="figura"><img src="arte/mao-apontando.webp" alt="Mão segurando o monte de cartas" style="width:min(100%,300px)"></div>
-  </div></section>
+      <p>Na tela, a sua carta aparece à esquerda. A do adversário fica virada até a hora de comparar.</p></div></div>
+  </section>
 
   <section class="bloco inv" style="--bg:var(--roxo);--t1:var(--ouro)"><div class="miolo">
     <div><h2 class="titulo"><span class="c1">Escolha a</span><span class="c2">característica</span></h2>
