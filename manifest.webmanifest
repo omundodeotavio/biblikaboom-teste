@@ -7,7 +7,7 @@
  "display": "standalone",
  "orientation": "any",
  "background_color": "#24122f",
- "theme_color": "#4b2577",
+ "theme_color": "#3b1c60",
  "lang": "pt-BR",
  "icons": [
   {
@@ -26,7 +26,7 @@
    "src": "arte/icone-app-1024.png",
    "sizes": "1024x1024",
    "type": "image/png",
-   "purpose": "any maskable"
+   "purpose": "maskable"
   }
  ]
 }
