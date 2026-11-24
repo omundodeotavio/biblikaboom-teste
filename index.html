@@ -1171,6 +1171,53 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .tv-dica{display:none;text-align:center;font-size:14px;color:var(--lilas)}
 @media (min-width:1600px){.tv-dica{display:block}}
 @media (prefers-reduced-motion:reduce){[data-tilt]{transform:none!important}.chega,.chega-r,.hero-arte.toque *,.vence .carta-img{animation:none!important}.interno{transition:none}.flutua,.mao-dica,.alvo.marcado,.pensando::after{animation:none}.boom .logo-img{animation-duration:.01s}}
+/* ---------- Entrar com código (tela única e botão da home) ---------- */
+.ec-home{display:flex;align-items:center;gap:14px;margin:14px auto 4px;max-width:520px;width:calc(100% - 32px);background:linear-gradient(180deg,#4fd07f,var(--verde));color:#fff;border:4px solid var(--tinta);border-radius:22px;padding:12px 18px;box-shadow:0 7px 0 var(--tinta);text-align:left;cursor:pointer;font:inherit}
+.ec-home:active{transform:translateY(4px);box-shadow:0 3px 0 var(--tinta)}
+.ec-home .ec-mini{display:flex;gap:4px;flex:none}
+.ec-home .ec-mini i{width:26px;height:34px;display:grid;place-items:center;background:#fff;color:var(--roxo);border:3px solid var(--tinta);border-radius:8px;font:400 18px var(--cartoon);font-style:normal}
+.ec-home b{display:block;font:400 clamp(22px,5.6vw,28px)/1.05 var(--cartoon);-webkit-text-stroke:.1em var(--tinta);paint-order:stroke fill}
+.ec-home span.ec-sub{display:block;font-weight:700;font-size:14px;margin-top:2px}
+.ec-tela{display:flex;flex-direction:column;align-items:center;gap:18px;padding:24px 16px 60px;text-align:center}
+.ec-tela h1{margin:0}
+.ec-tela .ec-dica{margin:0;font-weight:700;font-size:clamp(17px,4.4vw,20px);max-width:30ch}
+.ec-caixas{position:relative;display:flex;gap:10px;justify-content:center}
+.ec-caixas span{width:clamp(62px,18vw,92px);aspect-ratio:3/4;display:grid;place-items:center;background:#fff;color:var(--roxo);border:4px solid var(--tinta);border-radius:18px;font:400 clamp(42px,11vw,66px) var(--cartoon);box-shadow:0 7px 0 var(--tinta);transition:transform .12s}
+.ec-caixas span.agora{border-color:var(--ouro);box-shadow:0 0 0 4px var(--tinta),0 7px 0 4px var(--tinta);animation:ecPisca 1s ease-in-out infinite alternate}
+.ec-caixas span.cheia{transform:translateY(-3px)}
+@keyframes ecPisca{to{background:#fff6d6}}
+.ec-caixas input{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;border:0;background:transparent;color:transparent;caret-color:transparent;cursor:text}
+.ec-caixas.erro span{border-color:var(--nao);animation:ecTreme .35s}
+@keyframes ecTreme{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.ec-tela .on-apelido{max-width:320px;width:100%}
+.ec-tela .on-aviso{font-size:17px}
+.ec-ajuda{background:rgba(255,255,255,.1);border:2px dashed rgba(255,255,255,.4);border-radius:16px;padding:12px 16px;max-width:420px;font-weight:600;font-size:15px;margin:0}
+.on-passo{margin:0;font-weight:700;max-width:34ch;background:rgba(255,255,255,.12);border-radius:14px;padding:10px 14px}
+.cq-op.codigo{grid-column:1/-1;flex-direction:row;justify-content:center;flex-wrap:wrap;padding:12px 16px 14px!important;background:linear-gradient(180deg,#4fd07f,var(--verde))!important;color:#fff}.cq-op.codigo>span{flex-basis:100%;text-align:center}
+.cq-op.codigo .ec-mini{display:flex;gap:3px;justify-content:center}
+.cq-op.codigo .ec-mini i{width:22px;height:28px;display:grid;place-items:center;background:#fff;color:var(--roxo);border:2px solid var(--tinta);border-radius:6px;font:400 15px var(--cartoon);font-style:normal}
+.on-dur-t{margin:4px 0 -4px!important;font-weight:900!important;color:var(--roxo)!important}
+.jr-tempos.on-dur,.jr-tempos.am2{grid-template-columns:repeat(2,minmax(0,1fr));width:100%;max-width:340px}
+.on-tempo-sala{margin:0;font-weight:800;color:var(--ouro)}
+.ab-cod{display:inline-flex;align-items:center;gap:10px;font:800 15px var(--texto);color:#fff;background:linear-gradient(180deg,#4fd07f,var(--verde));border:3px solid var(--tinta);border-radius:999px;padding:8px 16px 8px 10px;box-shadow:0 5px 0 var(--tinta);cursor:pointer;opacity:0;transition:opacity .5s 1s}
+.abertura.logo .ab-cod{opacity:1}
+.ab-cod .ec-mini,.ec-barra .ec-mini{display:flex;gap:3px}
+.ab-cod .ec-mini i,.ec-barra .ec-mini i{width:18px;height:24px;display:grid;place-items:center;background:#fff;color:var(--roxo);border:2px solid var(--tinta);border-radius:5px;font:400 13px var(--cartoon);font-style:normal}
+.ec-barra{cursor:pointer;font:inherit;color:#fff;position:fixed;z-index:59;top:calc(env(safe-area-inset-top,0px) + 10px);left:calc(env(safe-area-inset-left,0px) + 10px);display:flex;align-items:center;gap:10px;background:linear-gradient(180deg,#4fd07f,var(--verde));border:3px solid var(--tinta);border-radius:18px;padding:7px 14px 7px 10px;box-shadow:0 5px 0 var(--tinta),0 8px 24px rgba(0,0,0,.45);max-width:calc(100vw - 130px);animation:ecChama 1.6s 1.2s ease-in-out 3}@keyframes ecChama{50%{transform:scale(1.06)}}
+.ec-barra-t{display:flex;flex-direction:column;align-items:flex-start;font:400 clamp(19px,5vw,24px)/1.05 var(--cartoon);color:#fff;-webkit-text-stroke:.1em var(--tinta);paint-order:stroke fill;text-align:left}.ec-barra-t small{font:800 12px var(--texto);-webkit-text-stroke:0;margin-bottom:2px}.ec-barra:active{transform:translateY(4px)}
+.ec-barra .botao{font-size:clamp(17px,4.6vw,21px);padding:8px 14px 5px;box-shadow:0 4px 0 var(--tinta);white-space:nowrap}
+.inicio .hero-omdo{top:calc(env(safe-area-inset-top,0px) + 78px)}
+@media (max-width:460px){.ec-barra .ec-mini{display:none}}
+@media (prefers-reduced-motion:reduce){.ec-barra{animation:none}}
+.ec-barra .ec-mini i{width:22px;height:30px;font-size:16px}
+.pf-codigo{display:grid;justify-items:center;gap:6px;text-align:center;background:linear-gradient(135deg,#4fd07f,var(--verde));border:3px solid #000;border-radius:20px;padding:12px 14px 14px;box-shadow:0 5px 0 #000;color:#fff}
+.pf-codigo .pf-rot{justify-self:center}
+.pf-codigo>b{font:400 clamp(24px,6vw,30px)/1 var(--cartoon);-webkit-text-stroke:.1em var(--tinta);paint-order:stroke fill}
+.pf-cod-dica{font-weight:700;font-size:14px}
+.pf-codigo .ec-caixas{margin:4px 0 2px}
+.pf-codigo .ec-caixas span{width:clamp(52px,15vw,70px);font-size:clamp(34px,9vw,48px);border-width:3px;border-radius:14px;box-shadow:0 5px 0 var(--tinta)}
+.pf-codigo .on-aviso{font-size:14px;color:#fff;min-height:0}
+.pf-codigo .on-aviso.erro{color:#fff;background:rgba(0,0,0,.35);border-radius:10px;padding:4px 10px}
 </style>
 
 <div id="abertura" class="abertura" role="dialog" aria-modal="true" aria-label="Abertura do Biblikaboom">
@@ -1185,6 +1232,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
     <img class="ab-logo" src="arte/logo.webp" alt="Biblikaboom!">
     <p class="ab-sub">O jogo de cartas da Bíblia</p>
     <button type="button" class="botao ab-btn" id="ab-entrar">Toque para jogar</button>
+    <img class="ab-omdo" src="arte/omdo.webp" alt="O Mundo de Otávio">
   </div>
   <div class="ab-flash" aria-hidden="true"></div>
 </div>
@@ -2230,6 +2278,7 @@ async function onlineInicio(modo){
     <div class="on-eu"><img src="${omdoSrc(PERFIL.av)}" alt=""><span>Jogando como <b id="on-eu-n"></b></span><button type="button" class="sair" id="abrir-perfil">Trocar</button></div>
     <div class="on-cartoes">
       <div class="on-card"><h2>Criar sala</h2><p>Crie a sala de <b>${MODOS[PREF.modo].nome}</b> e mande o código para o seu amigo.</p>
+        <p class="on-dur-t">Duração da partida</p>${tempoAmHTML("data-ontempo","on-dur")}
         <button type="button" class="botao" id="on-criar">Criar sala</button></div>
       <div class="on-card"><h2>Entrar numa sala</h2><p>Digite o código que o seu amigo mandou.</p>
         <input id="on-cod" class="on-cod" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCD" aria-label="Código da sala">
@@ -2252,14 +2301,13 @@ async function onlineCriar(){
   let cod,ok=false;
   for(let t=0;t<6&&!ok;t++){cod=codigoNovo();const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);ok=!s||!s.exists||(Date.now()-(s.data().criado||0)>6*3600e3)}
   ON.cod=cod;ON.papel="P";
-  try{await sala().set({modo:PREF.modo,criado:Date.now(),fase:"espera",seq:0,seg:({facil:60,medio:40,dificil:20})[PREF.nivel]||40,host:{id:ON.id,nome,av:PERFIL.av},guest:null})}
+  try{await sala().set({modo:PREF.modo,criado:Date.now(),fase:"espera",seq:0,seg:({facil:60,medio:40,dificil:20})[PREF.nivel]||40,dur:Number(tempoAm()),host:{id:ON.id,nome,av:PERFIL.av},guest:null})}
   catch(e){aviso("Não foi possível criar a sala. Confira a internet e tente de novo.",true);return}
   ouvir();
 }
-async function onlineEntrar(){
-  if(!liberar())return;
+async function onlineEntrar(codArg){
   if(!await pronto())return;const nome=guardaNome();
-  const cod=($("#on-cod").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  const cod=(codArg||($("#on-cod")||{}).value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
   if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
   aviso("Procurando a sala…");
   const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);
@@ -2271,7 +2319,7 @@ async function onlineEntrar(){
   if(!d.guest){
     const av=PERFIL.av;
     const J0=novoJogo(d.modo,"medio");
-    try{await sala().update({guest:{id:ON.id,nome,av},estado:estadoDe(J0),fase:"escolher",ult:null,des:null,venc:null,seq:(d.seq||0)+1})}
+    try{await sala().update({guest:{id:ON.id,nome,av},estado:estadoDe(J0),fase:"escolher",ult:null,des:null,venc:null,porTempo:null,fimEm:d.dur?Date.now()+d.dur*60000:null,seq:(d.seq||0)+1})}
     catch(e){aviso("Não foi possível entrar. Confira a internet e tente de novo.",true);return}
   }
   ouvir();
@@ -2284,7 +2332,7 @@ function ouvir(){
     const novo=d.seq!==ON.seq;ON.seq=d.seq;ON.d=d;desenhar(d,novo)},
     ()=>{clearTimeout(t);tela.innerHTML=`<div class="miolo on-espera"><p>A conexão com a sala caiu.</p><button type="button" class="botao sec" id="voltar">Voltar</button></div>`});
 }
-function onlineSair(quieto){if(ON.unsub)ON.unsub();ON.unsub=null;paraTimer();if(!quieto){ON.cod=null;ON.d=null}}
+function onlineSair(quieto){if(ON.unsub)ON.unsub();ON.unsub=null;paraTimer();clearInterval(ON.rel);ON.rel=null;fimEm=null;if(!quieto){ON.cod=null;ON.d=null}}
 function eu(d){return ON.papel==="P"?d.host:d.guest}
 function ele(d){return ON.papel==="P"?d.guest:d.host}
 /* J visto do meu lado: eu sempre sou "P" na tela */
@@ -2294,13 +2342,15 @@ function jVista(d){
 }
 function paraTimer(){if(ON.timer)clearInterval(ON.timer);ON.timer=null}
 function desenhar(d,novo){
-  paraTimer();camada.innerHTML="";
+  paraTimer();camada.innerHTML="";onRelogio(d);
   if(d.fase==="espera"){
     tela.innerHTML=`<div class="miolo on-espera">
-      <img class="on-ic" src="arte/ic/${d.modo}.webp" alt=""><h2>Sala criada: ${MODOS[d.modo].nome}</h2>
+      <img class="on-ic" src="arte/ic/${d.modo}.webp" alt=""><h2>Sala criada: ${MODOS[d.modo].nome}</h2>${d.dur?`<p class="on-tempo-sala">Partida de ${d.dur} minutos</p>`:""}
       <p>Mande este código para o seu amigo:</p>
       <div class="on-codigo" aria-label="Código ${ON.cod}">${ON.cod.split("").map(l=>`<b>${l}</b>`).join("")}</div>
+      <button type="button" class="botao" id="on-convite">Mandar convite</button>
       <button type="button" class="botao sec" id="on-copiar">Copiar código</button>
+      <p class="on-passo">Seu amigo abre o Biblikaboom, toca no botão verde <b>Entrar com código</b> e digita as 4 letras.</p>
       <p class="pensando">Esperando o amigo entrar</p>
       <button type="button" class="sair" id="sair">Sair</button></div>`;return;
   }
@@ -2350,7 +2400,7 @@ function desenhar(d,novo){
     mesa({p:J.P[0]||null,r:J.R[0]||null,aberta:false,m1:g?"Você venceu!":RN()+" venceu",cls:g?"ganhou":"perdeu",m2:""});
     camada.innerHTML=`<div class="fim${g?"":" perdeu"}" role="dialog" aria-modal="true" aria-labelledby="fim-t"><div class="caixa">
       <img src="arte/vencedor.webp" alt=""><h2 id="fim-t">${g?"Você venceu!":RN()+" venceu"}</h2>
-      <p>Você ficou com ${J.P.length} cartas e ${RN()} com ${J.R.length}.</p>
+      <p>${d.porTempo?"O tempo acabou! ":""}Você ficou com ${J.P.length} cartas e ${RN()} com ${J.R.length}.</p>
       <div class="botoes"><button type="button" class="botao" id="on-revanche">Revanche</button><button type="button" class="botao sec" id="on-fim-sair">Sair</button></div></div></div>`;
   }
 }
@@ -2362,7 +2412,7 @@ function escolherOnline(k){
 }
 function continuarOnline(){
   const d=ON.d;if(!d)return;const C=jDe(d.estado,d.modo);
-  const fimOu=()=>(!C.P.length||!C.R.length)?{fase:"fim",venc:C.P.length?"P":"R"}:{fase:"escolher"};
+  const fimOu=()=>(!C.P.length||!C.R.length)?{fase:"fim",venc:C.P.length?"P":"R"}:(d.fimEm&&Date.now()>=d.fimEm)?{fase:"fim",venc:fimPorTempo(C),porTempo:true}:{fase:"escolher"};
   if(d.fase==="revelado"){
     const quem=recolher(C,d.ult.res);
     if(quem)return escrever(Object.assign({estado:estadoDe(C)},fimOu()));
@@ -2380,14 +2430,14 @@ document.addEventListener("click",e=>{
   else if(b.id==="pf-salvar")perfilSalvar();
   else if(b.dataset.onmodo){PREF.modo=b.dataset.onmodo;salvarPref();b.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));SOM.selecionar()}
   else if(b.id==="on-criar")onlineCriar();
-  else if(b.id==="on-entrar")onlineEntrar();
+  else if(b.id==="on-entrar")entrarCodigo($("#on-cod").value);
   else if(b.id==="on-copiar"){navigator.clipboard?.writeText(ON.cod).then(()=>{b.textContent="Copiado!"},()=>{b.textContent=ON.cod})}
   else if(b.dataset.atr&&F==="online")escolherOnline(b.dataset.atr);
   else if(b.id==="on-cont")continuarOnline();
-  else if(b.id==="on-revanche"){const d=ON.d;const J0=novoJogo(d.modo,"medio");camada.innerHTML="";escrever({estado:estadoDe(J0),fase:"escolher",ult:null,des:null,venc:null})}
+  else if(b.id==="on-revanche"){const d=ON.d;const J0=novoJogo(d.modo,"medio");camada.innerHTML="";escrever({estado:estadoDe(J0),fase:"escolher",ult:null,des:null,venc:null,porTempo:null,fimEm:d.dur?Date.now()+d.dur*60000:null})}
   else if(b.id==="on-fim-sair"){camada.innerHTML="";onlineSair();inicio()}
 });
-document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="on-cod")onlineEntrar()});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="on-cod")entrarCodigo($("#on-cod").value)});
 
 /* ================= Supremo online: até 4 amigos na mesma sala ================= */
 const SO={cod:null,host:false,unsub:null,unsubJ:null,d:null,seq:-1,k:0,jog:[],regra:"basico",guarda:null,montado:false};
@@ -2430,10 +2480,9 @@ async function supOnCriar(){
   catch(e){aviso("Não foi possível criar a sala. Confira a internet e tente de novo.",true);return}
   supOnOuvir();
 }
-async function supOnEntrar(){
-  if(!liberar())return;
+async function supOnEntrar(codArg){
   if(!await pronto())return;
-  const cod=($("#so-cod").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  const cod=(codArg||($("#so-cod")||{}).value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
   if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
   aviso("Procurando a sala…");
   const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);
@@ -2471,7 +2520,9 @@ function supOnSalaTela(d){
   <section class="on-corpo so-sala"><div class="miolo">
     <p class="so-rot">Código da sala</p>
     <div class="so-cod">${soEsc(SO.cod)}</div>
+    <button type="button" class="botao" id="so-convite">Mandar convite</button>
     <button type="button" class="botao sec" id="so-copiar">Copiar código</button>
+    <p class="on-passo">Seus amigos abrem o Biblikaboom, tocam no botão verde <b>Entrar com código</b> e digitam as 4 letras.</p>
     <ul class="so-lista">${vagas}</ul>
     <div class="so-regra"><span class="sup-rot">Regra</span><div class="chip-grupo" role="group" aria-label="Regra">${[["basico","Básico"],["avancado","Avançado"]].map(([v,t])=>`<button type="button" data-soregra="${v}" aria-pressed="${regra===v}" ${host?"":"disabled"}>${t}</button>`).join("")}</div></div>
     ${host?`<button type="button" class="botao" id="so-comecar" ${lista.length<2?"disabled":""}>${lista.length<2?"Esperando amigos…":"Começar com "+lista.length+" jogadores!"}</button>`:`<p class="pensando">Esperando o anfitrião começar</p>`}
@@ -2579,13 +2630,13 @@ async function supOnSairSala(){
 document.addEventListener("click",e=>{
   const b=e.target.closest("button");if(!b)return;
   if(b.id==="so-criar")supOnCriar();
-  else if(b.id==="so-entrar")supOnEntrar();
+  else if(b.id==="so-entrar")entrarCodigo($("#so-cod").value);
   else if(b.id==="so-comecar")supOnComecar();
   else if(b.id==="so-sair-sala")supOnSairSala();
   else if(b.id==="so-copiar"){const c=SO.cod||"";try{navigator.clipboard.writeText(c).then(()=>{b.textContent="Código copiado!"},()=>{b.textContent=c})}catch(err){b.textContent=c}}
   else if(b.dataset.soregra&&SO.d&&SO.d.host===ON.id){soSala().update({regra:b.dataset.soregra,seq:(SO.d.seq||0)+1}).catch(()=>{})}
 });
-document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="so-cod")supOnEntrar()});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="so-cod")entrarCodigo($("#so-cod").value)});
 
 /* ================= Aprender jogando: primeira partida guiada ================= */
 const TUT={on:false,passo:0,raf:0,alvo:null};
@@ -2814,6 +2865,9 @@ function progFaixaHTML(){
     <div class="pf-eu"><img src="${omdoSrc(av)}" alt=""><div><b>${nome}</b><span class="pf-nv">Nível ${nv}</span><div class="pf-barra" role="progressbar" aria-valuenow="${pc}" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso do nível"><i style="width:${pc}%"></i></div></div>
       ${S.seq.n>0?`<span class="pf-fogo" title="Dias seguidos">🔥<b>${S.seq.n}</b></span>`:""}</div>
     <div class="pf-desafio${S.des.feito?" feito":""}"><span class="pf-rot">Desafio do dia</span><b>${D.t}</b><span class="pf-cont">${S.des.feito?"✔ Completo! +50 XP":`${dc}/${D.meta} · vale 50 XP`}</span></div>
+    <div class="pf-codigo"><span class="pf-rot">Jogar com amigos</span><b>Entrar com código</b><span class="pf-cod-dica">Digite as 4 letras que o seu amigo mandou</span>
+      <div class="ec-caixas" id="ec-caixas"><span></span><span></span><span></span><span></span><input id="ec-cod" inputmode="text" maxlength="4" autocapitalize="characters" autocomplete="off" autocorrect="off" spellcheck="false" aria-label="Código da sala, 4 letras"></div>
+      <p class="on-aviso" id="on-aviso" role="status"></p></div>
     <div class="pf-botoes">
       <button type="button" class="pf-b" id="abrir-album"><img src="arte/ic/album.webp" alt=""><b>Álbum</b><small>${nAlb}/66</small></button>
       <button type="button" class="pf-b" id="abrir-medalhas"><img src="arte/ic/trofeus.webp" alt=""><b>Troféus</b><small>${nMed}/${MEDALHAS.length}</small></button>
@@ -3405,6 +3459,9 @@ try{const e=SOM.estado();document.getElementById("som-mus").setAttribute("aria-p
 function homeAv(){try{return omdoSrc(PERFIL.av)}catch(e){return "arte/omdo/01.webp"}}
 function escolherComQuem(modo=PREF.modo){jornada(modo)}
 /* Jornada depois de escolher o jogo: com quem -> nível -> perfil (apelido + avatar) -> jogo ou sala */
+const TEMPO_AM=[["5","5 min","Rapidinha"],["10","10 min","Partida normal"]];
+const tempoAm=()=>TEMPO_AM.some(t=>t[0]===PREF.tempoAm)?PREF.tempoAm:"10";
+function tempoAmHTML(attr,cls){return `<div class="jr-tempos ${cls||""}" role="radiogroup" aria-label="Duração da partida">${TEMPO_AM.map(([v,t,dd])=>`<button type="button" class="jr-tp" ${attr}="${v}" role="radio" aria-checked="${tempoAm()===v}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg><b>${t}</b><span>${dd}</span></button>`).join("")}</div>`}
 const JR={modo:"mega",com:null,nivel:"medio",passo:1};
 const NIVEIS=[["facil","Fácil","Adversário tranquilo. 60 segundos por jogada.","60 segundos por jogada."],["medio","Médio","Adversário esperto. 40 segundos por jogada.","40 segundos por jogada."],["dificil","Difícil","Adversário afiado. 20 segundos por jogada.","20 segundos por jogada."]];
 function jornada(modo){
@@ -3416,7 +3473,7 @@ function jornada(modo){
 }
 function jrRender(){
   const d=document.querySelector(".cq");if(!d)return;const modo=JR.modo,sup=modo==="supremo",nome=(MODOS[modo]||{nome:"Supremo"}).nome;
-  const passos=["Com quem",(!sup&&JR.com!=="amigos")?"Nível e tempo":"Nível","Seu jogador"];
+  const passos=["Com quem",!sup?"Nível e tempo":"Nível","Seu jogador"];
   const trilha=`<ol class="jr-trilha">${passos.map((p,i)=>`<li class="${i+1<JR.passo?"feito":i+1===JR.passo?"agora":""}"><b>${i+1}</b><span>${p}</span></li>`).join("")}</ol>`;
   let corpo="";
   if(JR.passo===1){
@@ -3424,12 +3481,14 @@ function jrRender(){
     corpo=`<div class="cq-opcoes">
       <button type="button" class="cq-op amigos" data-jrcom="amigos"><div class="cq-rostos">${amigos}</div><b>Com amigos</b><span>${sup?"Crie uma sala e chame até 3 amigos com um código. Cada um no seu celular.":"Crie uma sala e chame um amigo com um código. Cada um no seu celular."}</span></button>
       <button type="button" class="cq-op bot" data-jrcom="bot"><div class="cq-rostos">${riv.map(r=>`<img src="${avatarSrc(r.a)}" alt="">`).join("")}</div><b>Contra adversários</b><span>Jogue agora contra personagens da Bíblia, como ${riv[0].n} e ${riv[1].n}.</span></button>
+      <button type="button" class="cq-op codigo" data-jrcodigo="1"><div class="cq-rostos ec-mini" aria-hidden="true"><i>A</i><i>B</i><i>C</i><i>D</i></div><b>Tenho um código</b><span>Seu amigo já criou a sala? Entre aqui.</span></button>
     </div>${sup?"":`<button type="button" class="jr-aprender" data-aprender="${modo}"><img src="arte/mao-otavio.webp" alt=""><span><b>Primeira vez?</b> Aprenda jogando com o Otávio</span></button>`}`;
   }else if(JR.passo===2){
     corpo=`<div class="jr-niveis" role="radiogroup" aria-label="Nível">${NIVEIS.map(([k,t,dB,dA],i)=>`<button type="button" class="jr-nv nv-${k}" data-jrnivel="${k}" role="radio" aria-checked="${JR.nivel===k}">
       <span class="jr-estrelas">${"★".repeat(i+1)}<i>${"★".repeat(2-i)}</i></span><b>${t}</b><span>${sup?["Robôs tranquilos. Ótimo para aprender.","Robôs espertos. Desafio na medida.","Robôs afiados. Para quem conhece a Bíblia!"][i]:JR.com==="amigos"?dA:dB}</span></button>`).join("")}</div>
     ${!sup&&JR.com!=="amigos"?`<div class="jr-tempo"><p class="jr-sub">Duração da partida</p><div class="jr-tempos" role="radiogroup" aria-label="Duração da partida">${[["5","5 min","Rapidinha"],["10","10 min","Partida normal"],["0","Até o fim","Até alguém ficar com todas"]].map(([v,t,dd])=>`<button type="button" class="jr-tp" data-jrtempo="${v}" role="radio" aria-checked="${PREF.tempo===v}"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg><b>${t}</b><span>${dd}</span></button>`).join("")}</div></div>`:""}
-    ${!sup&&JR.com!=="amigos"?`<button type="button" class="botao jr-seguir" id="jr-seguir">Continuar</button>`:""}`;
+    ${!sup&&JR.com==="amigos"?`<div class="jr-tempo"><p class="jr-sub">Duração da partida</p>${tempoAmHTML("data-jrtempoam","am2")}</div>`:""}
+    ${!sup?`<button type="button" class="botao jr-seguir" id="jr-seguir">Continuar</button>`:""}`;
   }else{
     corpo=`<div class="jr-perfil">
       <div class="jr-prev"><img id="jr-img" src="${omdoSrc(PERFIL.av)}" alt=""></div>
@@ -3437,7 +3496,7 @@ function jrRender(){
       <div class="pf-grade jr-grade" role="radiogroup" aria-label="Avatar">${OMDO_AV.map((n,i)=>`<button type="button" class="pf-av${avLiberado(i)?"":" bloq"}" ${avLiberado(i)?"":"disabled"} data-jrav="${i}" role="radio" aria-checked="${PERFIL.av===i}"><img src="${omdoSrc(i)}" alt=""><span>${n}</span></button>`).join("")}</div>
       <button type="button" class="botao" id="jr-ir">${JR.com==="amigos"?"Montar a sala":"Começar a jogar!"}</button></div>`;
   }
-  const tit=JR.passo===1?"Com quem você vai jogar?":JR.passo===2?((!sup&&JR.com!=="amigos")?"Escolha o nível e a duração":"Escolha o nível"):"Quem é você no jogo?";
+  const tit=JR.passo===1?"Com quem você vai jogar?":JR.passo===2?(!sup?"Escolha o nível e a duração":"Escolha o nível"):"Quem é você no jogo?";
   d.innerHTML=`<div class="cq-caixa jr-p${JR.passo}">
     <div class="cq-topo"><img src="arte/ic/${modo}.webp" alt=""><h2 id="cq-t">${nome}</h2></div>
     ${trilha}<p class="jr-tit">${tit}</p>${corpo}
@@ -3457,8 +3516,10 @@ function jrIr(){
 function fecharComQuem(){const d=document.querySelector(".cq");if(d)d.remove()}
 document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!b.closest(".cq"))return;
   e.stopImmediatePropagation();
-  if(b.dataset.jrcom){JR.com=b.dataset.jrcom;JR.passo=2;SOM.selecionar();jrRender()}
+  if(b.dataset.jrcodigo){fecharComQuem();SOM.clique();entrarTela()}
+  else if(b.dataset.jrcom){JR.com=b.dataset.jrcom;JR.passo=2;SOM.selecionar();jrRender()}
   else if(b.dataset.jrnivel){JR.nivel=b.dataset.jrnivel;SOM.selecionar();if(document.querySelector(".jr-tempo")){document.querySelectorAll("[data-jrnivel]").forEach(x=>x.setAttribute("aria-checked",x===b))}else{JR.passo=3;jrRender()}}
+  else if(b.dataset.jrtempoam!==undefined){PREF.tempoAm=b.dataset.jrtempoam;try{salvarPref()}catch(e){}SOM.selecionar();document.querySelectorAll("[data-jrtempoam]").forEach(x=>x.setAttribute("aria-checked",x===b))}
   else if(b.dataset.jrtempo!==undefined){PREF.tempo=b.dataset.jrtempo;try{salvarPref()}catch(e){}SOM.selecionar();document.querySelectorAll("[data-jrtempo]").forEach(x=>x.setAttribute("aria-checked",x===b))}
   else if(b.id==="jr-seguir"){SOM.clique();JR.passo=3;jrRender()}
   else if(b.dataset.jrav!==undefined){PERFIL.av=Number(b.dataset.jrav);document.querySelectorAll("[data-jrav]").forEach(x=>x.setAttribute("aria-checked",x===b));$("#jr-img").src=omdoSrc(PERFIL.av);SOM.selecionar();
@@ -3468,6 +3529,93 @@ document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||
 },true);
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="jr-apelido")jrIr()});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.querySelector(".cq")){e.stopImmediatePropagation();fecharComQuem()}},true);
+
+/* ---------- Entrar com código: uma tela só, o código descobre o modo sozinho ---------- */
+const EC_OK=/[^ABCDEFGHJKLMNPQRSTUVWXYZ23456789]/g;
+function ecLimpa(v){return String(v||"").toUpperCase().replace(EC_OK,"").slice(0,4)}
+function onConectar(){
+  if(ON.db&&ON.id)return;
+  ON.carregando=bkbDb().then(async db=>{ON.db=db;const u=db?await bkbUser():null;ON.id=u?await u.id():null}).catch(()=>{});
+}
+function entrarTela(pre){
+  limpar();if(typeof onlineSair==="function")onlineSair(true);if(typeof supOnSair==="function")supOnSair(true);
+  F="entrar-cod";camada.innerHTML="";SOM.volumeMusica(.5);
+  const semNome=!PERFIL.nome;
+  tela.innerHTML=`
+  <div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}<img class="omdo-t" src="arte/omdo.webp" alt="O Mundo de Otávio"></span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
+  <section class="on-capa"><div class="miolo ec-tela">
+    <h1 class="titulo"><span class="c1">Entrar na sala</span><span class="c2">do amigo</span></h1>
+    ${semNome?`<label class="on-apelido">Primeiro, seu apelido<input id="ec-nome" maxlength="14" autocomplete="nickname" placeholder="Ex.: Super Davi"></label>`:`<div class="on-eu"><img src="${omdoSrc(PERFIL.av)}" alt=""><span>Jogando como <b id="ec-eu"></b></span></div>`}
+    <p class="ec-dica">Digite as 4 letras que o seu amigo mandou</p>
+    <div class="ec-caixas" id="ec-caixas"><span></span><span></span><span></span><span></span>
+      <input id="ec-cod" inputmode="text" maxlength="4" autocapitalize="characters" autocomplete="one-time-code" autocorrect="off" spellcheck="false" aria-label="Código da sala, 4 letras"></div>
+    <button type="button" class="botao" id="ec-entrar">Entrar!</button>
+    <p class="on-aviso" id="on-aviso" role="status"></p>
+    <p class="ec-ajuda">Não tem código? Peça para quem vai jogar com você tocar em <b>Jogar</b>, escolher <b>Com amigos</b> e criar a sala.</p>
+  </div></section>`;
+  if(!semNome)$("#ec-eu").textContent=PERFIL.nome;
+  const inp=$("#ec-cod");inp.value=ecLimpa(pre);ecDesenha();topo();onConectar();
+  setTimeout(()=>{(semNome?$("#ec-nome"):inp).focus({preventScroll:true})},80);
+  if(inp.value.length===4&&!semNome)entrarCodigo(inp.value);
+}
+function ecDesenha(){
+  const inp=$("#ec-cod"),cx=$("#ec-caixas");if(!inp||!cx)return;
+  const v=inp.value,foco=document.activeElement===inp;
+  cx.classList.remove("erro");
+  [...cx.querySelectorAll("span")].forEach((b,i)=>{b.textContent=v[i]||"";b.classList.toggle("cheia",!!v[i]);b.classList.toggle("agora",foco&&i===Math.min(v.length,3))});
+}
+async function entrarCodigo(bruto){
+  const nInp=$("#ec-nome");
+  if(nInp){const n=(nInp.value||"").trim();if(!n){nInp.classList.add("erro");nInp.focus();aviso("Escreva seu apelido primeiro.",true);return}PERFIL.nome=limpaNome(n);salvarPerfil()}
+  const cod=ecLimpa(bruto);
+  if(cod.length!==4){aviso("O código tem 4 letras. Faltam "+(4-cod.length)+".",true);const c=$("#ec-caixas");if(c){c.classList.add("erro")}return}
+  if(!PERFIL.nome)return entrarTela(cod);
+  onConectar();
+  aviso("Procurando a sala…");
+  if(!await pronto())return;
+  const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);
+  if(!s||!s.exists){aviso("Não achei a sala "+cod+". Confira as letras com o seu amigo e veja se a sala dele ainda está aberta.",true);const c=$("#ec-caixas");if(c)c.classList.add("erro");return}
+  const d=s.data();SOM.brilho&&SOM.brilho();
+  const quem=d.host&&d.host.nome?limpaNome(d.host.nome):"",jogo=d.tipo==="supremo"?"Supremo":((MODOS[d.modo]||{}).nome||"Biblikaboom");
+  aviso("Achei! "+(quem?"Sala de "+quem+": "+jogo:"Sala do "+jogo)+". Entrando…");
+  if(d.tipo==="supremo")return supOnEntrar(cod);
+  if(d.modo&&MODOS[d.modo])PREF.modo=d.modo;
+  return onlineEntrar(cod);
+}
+function convite(cod,b){
+  const txt="Vem jogar Biblikaboom comigo! Abra o jogo, toque no botão verde ENTRAR COM CÓDIGO e digite: "+cod;
+  const copiar=()=>{try{navigator.clipboard.writeText(txt).then(()=>{if(b)b.textContent="Convite copiado! Cole no WhatsApp"},()=>{if(b)b.textContent="Código: "+cod})}catch(e){if(b)b.textContent="Código: "+cod}};
+  if(navigator.share){try{navigator.share({title:"Biblikaboom",text:txt}).catch(err=>{if(!err||err.name!=="AbortError")copiar()})}catch(e){copiar()}}else copiar();
+}
+document.addEventListener("input",e=>{if(e.target.id==="ec-cod"){const v=ecLimpa(e.target.value);e.target.value=v;ecDesenha();aviso("");if(v.length===4){e.target.blur();entrarCodigo(v)}}});
+document.addEventListener("focusin",e=>{if(e.target.id==="ec-cod")ecDesenha()});
+document.addEventListener("focusout",e=>{if(e.target.id==="ec-cod")setTimeout(ecDesenha,0)});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&(e.target.id==="ec-cod"||e.target.id==="ec-nome")){e.preventDefault();entrarCodigo($("#ec-cod").value)}});
+document.addEventListener("click",e=>{const b=e.target.closest("button,.ec-caixas");if(!b)return;
+  if(b.id==="abrir-entrar"||b.id==="abrir-entrar2"){SOM.clique();entrarTela()}
+  else if(b.id==="ab-codigo"){entrarTela()}
+  else if(b.id==="ec-entrar")entrarCodigo($("#ec-cod").value);
+  else if(b.id==="ec-caixas"){$("#ec-cod").focus()}
+  else if(b.id==="on-convite")convite(ON.cod,b);
+  else if(b.id==="so-convite")convite(SO.cod,b);
+});
+
+/* ---------- Relógio da partida online (5 ou 10 min) ---------- */
+function onRelogio(d){
+  clearInterval(ON.rel);ON.rel=null;
+  if(!d||!d.fimEm||d.fase==="espera"||d.fase==="fim"){fimEm=null;return}
+  fimEm=d.fimEm;
+  ON.rel=setInterval(()=>{const el=$("#relogio");if(el)el.textContent=restante();
+    const a=ON.d;if(!a||a.fase!=="escolher"||!a.fimEm||Date.now()<a.fimEm)return;
+    const minhaVez=a.estado&&a.estado.vez===ON.papel;
+    if(!minhaVez&&Date.now()<a.fimEm+8000)return;
+    if(ON.fimSeq===a.seq)return;ON.fimSeq=a.seq;paraTimer();
+    const C=jDe(a.estado,a.modo);escrever({fase:"fim",venc:fimPorTempo(C),porTempo:true});
+  },500);
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-ontempo]");if(!b)return;
+  PREF.tempoAm=b.dataset.ontempo;try{salvarPref()}catch(err){}SOM.selecionar();
+  document.querySelectorAll("[data-ontempo]").forEach(x=>x.setAttribute("aria-checked",x===b))});
 </script>
 
 <script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}));</script>
