@@ -13,11 +13,6 @@
 <meta name="description" content="Biblikaboom: o jogo de cartas da Bíblia do O Mundo de Otávio.">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head><body>
-<title>Biblikaboom Duelo</title>
-<link rel="icon" type="image/png" href="arte/icone-app-192.png">
-<link rel="apple-touch-icon" href="arte/icone-app-180.png">
-<meta name="apple-mobile-web-app-title" content="Biblikaboom">
-<meta name="theme-color" content="#4b2577">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,800&display=swap">
@@ -2901,5 +2896,5 @@ document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="jr-ap
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.querySelector(".cq")){e.stopImmediatePropagation();fecharComQuem()}},true);
 </script>
 
-<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
+<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}));</script>
 </body></html>
