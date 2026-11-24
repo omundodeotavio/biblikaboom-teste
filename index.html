@@ -3004,7 +3004,7 @@ function bauDoDia(){const S=PROG.S,d=hoje();if(S.bau===d||!S.part)return;if(docu
   o.innerHTML=`<canvas class="confete bau-conf" aria-hidden="true"></canvas><div class="bau-palco">
     <h2 class="bau-tit">Baú do dia!</h2><p class="bau-sub">Que bom te ver de volta! Toque no baú para abrir.</p>
     <div class="bau-cena"><span class="bau-raios" aria-hidden="true"></span><span class="bau-luz" aria-hidden="true"></span>
-      <button type="button" class="bau-btn" id="bau-abrir" aria-label="Abrir o baú"><img class="bau-img" src="arte/bau_fechado.webp" alt=""></button>
+      <button type="button" class="bau-btn" id="bau-abrir" aria-label="Abrir o baú"><img class="bau-img" src="arte/bau-bkb-fechado.webp" alt=""></button>
       <div class="bau-carta" aria-hidden="true"><div class="bau-face bau-verso"></div><div class="bau-face bau-frente"></div></div>
     </div>
     <div class="bau-res" aria-live="polite"></div>
@@ -3018,7 +3018,7 @@ function bauDoDia(){const S=PROG.S,d=hoje();if(S.bau===d||!S.part)return;if(docu
     o.querySelector(".bau-sub").textContent="Vamos ver o que tem dentro…";
     const T=calmo?[0,0,0,300,900]:[0,260,520,1700,2600];
     [T[0],T[1],T[2],T[2]+360,T[2]+640,T[2]+880,T[2]+1060].forEach((t,k)=>setTimeout(()=>{if(!calmo)SOM.tic&&SOM.tic()},t));
-    setTimeout(()=>{o.classList.add("estoura");o.querySelector(".bau-img").src="arte/bau_aberto.webp";SOM.boom();
+    setTimeout(()=>{o.classList.add("estoura");o.querySelector(".bau-img").src="arte/bau-bkb-aberto.webp";SOM.boom();
       if(pr.tipo==="carta"){S.album[pr.c.p]=1;S.novas=(S.novas||0)+1}S.xp+=pr.xp;checarMedalhas();PROG.salvar()},T[3]);
     setTimeout(()=>{o.classList.add("revela");SOM.ganhou();if(!calmo)confete(o.querySelector(".bau-conf"),140);
       res.innerHTML=(pr.tipo==="carta"?`<h3>Nova carta no álbum!</h3><p><b>${pr.c.n}</b> agora é sua. Veja a curiosidade dela no Álbum. <span class="bau-mais">+${pr.xp} XP</span></p>`
