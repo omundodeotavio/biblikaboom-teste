@@ -448,7 +448,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .palco-brilho{position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;opacity:.0;
   background:radial-gradient(circle at var(--mx,52%) var(--my,30%),rgba(255,214,120,.55),transparent 30%);transition:opacity .4s}
 .hero:hover .palco-brilho{opacity:.55}
-.palco.toque .palco-brilho{animation:clarao .7s ease}
+.palco-brilho{display:none!important}
 @keyframes clarao{0%{opacity:0}30%{opacity:.95}100%{opacity:0}}
 .faisca{position:absolute;z-index:2;width:6px;height:6px;border-radius:50%;background:#ffe9a8;box-shadow:0 0 10px 3px rgba(255,200,90,.8);pointer-events:none;opacity:0;animation:sobe 6s linear infinite}
 .f1{left:44%;top:78%;animation-delay:0s}.f2{left:58%;top:88%;animation-delay:1.2s}.f3{left:72%;top:70%;animation-delay:2.4s}
