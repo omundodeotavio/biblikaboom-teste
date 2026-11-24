@@ -826,6 +826,10 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 #fast .frente{transform:rotateY(180deg);background:var(--cor,#555);display:flex;flex-direction:column;justify-content:space-between;
   padding:9% 8%;border:6px solid rgba(255,255,255,.85);color:#fff}
 #fast .carta-real{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:5;max-width:none;display:block}
+/* Fast: a posição do livro fica embaçada, senão entrega onde ele está na Bíblia */
+#fast .f-oculto{position:absolute;z-index:6;left:60%;top:70.6%;width:30%;height:6.2%;overflow:hidden;border-radius:10px;box-shadow:0 0 0 2px rgba(255,255,255,.55)}
+#fast .f-oculto i{position:absolute;left:-200%;top:-1138.7%;width:333.33%;height:1612.9%;background:var(--img) 0 0/100% 100% no-repeat;filter:blur(7px) saturate(1.2)}
+#fast .f-oculto b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--cartoon);font-size:clamp(16px,3.4vh,30px);color:#fff;-webkit-text-stroke:.08em var(--tinta);paint-order:stroke fill;background:rgba(255,255,255,.18)}
 #fast .frente::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.06) 0 14px,transparent 14px 28px);pointer-events:none}
 #fast .topo{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;position:relative}
 #fast .pos{font-family:var(--cartoon);font-size:clamp(26px,4.2vh,44px);line-height:.9;text-shadow:2px 2px 0 rgba(0,0,0,.35)}
@@ -1343,6 +1347,37 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .jr-ap img{width:46px;height:auto;flex:none}
 .jr-ap svg{width:40px;height:40px;flex:none;padding:6px;border-radius:12px;background:var(--ouro);fill:none;stroke:var(--tinta);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .jr-ap span{display:flex;flex-direction:column;gap:2px;min-width:0}.jr-ap b{font-size:16px;color:var(--ouro)}.jr-ap small{font-size:13px;opacity:.85;line-height:1.3}
+/* ===== Fast em modo TV: celular deitado, TV, painel ou projetor. Tudo cabe numa tela, sem rolar, e cresce com a altura =====
+   Otávio fica à esquerda (fundo); à direita: cartas | chamada + botão | rodadas */
+@media (orientation:landscape) and (min-aspect-ratio:4/3){
+  :root #fast.miolo{max-width:none;margin:0;padding-block:0!important;padding-left:max(20vw,env(safe-area-inset-left,0px))!important;padding-right:max(clamp(10px,1.6vw,32px),env(safe-area-inset-right,0px))!important}
+  :root #fast .app{max-width:none;height:calc(100svh - 16px);min-height:0;box-sizing:border-box;padding:clamp(6px,1.6vh,18px) 0;gap:clamp(4px,1.6vh,18px);overflow:hidden}
+  :root #fast .barra{margin:0;padding-right:clamp(96px,10vw,150px)!important;flex-wrap:nowrap;gap:1vw}
+  :root #fast .barra .emblema b{font-size:clamp(16px,3.6vh,34px)}
+  :root #fast .barra .disco{width:clamp(30px,6.5vh,62px);height:clamp(30px,6.5vh,62px)}
+  :root #fast .placar{flex-wrap:nowrap;gap:clamp(4px,.8vw,12px)}
+  :root #fast .niveis button,:root #fast .icone,:root #fast .barra .sair{font-size:clamp(11px,2.2vh,20px);padding:clamp(3px,.8vh,10px) clamp(8px,1.1vw,20px)}
+  :root #fast .fpalco{grid-template-columns:minmax(0,1fr) clamp(130px,14vw,280px);gap:clamp(8px,1.6vw,32px);min-height:0;flex:1;align-items:stretch}
+  :root #fast .centro{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:"mesa ." "mesa ch" "mesa acao" "mesa .";align-items:center;justify-items:center;gap:clamp(6px,2.4vh,28px) clamp(10px,2.4vw,48px);min-height:0}
+  :root #fast .chamada{grid-area:ch;font-size:clamp(18px,min(7.4vh,3.6vw),100px);max-width:100%;text-wrap:balance}
+  :root #fast .fmesa{grid-area:mesa;align-items:center;height:100%;min-height:0;width:auto;gap:clamp(8px,1.6vw,30px)}
+  :root #fast .carta-box{width:min(calc((100svh - 15vh - 40px) * .602),22vw)}
+  :root #fast .fpilha{width:calc(min(calc((100svh - 15vh - 40px) * .602),22vw) * .36);margin-bottom:0}
+  :root #fast .fpilha-n{bottom:auto;top:calc(100% + 4px)}
+  :root #fast .acao{grid-area:acao;font-size:clamp(14px,min(4.6vh,2.4vw),54px);padding:.45em .9em .35em;white-space:nowrap;max-width:100%}
+  :root #fast .dica-tecla{display:none}
+  :root #fast aside{min-height:0;overflow:hidden;padding:clamp(8px,1.8vh,20px);gap:clamp(6px,1.2vh,14px)}
+  :root #fast aside h2{font-size:clamp(16px,3.4vh,32px)}
+  :root #fast .num b{font-size:clamp(20px,5vh,52px)}:root #fast .num small{font-size:clamp(10px,1.7vh,16px)}
+  :root #fast ol.hist{max-height:none;flex:1;min-height:0}
+  :root #fast .hist li{font-size:clamp(12px,2.2vh,22px)}
+  :root #fast .legenda{display:none}
+  .fast-fundo{background:linear-gradient(90deg,rgba(20,6,36,0) 0%,rgba(20,6,36,.35) 28%,rgba(20,6,36,.78) 60%,rgba(20,6,36,.85) 100%),url("arte/fast-palco.webp") 0 0/auto 100% no-repeat,#1f1033!important}
+}
+@media (orientation:landscape) and (min-aspect-ratio:4/3) and (max-height:520px){
+  :root #fast .barra .emblema b{display:none}
+  :root #fast .num{padding:4px 8px}
+}
 </style>
 
 <div id="abertura" class="abertura" role="dialog" aria-modal="true" aria-label="Abertura do Biblikaboom">
@@ -2137,7 +2172,7 @@ function mostrar(l){
   const g=FG[l.grupo];
   $("frente").style.setProperty("--cor",g.cor);
   $("f-pos").innerHTML="<small>Livro</small>"+l.pos;
-  const im=$("f-img");im.src="cartas/"+String(l.pos).padStart(2,"0")+".webp";im.alt="Carta "+l.nome+", livro "+l.pos;
+  const im=$("f-img"),src="cartas/"+String(l.pos).padStart(2,"0")+".webp";im.src=src;im.alt="Carta "+l.nome;$("frente").style.setProperty("--img",`url("${src}")`);
   $("f-selo").textContent=l.tipo==="F"?"Fácil":"Difícil";
   const n=$("f-nome");n.dataset.txt=l.nome.replace(/^(\d) /,"$1\u00a0");ajustarNome(n);
   $("f-test").textContent=l.test==="AT"?"Antigo Testamento":"Novo Testamento";
@@ -2213,7 +2248,7 @@ function montar(){
         <button type="button" id="nv-medio" data-nivel="medio" aria-pressed="false">Médio</button>
         <button type="button" id="nv-dificil" data-nivel="dificil" aria-pressed="false">Difícil</button>
       </div>
-      <button type="button" class="icone" id="tela-cheia">Tela cheia</button>
+      <button type="button" class="icone" id="tela-cheia" title="Tela cheia e deitada, para espelhar na TV ou no projetor">Modo TV</button>
       <button type="button" class="icone" id="reiniciar">Recomeçar</button>
       <button type="button" class="sair" id="sair"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Sair</button>
     </div>
@@ -2226,7 +2261,7 @@ function montar(){
       <div class="carta-box" id="cbox">
         <div class="carta" id="carta">
           <div class="face verso" aria-hidden="true"></div>
-          <div class="face frente" id="frente"><img class="carta-real" id="f-img" alt="" src="cartas/01.webp">
+          <div class="face frente" id="frente"><img class="carta-real" id="f-img" alt="" src="cartas/01.webp"><div class="f-oculto" aria-hidden="true"><i></i><b>?</b></div>
             <div class="topo"><div class="pos" id="f-pos"><small>Livro</small>1</div><div class="selo" id="f-selo">Fácil</div></div>
             <div class="nome" id="f-nome">Gênesis</div>
             <div class="base"><span id="f-test">Antigo Testamento</span><b id="f-grupo">Pentateuco</b></div>
@@ -2264,7 +2299,7 @@ $("reiniciar").addEventListener("click",()=>{
   $("hist").innerHTML="";$("vazio").hidden=false;$("n-rodada").textContent=0;$("n-faltam").textContent=66;
 });
 $("tela-cheia").addEventListener("click",async()=>{
-  try{document.fullscreenElement?await document.exitFullscreen():await document.documentElement.requestFullscreen()}catch(e){}
+  try{if(document.fullscreenElement)await document.exitFullscreen();else{await document.documentElement.requestFullscreen({navigationUI:"hide"});try{await screen.orientation.lock("landscape")}catch(e){}}}catch(e){}
   try{if("wakeLock"in navigator)await navigator.wakeLock.request("screen")}catch(e){}
 });
 try{const s=localStorage.getItem("bkb-fast-nivel");if(s&&PADRAO[s])document.querySelector('[data-nivel="'+s+'"]').click()}catch(e){}
