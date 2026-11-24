@@ -1006,6 +1006,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .ab-palco picture,.ab-arte{display:block;width:100%;height:100%}
 .ab-arte{max-width:none;object-fit:cover;object-position:50% 0;transform-origin:50% 62%;clip-path:circle(0% at 50% 62%);
   animation:abIris 1.5s .35s cubic-bezier(.7,0,.2,1) forwards,abRespira 6s 2s ease-in-out infinite alternate}
+@keyframes abIrisW{0%{clip-path:circle(0% at var(--ox,62%) var(--oy,33%));filter:brightness(2.2) saturate(1.3)}55%{filter:brightness(1.4)}100%{clip-path:circle(150% at var(--ox,62%) var(--oy,33%));filter:brightness(1)}}
 @keyframes abIris{0%{clip-path:circle(0% at 50% 62%);filter:brightness(2.2) saturate(1.3)}55%{filter:brightness(1.4)}100%{clip-path:circle(140% at 50% 62%);filter:brightness(1)}}
 @keyframes abRespira{from{transform:scale(1)}to{transform:scale(1.035) translateY(-.6%)}}
 .ab-anel{position:absolute;z-index:2;left:var(--ax,50%);top:var(--ay,40%);width:20px;height:20px;translate:-50% -50%;border-radius:50%;pointer-events:none;
@@ -1046,17 +1047,19 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 @keyframes abLogoSai{to{transform:scale(4);opacity:0}}
 @keyframes abSai{60%{opacity:1;filter:brightness(1.8)}to{opacity:0;filter:brightness(2.4) blur(4px)}}
 /* tablets em pé: arte centralizada com as laterais esfumadas */
-@media (min-aspect-ratio:3/5) and (max-aspect-ratio:1/1){
+@media (min-aspect-ratio:3/5) and (max-aspect-ratio:1199/1000){
   .ab-palco{top:0;width:calc((100svh - 280px) * .6667);
     -webkit-mask-image:linear-gradient(180deg,#000 74%,transparent),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);-webkit-mask-composite:source-in;
     mask-image:linear-gradient(180deg,#000 74%,transparent),linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-composite:intersect}
 }
-@media (max-height:720px) and (max-aspect-ratio:1/1){.ab-logo{width:min(58vw,calc(15svh * 1.3))}.ab-texto{gap:8px}}
+@media (max-height:720px) and (max-aspect-ratio:1199/1000){.ab-logo{width:min(58vw,calc(15svh * 1.3))}.ab-texto{gap:8px}}
 /* telas largas: Otávio inteiro à direita, logo à esquerda */
-@media (min-aspect-ratio:1/1){
-  .ab-palco{aspect-ratio:2/3;height:100svh;width:auto;left:auto;right:max(4vw,calc(50vw - 640px));margin:0;
-    -webkit-mask-image:radial-gradient(ellipse 75% 85% at 50% 40%,#000 55%,transparent 100%);mask-image:radial-gradient(ellipse 75% 85% at 50% 40%,#000 55%,transparent 100%)}
-  .ab-texto{left:max(6vw,calc(50vw - 600px));bottom:auto;top:50%;translate:0 -50%;width:min(38vw,500px)}
+@media (min-aspect-ratio:1200/1000){
+  .ab-palco{inset:0;width:auto;height:auto;aspect-ratio:auto;margin:0;-webkit-mask-image:none;mask-image:none}
+  .ab-palco::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(90deg,rgba(30,10,52,.88) 0%,rgba(30,10,52,.55) 30%,rgba(30,10,52,0) 55%),linear-gradient(0deg,rgba(30,10,52,.7) 0%,transparent 22%)}
+  .ab-arte{object-position:var(--opx,72%) 30%;transform-origin:var(--ox,62%) var(--oy,33%);animation-name:abIrisW,abRespira}
+  .ab-texto{left:max(4vw,calc(50vw - 640px));bottom:auto;top:52%;translate:0 -50%;width:min(32vw,470px)}
   .ab-logo{width:100%}
 }
 @media (prefers-reduced-motion:reduce){.ab-pulso{animation:abPulsaCalmo 2.4s ease-in-out infinite alternate;transform:translate(-50%,-50%)}.ab-reflexo::before{animation-duration:4s}.ab-arte,.ab-anel,.abertura.logo .ab-logo,.abertura.logo .ab-btn,.abertura.logo .ab-palco{animation:none!important}.ab-arte{clip-path:none}.ab-logo{opacity:1;transform:none}}
@@ -1222,7 +1225,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 
 <div id="abertura" class="abertura" role="dialog" aria-modal="true" aria-label="Abertura do Biblikaboom">
   <div class="ab-livros" aria-hidden="true"></div>
-  <div class="ab-palco"><picture><img class="ab-arte" src="arte/hero-celular.webp" alt="Otávio estendendo a mão com as cartas do Biblikaboom"></picture></div>
+  <div class="ab-palco"><picture><source media="(min-aspect-ratio:1200/1000)" srcset="arte/keyart.webp"><img class="ab-arte" src="arte/hero-celular.webp" alt="Otávio estendendo a mão com as cartas do Biblikaboom"></picture></div>
   <div class="ab-anel" aria-hidden="true"></div>
   <div class="ab-pulso" aria-hidden="true"></div>
   <div class="ab-reflexo" aria-hidden="true"></div>
@@ -3412,9 +3415,16 @@ try{const e=SOM.estado();document.getElementById("som-mus").setAttribute("aria-p
 (function(){
   const ab=document.getElementById("abertura");if(!ab)return;let raf=0,vivo=true;
   const palco=ab.querySelector(".ab-palco"),voo=ab.querySelector(".ab-voo");
-  const largo=()=>innerWidth>=innerHeight;
+  const largo=()=>innerWidth>=innerHeight*1.2;
   /* ponto das cartas na mão (em % da imagem) -> tela */
-  function ponto(){const r=palco.getBoundingClientRect(),u=.5,v=.62;return {x:r.left+r.width*u,y:r.top+r.height*v,r}}
+  const LARGO=matchMedia("(min-aspect-ratio:1200/1000)");
+  function ponto(){const r=palco.getBoundingClientRect();
+    if(LARGO.matches){/* keyart 1536x1024 em cover: cartas em u .475 v .33 */
+      const iw=1536,ih=1024,k=Math.max(r.width/iw,r.height/ih),w=iw*k,h=ih*k,px=.72,py=.3;
+      const x=r.left+(r.width-w)*px+w*.475,y=r.top+(r.height-h)*py+h*.33;
+      ab.style.setProperty("--ox",((x-r.left)/r.width*100).toFixed(1)+"%");ab.style.setProperty("--oy",((y-r.top)/r.height*100).toFixed(1)+"%");
+      return {x,y,r:{left:x-w*.12,top:y,width:w*.3,height:h}}}
+    return {x:r.left+r.width*.5,y:r.top+r.height*.62,r}}
   function marca(){const p=ponto();ab.style.setProperty("--ax",p.x+"px");ab.style.setProperty("--ay",p.y+"px");ab.style.setProperty("--aw",(p.r.width*.78)+"px")}
   requestAnimationFrame(marca);addEventListener("resize",marca);
   /* partículas douradas subindo */
