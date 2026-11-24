@@ -150,6 +150,40 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .so-j.vazio{opacity:.55;border-style:dashed}.so-j.vazio span{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;border:3px dashed var(--lilas);font-family:var(--cartoon);font-size:32px;color:var(--lilas)}
 .so-regra{display:flex;flex-direction:column;align-items:center;gap:8px}
 #so-comecar[disabled]{opacity:.6;cursor:default}
+.jr-aprender{display:flex;align-items:center;gap:10px;margin:14px auto 0;background:none;border:2px dashed var(--lilas);border-radius:16px;padding:8px 14px;color:#fff;font:inherit;font-size:14px;cursor:pointer}
+.jr-aprender img{width:34px;height:auto}.jr-aprender b{color:var(--ouro)}
+.coach{position:fixed;inset:0;z-index:80;pointer-events:none}
+.coach-veu{position:absolute;inset:0;background:rgba(20,6,36,.45)}
+.coach-foco{position:fixed;border-radius:16px;box-shadow:0 0 0 4px var(--ouro),0 0 26px 6px rgba(255,200,61,.7),0 0 0 9999px rgba(20,6,36,.55);transition:all .25s;animation:coachPulsa 1.2s ease-in-out infinite alternate}
+@keyframes coachPulsa{to{box-shadow:0 0 0 6px var(--ouro),0 0 36px 10px rgba(255,200,61,.85),0 0 0 9999px rgba(20,6,36,.55)}}
+.coach-mao{position:fixed;width:clamp(56px,9vw,86px);transform:translate(-20%,-8%) rotate(-18deg);filter:drop-shadow(0 6px 10px rgba(0,0,0,.5));animation:coachMao .8s ease-in-out infinite alternate}
+@keyframes coachMao{to{transform:translate(-20%,-24%) rotate(-12deg)}}
+.coach-bolha{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom));translate:-50% 0;width:min(calc(100% - 32px),560px);display:flex;gap:14px;align-items:center;background:#fff;color:var(--tinta);border:4px solid var(--tinta);border-radius:24px;padding:14px 18px;box-shadow:0 8px 0 var(--tinta),0 20px 40px rgba(0,0,0,.4);pointer-events:auto}
+.coach-av{width:72px;height:72px;border-radius:50%;border:3px solid var(--ouro);background:#efe6ff;object-fit:cover;flex:none}
+.coach-bolha p{margin:0;font-size:clamp(16px,2.2vw,20px);font-weight:700;line-height:1.35}.coach-bolha p b{color:var(--roxo)}
+.coach-bolha .botao{margin-top:10px;font-size:18px}
+@media (prefers-reduced-motion:reduce){.coach-foco,.coach-mao{animation:none}}
+.vitoria{position:fixed;inset:0;z-index:70;display:grid;place-items:center;overflow:hidden;cursor:pointer;
+  background:radial-gradient(circle at 50% 46%,#7a3fc0 0%,#3b1c60 45%,#1d0a33 100%);animation:vitEntra .35s ease both}
+.vitoria.sai{animation:vitSai .38s ease forwards}
+@keyframes vitEntra{from{opacity:0}}@keyframes vitSai{to{opacity:0;transform:scale(1.04)}}
+.vitoria .confete{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3}
+.vit-raios{position:absolute;left:50%;top:44%;width:180vmax;height:180vmax;translate:-50% -50%;
+  background:repeating-conic-gradient(from 0deg,rgba(255,214,90,.22) 0 9deg,transparent 9deg 22deg);
+  -webkit-mask-image:radial-gradient(circle,#000 0%,transparent 55%);mask-image:radial-gradient(circle,#000 0%,transparent 55%);animation:vitGira 14s linear infinite}
+@keyframes vitGira{to{rotate:360deg}}
+.vit-palco{position:relative;z-index:2;display:grid;place-items:end center;height:min(56vh,540px);margin-top:-12vh}
+.vit-palco::after{content:"";position:absolute;bottom:-2%;left:50%;width:70%;height:8%;translate:-50% 0;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(8px);z-index:-1}
+.vit-corpo{height:100%;width:auto;max-width:90vw;object-fit:contain;filter:drop-shadow(0 0 30px rgba(255,214,90,.55));animation:vitSobe .8s cubic-bezier(.2,1.5,.4,1) both,vitPula 1.6s .9s ease-in-out infinite alternate;transform-origin:50% 100%}
+.vit-retrato{width:min(56vw,300px);aspect-ratio:1;border-radius:50%;border:8px solid var(--ouro);background:#efe6ff;object-fit:cover;box-shadow:0 0 40px rgba(255,214,90,.7);animation:vitSobe .8s cubic-bezier(.2,1.5,.4,1) both,vitPula 1.6s .9s ease-in-out infinite alternate;align-self:center}
+@keyframes vitSobe{from{transform:translateY(60%) scale(.6);opacity:0}}
+@keyframes vitPula{to{transform:translateY(-3%) rotate(1.5deg)}}
+.vit-nome{position:absolute;z-index:4;left:50%;bottom:max(12vh,90px);translate:-50% 0;display:flex;flex-direction:column;align-items:center;gap:2px;animation:vitNome .6s .45s cubic-bezier(.2,1.6,.4,1) both;text-align:center;width:max-content;max-width:92vw}
+.vit-nome b{font-family:var(--cartoon);font-weight:400;font-size:clamp(46px,11vw,96px);line-height:1;color:var(--ouro);-webkit-text-stroke:.07em var(--tinta);paint-order:stroke fill;text-shadow:0 6px 0 var(--tinta);text-transform:uppercase;overflow-wrap:anywhere}
+.vit-nome span{font-family:var(--cartoon);font-size:clamp(26px,6vw,48px);color:#fff;-webkit-text-stroke:.07em var(--tinta);paint-order:stroke fill;text-shadow:0 4px 0 var(--tinta)}
+@keyframes vitNome{from{transform:scale(.3);opacity:0}}
+.vit-toque{position:absolute;z-index:4;bottom:max(3vh,18px);left:0;right:0;text-align:center;margin:0;color:var(--lilas);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase;animation:vitEntra .4s 1.6s both}
+@media (prefers-reduced-motion:reduce){.vit-raios,.vit-corpo,.vit-retrato,.vit-nome{animation:none}}
 .rodape{background:var(--roxo-esc);padding-block:24px 32px;text-align:center}
 .rodape .linha-r{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
 .rodape img{width:34px}
@@ -930,7 +964,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .hero-marca .logo-img{--w:clamp(250px,38vw,520px)!important;margin:0!important;filter:drop-shadow(0 14px 26px rgba(0,0,0,.6))!important;animation:marcaEntra .9s .2s cubic-bezier(.2,1.5,.4,1) backwards}
 @keyframes marcaEntra{from{opacity:0;transform:scale(.6) rotate(-6deg)}}
 .pos-hero{padding-top:calc(clamp(250px,38vw,520px) * .5)!important}
-.pos-hero-acoes{display:flex;justify-content:center;margin:-6px 0 6px}
+.pos-hero-acoes{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:-6px 0 6px}
 .rodape .linha-r{gap:8px;flex-wrap:nowrap}
 .rodape img{width:26px}
 .rodape p{font-size:10.5px;letter-spacing:.06em;line-height:1.45;text-align:left;max-width:300px}
@@ -1610,7 +1644,12 @@ function supTurnoRobo(){
   });
 }
 
-function supFim(quem,grupos){
+function supFim(quem,grupos,jaMostrou){
+  if(!jaMostrou){supRelogioParar();limpar();{const ac=$("#sacoes");if(ac)ac.innerHTML=""}F="sup-fim";
+    const v=quem===0,S=SP;let src,ret;
+    if(S.online){const av=S.avOmdo?S.avOmdo[quem]:0;src=vitSrcOmdo(av);ret=omdoSrc(av)}
+    else if(v){src=vitSrcOmdo(PERFIL.av);ret=omdoSrc(PERFIL.av)}else{src=vitSrcRival(S.av[quem]);ret=avatarSrc(S.av[quem])}
+    vitoriaShow({src,retrato:ret,nome:v?(PERFIL.nome||"Você"):S.nomes[quem],frase:"fez Biblikaboom!",voce:v},()=>supFim(quem,grupos,true));return}
   supRelogioParar();limpar();{const ac=$("#sacoes");if(ac)ac.innerHTML=""}F="sup-fim";const g=quem===0;
   const origem=c=>quem===0?maoEls.get(c.p):$("#rival-"+quem);
   const cw=innerWidth<700?Math.min(58,(innerWidth-60)/4.4,innerHeight*.065):Math.min(96,(innerWidth-160)/13,innerHeight*.11);
@@ -2041,7 +2080,8 @@ function desenhar(d,novo){
     return;
   }
   if(d.fase==="fim"){
-    const g=d.venc===meu;if(novo)depois(150,()=>{g?SOM.vitoria():SOM.derrota()});
+    const g=d.venc===meu,el=ele(d);
+    if(novo&&!document.querySelector(".vitoria"))vitoriaShow(g?{src:vitSrcOmdo(PERFIL.av),retrato:omdoSrc(PERFIL.av),nome:PERFIL.nome||"Você",frase:"venceu!",voce:true}:{src:vitSrcOmdo(el.av),retrato:omdoSrc(el.av),nome:limpaNome(el.nome),frase:"venceu!"});
     mesa({p:J.P[0]||null,r:J.R[0]||null,aberta:false,m1:g?"Você venceu!":RN()+" venceu",cls:g?"ganhou":"perdeu",m2:""});
     camada.innerHTML=`<div class="fim${g?"":" perdeu"}" role="dialog" aria-modal="true" aria-labelledby="fim-t"><div class="caixa">
       <img src="arte/vencedor.webp" alt=""><h2 id="fim-t">${g?"Você venceu!":RN()+" venceu"}</h2>
@@ -2182,7 +2222,7 @@ function soMontarSP(d){
   const avSrc=rot(d.jog).map(j=>omdoSrc(j.av||0));
   const vez=soLocal(e.vez);
   const S={online:true,avancado:d.regra==="avancado",nivel:"medio",parado:Array(n).fill(0),melhor:Array(n).fill(0),maos,monte:e.monte.map(cartaP),vez,jogadas:e.jogadas||0,
-    nomes,av:Array(n).fill(1),avSrc,fase:e.fase==="gritar"||e.fase==="fim"?e.fase:e.fase,nova:vez===0&&e.nova?maos[0].find(c=>c.p===e.nova)||null:null,vencedor:null,desdeEmb:e.desdeEmb||0,msg:["",""]};
+    nomes,av:Array(n).fill(1),avSrc,avOmdo:rot(d.jog).map(j=>j.av||0),fase:e.fase==="gritar"||e.fase==="fim"?e.fase:e.fase,nova:vez===0&&e.nova?maos[0].find(c=>c.p===e.nova)||null:null,vencedor:null,desdeEmb:e.desdeEmb||0,msg:["",""]};
   if(SUPSEL&&!maos[0].find(c=>c.p===SUPSEL.p))SUPSEL=null;else if(SUPSEL)SUPSEL=maos[0].find(c=>c.p===SUPSEL.p);
   return S;
 }
@@ -2223,7 +2263,7 @@ function supOnDesenhar(d,ant){
   const antVez=ant&&ant.estado?ant.estado.vez:null;
   SP=soMontarSP(d);
   if(e.fase==="fim"){const l=soLocal(d.venc!=null?d.venc:e.vez);supRelogioParar();SP.vencedor=l;supRender();
-    if(!document.querySelector(".celebra"))setTimeout(()=>supFim(l,supGrupos(SP.maos[l],SP.avancado)||[]),meu?0:650);return}
+    if(!document.querySelector(".celebra,.vitoria"))setTimeout(()=>supFim(l,supGrupos(SP.maos[l],SP.avancado)||[]),meu?0:650);return}
   soMensagem(d);
   setTimeout(()=>{if(F==="sup"&&SP&&SP.online){supRender();soVez(d,antVez!==e.vez)}},meu?0:420);
 }
@@ -2280,6 +2320,90 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="so-cod")supOnEntrar()});
 
+/* ================= Aprender jogando: primeira partida guiada ================= */
+const TUT={on:false,passo:0,raf:0,alvo:null};
+function tutFeito(){try{return localStorage.getItem("bkb-tut")==="1"}catch(e){return false}}
+function tutComecar(modo){
+  fecharComQuem();PREF.modo=modo&&MODOS[modo]?modo:"mega";PREF.nivel="facil";TUT.on=true;TUT.passo=0;iniciar();
+}
+/* arruma o começo: você começa, sem cartas Biblikaboom no topo, e a 1ª carta ganha em Capítulos ou Versículos */
+function tutPreparar(J){
+  J.vez="P";fimEm=null;clearInterval(relogio);
+  const ok=c=>!ehBkb(J,c)&&typeof c.cap==="number"&&typeof c.ver==="number";
+  for(let t=0;t<200;t++){
+    const p=J.P[0],r=J.R[0];
+    if(ok(p)&&ok(r)&&(p.ver>r.ver*1.3||p.cap>r.cap*1.3)&&ok(J.P[1])&&ok(J.R[1]))break;
+    J.P.push(J.P.shift());if(t%3===0)J.R.push(J.R.shift());
+  }
+  const p=J.P[0],r=J.R[0];TUT.k=p.ver>r.ver*1.3?"ver":"cap";
+}
+function coach(txt,{alvo=null,botao=null,mao=true,acao=null}={}){
+  coachFechar();
+  const d=document.createElement("div");d.className="coach";d.setAttribute("role","dialog");d.setAttribute("aria-live","polite");
+  d.innerHTML=`${alvo?'<div class="coach-foco"></div>':'<div class="coach-veu"></div>'}${alvo&&mao?'<img class="coach-mao" src="arte/mao-apontando.webp" alt="">':""}
+    <div class="coach-bolha"><img class="coach-av" src="arte/omdo/01.webp" alt="Otávio"><div><p>${txt}</p>${botao?`<button type="button" class="botao" id="coach-ok">${botao}</button>`:""}</div></div>`;
+  document.body.appendChild(d);TUT.alvo=alvo;TUT.acao=acao;
+  if(!calmo)d.querySelector(".coach-bolha").animate([{transform:"translateY(30px) scale(.9)",opacity:0},{transform:"none",opacity:1}],{duration:380,easing:"cubic-bezier(.2,1.4,.4,1)"});
+  SOM.brilho();
+  const pos=()=>{if(!d.isConnected)return;const el=typeof TUT.alvo==="string"?document.querySelector(TUT.alvo):null;
+    const f=d.querySelector(".coach-foco"),m=d.querySelector(".coach-mao");
+    if(el&&f){const r=el.getBoundingClientRect(),pad=8;f.style.cssText=`left:${r.left-pad}px;top:${r.top-pad}px;width:${r.width+pad*2}px;height:${r.height+pad*2}px`;
+      if(m){m.style.left=(r.left+r.width*.9)+"px";m.style.top=(r.top+r.height*.75)+"px"}}
+    TUT.raf=requestAnimationFrame(pos)};
+  pos();
+  const b=d.querySelector("#coach-ok");if(b)b.focus({preventScroll:true});
+}
+function coachFechar(){cancelAnimationFrame(TUT.raf);const d=document.querySelector(".coach");if(d)d.remove()}
+document.addEventListener("click",e=>{const b=e.target.closest("#coach-ok");if(!b)return;e.stopImmediatePropagation();SOM.clique();const a=TUT.acao;coachFechar();if(a)a()},true);
+/* ganchos chamados pelo jogo */
+function tutVezSua(){
+  if(TUT.passo===0){
+    coach("Esta é a <b>sua carta</b>! Cada linha mostra um número sobre esse livro da Bíblia.",{alvo:".lado .slot",botao:"Entendi!",acao:()=>{TUT.passo=1;
+      coach(`Toque na linha <b>${ATR[TUT.k].r}</b>. Quem tiver o número <b>MAIOR</b> ganha!`,{alvo:"#atr-"+TUT.k})}});
+  }else if(TUT.passo===2){
+    coach("Atenção! Na linha <b>Posição na Bíblia</b> é ao contrário: o número <b>MENOR</b> ganha. Gênesis é o 1º livro!",{alvo:"#atr-p",botao:"Entendi!",acao:()=>{TUT.passo=3;
+      coach("Agora é com você! Olhe a sua carta e toque na linha mais forte.",{mao:false})}});
+  }else if(TUT.passo===3)coach("Olhe a sua carta e toque na linha mais forte.",{mao:false});
+}
+function tutVezDele(){if(TUT.passo>=2&&TUT.passo<4)coach(`Agora quem escolhe é <b>${RN()}</b>. Espere e torça!`,{mao:false,botao:"Ok!"})}
+function tutRevelado(R,k){
+  coachFechar();
+  const v=x=>k==="p"?x.p+"º":fmt(x[k]);
+  if(TUT.passo<=1){
+    const txt=R.res===1?`Uhuul! ${v(R.cp)} ganha de ${v(R.cr)}. Você venceu e <b>leva as duas cartas</b>!`:R.res===-1?`Ops! O número de ${RN()} era melhor. Quem ganha leva as duas cartas. Bora de novo!`:"Empatou! A próxima carta decide quem leva tudo.";
+    TUT.passo=2;setTimeout(()=>{if(TUT.on&&F==="revelado")coach(txt,{alvo:"#continuar"})},900);
+  }else{
+    TUT.passo=4;
+    setTimeout(()=>{if(!TUT.on||F!=="revelado")return;
+      coach("Pronto, você já sabe jogar! Ganha quem ficar com <b>todas as cartas</b>, ou com mais cartas quando o tempo acabar.",{botao:"Bora jogar!",mao:false,acao:tutTerminar})},1100);
+  }
+}
+function tutTerminar(){
+  TUT.on=false;try{localStorage.setItem("bkb-tut","1")}catch(e){}
+  PREF.tempo=PREF.tempo||"10";fimEm=PREF.tempo!=="0"?Date.now()+Number(PREF.tempo)*60000:null;
+  if(fimEm)relogio=setInterval(()=>{const el=$("#relogio");if(el)el.textContent=restante();
+    if(Date.now()>=fimEm&&(F==="escolher"||F==="robo"))terminar(fimPorTempo(J),true)},500);
+}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.id==="aprender"||b.dataset.aprender!==undefined){e.stopImmediatePropagation();SOM.clique();tutComecar(b.dataset.aprender||PREF.modo)}
+  else if(b.id==="continuar"&&TUT.on)coachFechar();
+},true);
+/* ================= Tela de vitória: personagem de corpo inteiro com as cartas no alto ================= */
+const VIT_OMDO=new Set([0,1,2,3,4,5,6,7,8,9]);
+function vitSrcRival(a){return `arte/vit/${String(a+1).padStart(2,"0")}.webp`}
+function vitSrcOmdo(av){return VIT_OMDO.has(av)?`arte/vito/${String(av+1).padStart(2,"0")}.webp`:null}
+function vitoriaShow({src,retrato,nome,frase,voce},depois){
+  const o=document.createElement("div");o.className="vitoria"+(voce?" voce":"");o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");o.setAttribute("aria-label",nome+" "+frase);
+  o.innerHTML=`<canvas class="confete" aria-hidden="true"></canvas><div class="vit-raios" aria-hidden="true"></div>
+    <div class="vit-palco">${src?`<img class="vit-corpo" src="${src}" alt="">`:`<img class="vit-retrato" src="${retrato}" alt="">`}</div>
+    <div class="vit-nome"><b>${soEsc(nome)}</b><span>${frase}</span></div><p class="vit-toque">Toque para continuar</p>`;
+  document.body.appendChild(o);
+  SOM.boom();setTimeout(()=>{voce?SOM.vitoria():SOM.ganhou()},350);
+  if(!calmo)confete(o.querySelector(".confete"),voce?240:110);
+  let foi=false;const ir=()=>{if(foi)return;foi=true;o.classList.add("sai");setTimeout(()=>{o.remove();if(depois)depois()},380)};
+  o.addEventListener("click",ir);setTimeout(ir,3600);
+}
+
 </script>
 <script>
 /* ================= Tela ================= */
@@ -2319,7 +2443,7 @@ function topo(){scrollTo({top:0})}
 
 /* ---------- Início ---------- */
 function inicio(){
-  limpar();if(window.SOM)SOM.volumeMusica(.5);F="inicio";J=null;camada.innerHTML="";
+  limpar();if(typeof coachFechar==="function"){coachFechar();TUT.on=false}if(window.SOM)SOM.volumeMusica(.5);F="inicio";J=null;camada.innerHTML="";
   const seg=(nome,ops)=>`<div class="chip-grupo" role="group" aria-label="${nome==="nivel"?"Nível do adversário":"Tempo"}">${ops.map(([v,t])=>`<button type="button" id="op-${nome}-${v}" data-pref="${nome}" data-val="${v}" aria-pressed="${PREF[nome]===v}">${t}</button>`).join("")}</div>`;
   tela.innerHTML=`<div class="inicio">
   <header class="hero">
@@ -2334,7 +2458,7 @@ function inicio(){
   </header>
 
   <section class="faixa-roxa pos-hero"><div class="miolo">
-    <div class="pos-hero-acoes"><button type="button" class="botao sec" id="ver-regras">Como jogar</button></div>
+    <div class="pos-hero-acoes"><button type="button" class="botao" id="aprender">Aprender jogando</button><button type="button" class="botao sec" id="ver-regras">Como jogar</button></div>
     <h2 class="titulo"><span class="c1">Escolha o</span><span class="c2">seu duelo</span></h2>
     <div class="modos">${Object.entries(MODOS).map(([k,m])=>{const v=VISUAL[k];return `
       <div class="modo-wrap${PREF.modo===k?" ativo":""}" data-wrap="${k}"><button type="button" class="modo" data-tilt id="modo-${k}" data-modo="${k}" aria-pressed="${PREF.modo===k}" style="--fundo:${v.fundo};--cor:${v.cor};--w:${v.w};--r:${v.r}">
@@ -2428,6 +2552,7 @@ function iniciar(){
   fimEm=PREF.tempo!=="0"?Date.now()+Number(PREF.tempo)*60000:null;
   if(fimEm)relogio=setInterval(()=>{const el=$("#relogio");if(el)el.textContent=restante();
     if(Date.now()>=fimEm&&(F==="escolher"||F==="robo"))terminar(fimPorTempo(J),true)},500);
+  if(typeof TUT!=="undefined"&&TUT.on)tutPreparar(J);
   topo();SOM.embaralhar();SOM.volumeMusica(.28);depois(420,rodada);
 }
 function restante(){if(!fimEm)return "";const s=Math.max(0,Math.ceil((fimEm-Date.now())/1000));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
@@ -2498,12 +2623,13 @@ function rodada(){
     const bkb=ehBkb(J,p)&&!J.usado.P.has(p.n);
     SOM.distribuir();
     mesa({p,r,aberta:false,escolher:true,chega:true,m1:"Sua vez!",m2:bkb?"Sua carta é Biblikaboom: se precisar, ela vence esta rodada.":"Escolha um item da sua carta."});
-    rodRelIniciar();
+    if(TUT.on)setTimeout(()=>{if(F==="escolher")tutVezSua()},750);else rodRelIniciar();
     if(!temMouse)requestAnimationFrame(()=>{const a=$(".alvo.pode");if(a&&matchMedia("(min-width:1600px)").matches)a.focus({preventScroll:true})});
   }else{
     F="robo";
     SOM.distribuir();
     mesa({p,r,aberta:false,chega:true,m1:`<span class="pensando">${RN()} está pensando</span>`,m2:"Enquanto isso, confira a sua carta."});
+    if(TUT.on)tutVezDele();
     depois(1300,()=>{if(F!=="robo")return;const k=roboEscolhe(J);SOM.escolher();
       mesa({p,r,aberta:false,alvo:k,m1:RN()+" escolheu: "+ATR[k].r,m2:ATR[k].menor?"Vence a menor posição na Bíblia.":"Vence o maior valor."});
       depois(1200,()=>{if(F==="robo")revelar(k)});});
@@ -2526,6 +2652,7 @@ function revelar(k){
   SOM.virar();
   if(R.pUsa||R.rUsa)boom();else depois(380,()=>{cls==="ganhou"?SOM.ganhou():cls==="perdeu"?SOM.perdeu():SOM.empate()});
   $("#continuar").focus({preventScroll:true});
+  if(TUT.on)tutRevelado(R,k);
 }
 function continuar(){
   if(F==="revelado"){
@@ -2543,7 +2670,14 @@ function continuar(){
 }
 function boom(){SOM.boom();camada.innerHTML=`<div class="boom" aria-hidden="true">${logo()}</div>`;depois(1800,()=>{if(F!=="fim"&&F!=="sup-fim")camada.innerHTML=""})}
 function terminar(quem,porTempo=false){
-  limpar();F="fim";const g=quem==="P";depois(150,()=>{g?SOM.vitoria():SOM.derrota()});
+  limpar();F="fim";const g=quem==="P";
+  const voceSrc=typeof PERFIL!=="undefined"?vitSrcOmdo(PERFIL.av):null;
+  const rivSrc=J.rival.src?(J.rival.av!=null?vitSrcOmdo(J.rival.av):null):vitSrcRival(J.rival.a);
+  vitoriaShow(g?{src:voceSrc,retrato:typeof PERFIL!=="undefined"?omdoSrc(PERFIL.av):"",nome:(typeof PERFIL!=="undefined"&&PERFIL.nome)||"Você",frase:"venceu!",voce:true}
+    :{src:rivSrc,retrato:J.rival.src||avatarSrc(J.rival.a),nome:RN(),frase:"venceu!"},()=>{if(F==="fim")terminarCaixa(quem,porTempo)});
+}
+function terminarCaixa(quem,porTempo){
+  const g=quem==="P";depois(150,()=>{g?SOM.vitoria():SOM.derrota()});
   camada.innerHTML=`<div class="fim${g?"":" perdeu"}" role="dialog" aria-modal="true" aria-labelledby="fim-t"><div class="caixa">
     <img src="arte/vencedor.webp" alt="">
     <h2 id="fim-t">${g?"Você venceu!":RN()+" venceu"}</h2>
@@ -2721,7 +2855,7 @@ function jrRender(){
     corpo=`<div class="cq-opcoes">
       <button type="button" class="cq-op amigos" data-jrcom="amigos"><div class="cq-rostos">${amigos}</div><b>Com amigos</b><span>${sup?"Crie uma sala e chame até 3 amigos com um código. Cada um no seu celular.":"Crie uma sala e chame um amigo com um código. Cada um no seu celular."}</span></button>
       <button type="button" class="cq-op bot" data-jrcom="bot"><div class="cq-rostos">${riv.map(r=>`<img src="${avatarSrc(r.a)}" alt="">`).join("")}</div><b>Contra adversários</b><span>Jogue agora contra personagens da Bíblia, como ${riv[0].n} e ${riv[1].n}.</span></button>
-    </div>`;
+    </div>${sup?"":`<button type="button" class="jr-aprender" data-aprender="${modo}"><img src="arte/mao-apontando.webp" alt=""><span><b>Primeira vez?</b> Aprenda jogando com o Otávio</span></button>`}`;
   }else if(JR.passo===2){
     corpo=`<div class="jr-niveis" role="radiogroup" aria-label="Nível">${NIVEIS.map(([k,t,dB,dA],i)=>`<button type="button" class="jr-nv nv-${k}" data-jrnivel="${k}" role="radio" aria-checked="${JR.nivel===k}">
       <span class="jr-estrelas">${"★".repeat(i+1)}<i>${"★".repeat(2-i)}</i></span><b>${t}</b><span>${sup?["Robôs tranquilos. Ótimo para aprender.","Robôs espertos. Desafio na medida.","Robôs afiados. Para quem conhece a Bíblia!"][i]:JR.com==="amigos"?dA:dB}</span></button>`).join("")}</div>
