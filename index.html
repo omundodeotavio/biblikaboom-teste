@@ -566,7 +566,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .sup-capa{background:var(--rosa);padding-block:34px 30px;overflow:hidden}
 .sup-capa .miolo{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
 .sup-capa .titulo .c1{text-shadow:none}
-.sup-capa .titulo{font-size:clamp(44px,7vw,80px);--t1:var(--tinta);--t2:var(--branco);text-shadow:4px 4px 0 var(--tinta)}
+.sup-capa .titulo{font-size:clamp(44px,7vw,80px);--t1:var(--ouro);--t2:var(--branco);text-shadow:4px 4px 0 var(--tinta)}
 .sup-capa p{font-weight:700;font-size:clamp(16px,2vw,19px);line-height:1.45;max-width:46ch;margin:12px 0 0}
 .sup-capa-fan{position:relative;display:block;width:240px;height:220px}
 .sup-capa-fan .fan{--cw:110px;bottom:10px}
@@ -1595,10 +1595,7 @@ const ICO_ROBO=`<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" wi
 function exC(n,{tag="",cls="",mini=0,num=0}={}){const c=CARTAS.find(x=>x.p===n);
   return `<figure class="ex-c${mini?" mini-ex":""} ${cls}" style="--c:${corTipo(c.g)}"><img src="${cartaSrc(n)}" alt="${c.n}" loading="lazy">${tag?`<em>${tag}</em>`:""}${num&&!ehCoringa(c)?`<i>${numDe(c)}</i>`:""}<figcaption>${c.n}</figcaption></figure>`}
 function exGrupo(t,ns,{cor=0}={}){return `<div class="ex-g" style="--c:${corTipo(t)}"><span class="ex-g-rot">${GRUPOS[t][0]}</span><div>${ns.map(n=>exC(n,{tag:n===cor?"Coringa":"",mini:1})).join("")}</div></div>`}
-function supremoInicio(){
-  limpar();F="sup-prep";camada.innerHTML="";SOM.volumeMusica(.5);
-  const seg=(nome,ops,rot)=>`<div class="sup-op"><span class="sup-rot">${rot}</span><div class="chip-grupo" role="group" aria-label="${rot}">${ops.map(([v,t])=>`<button type="button" data-sup="${nome}" data-val="${v}" aria-pressed="${SUPPREF[nome]===v}">${t}</button>`).join("")}</div></div>`;
-  tela.innerHTML=`
+function supConteudoHTML(){return `
   <div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}<img class="omdo-t" src="arte/omdo.webp" alt="O Mundo de Otávio"></span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
   <section class="sup-capa"><div class="miolo">
     <div class="sup-capa-txt">
@@ -1637,6 +1634,11 @@ function supremoInicio(){
     <div class="ex-tempo"><span class="sup-rel"><svg viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="19" class="trilho"/><circle cx="22" cy="22" r="19" class="arco"/></svg><b>60</b><span>seg</span></span>
       <p><b>1 minuto por rodada.</b> Se o tempo acabar, a carta comprada vai direto para baixo do monte.</p></div>
     <p class="sup-nota">Quando o monte dá uma volta inteira, ele é embaralhado de novo para o jogo não travar.</p>
+`}
+function supremoInicio(){
+  limpar();F="sup-prep";camada.innerHTML="";SOM.volumeMusica(.5);
+  const seg=(nome,ops,rot)=>`<div class="sup-op"><span class="sup-rot">${rot}</span><div class="chip-grupo" role="group" aria-label="${rot}">${ops.map(([v,t])=>`<button type="button" data-sup="${nome}" data-val="${v}" aria-pressed="${SUPPREF[nome]===v}">${t}</button>`).join("")}</div></div>`;
+  tela.innerHTML=supConteudoHTML()+`
     <div class="painel sup-painel">
       ${seg("robos",[["1","1 adversário"],["2","2 adversários"],["3","3 adversários"]],"Adversários")}
       ${seg("regra",[["basico","Básico"],["avancado","Avançado"]],"Regra")}
@@ -1645,6 +1647,15 @@ function supremoInicio(){
   </div></section>`;
   topo();
 }
+/* Como jogar o Supremo: as regras do Supremo, sem os ajustes da partida */
+function supRegras(){
+  limpar();F="sup-regras";camada.innerHTML="";SOM.volumeMusica(.5);
+  tela.innerHTML=supConteudoHTML()+`
+    <div class="painel sup-painel sup-regras-fim"><p class="sup-nota">Pronto para montar seus grupos?</p><button type="button" class="botao" id="sup-regras-jogar">Jogar Supremo!</button></div>
+  </div></section>`;
+  topo();scrollTo(0,0);
+}
+document.addEventListener("click",e=>{const b=e.target.closest("#sup-regras-jogar");if(!b)return;SOM.clique();escolherComQuem("supremo")});
 
 /* ---------- relógio da rodada ---------- */
 const SUP_SEG=()=>60;
@@ -3549,7 +3560,7 @@ function jrIr(){
 function fecharComQuem(){const d=document.querySelector(".cq");if(d)d.remove()}
 document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!b.closest(".cq"))return;
   e.stopImmediatePropagation();
-  if(b.dataset.jrregras){fecharComQuem();SOM.clique();regras();return}
+  if(b.dataset.jrregras){const m=JR.modo;fecharComQuem();SOM.clique();m==="supremo"?supRegras():regras();return}
   if(b.dataset.jrcodigo){fecharComQuem();SOM.clique();entrarTela()}
   else if(b.dataset.jrcom){JR.com=b.dataset.jrcom;JR.passo=2;SOM.selecionar();jrRender()}
   else if(b.dataset.jrnivel){JR.nivel=b.dataset.jrnivel;SOM.selecionar();if(document.querySelector(".jr-tempo")){document.querySelectorAll("[data-jrnivel]").forEach(x=>x.setAttribute("aria-checked",x===b))}else{JR.passo=3;jrRender()}}
