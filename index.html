@@ -2424,7 +2424,7 @@ function coach(txt,{alvo=null,botao=null,mao=true,acao=null}={}){
   coachFechar();
   const d=document.createElement("div");d.className="coach";d.setAttribute("role","dialog");d.setAttribute("aria-live","polite");
   d.innerHTML=`${alvo?'<div class="coach-foco"></div>':'<div class="coach-veu"></div>'}${alvo&&mao?'<img class="coach-mao" src="arte/mao-apontando.webp" alt="">':""}
-    <div class="coach-bolha"><img class="coach-av" src="arte/omdo/01.webp" alt="Otávio"><div><p>${txt}</p>${botao?`<button type="button" class="botao" id="coach-ok">${botao}</button>`:""}</div></div>`;
+    <div class="coach-bolha"><img class="coach-av" src="arte/otavio-guia.webp" alt="Otávio"><div><p>${txt}</p>${botao?`<button type="button" class="botao" id="coach-ok">${botao}</button>`:""}</div></div>`;
   document.body.appendChild(d);TUT.alvo=alvo;TUT.acao=acao;
   if(!calmo)d.querySelector(".coach-bolha").animate([{transform:"translateY(30px) scale(.9)",opacity:0},{transform:"none",opacity:1}],{duration:380,easing:"cubic-bezier(.2,1.4,.4,1)"});
   SOM.brilho();
@@ -2520,34 +2520,23 @@ function paywall(){
   </div>`;
   document.body.appendChild(d);$("#pw-adulto").focus({preventScroll:true});SOM.brilho();
 }
-/* porta para adultos: conta simples antes de ir para a compra */
-function pwPortaAdulto(){
-  const a=6+Math.floor(Math.random()*4),b=3+Math.floor(Math.random()*6);
-  const c=document.querySelector(".pw-oferta");if(!c)return;
-  c.innerHTML=`<span class="pw-selo">Área dos pais</span><p class="pw-sub">Para continuar, responda: quanto é <b>${a} × ${b}</b>?</p>
-    <input id="pw-conta" class="on-cod pw-conta" inputmode="numeric" maxlength="3" autocomplete="off" aria-label="Resposta">
-    <button type="button" class="botao" id="pw-conta-ok" data-r="${a*b}">Continuar</button><p class="pw-erro" id="pw-erro" role="status"></p>`;
-  $("#pw-conta").focus();
-}
 function pwCompra(){
   const c=document.querySelector(".pw-oferta");if(!c)return;
+  /* No app das lojas, aqui entra a compra integrada (App Store / Google Play) */
+  if(window.BKB_LOJA&&typeof window.BKB_LOJA.comprar==="function"){window.BKB_LOJA.comprar();return}
   c.innerHTML=`<span class="pw-selo">Biblikaboom Completo · ${PAGO.preco}</span>
-    ${PAGO.loja?`<a class="botao" href="${PAGO.loja}" target="_blank" rel="noopener">Comprar na loja do O Mundo de Otávio</a>`:`<p class="pw-sub">A compra pela loja do O Mundo de Otávio abre em breve.</p>`}
-    <p class="pw-sub" style="margin-top:14px">Já comprou? Digite o código que chegou no seu e-mail.</p>
-    <input id="pw-cod" class="on-cod pw-cod" maxlength="14" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="BKB-XXXX-XXXX" aria-label="Código de liberação">
-    <button type="button" class="botao sec" id="pw-cod-ok">Liberar</button><p class="pw-erro" id="pw-erro" role="status"></p>`;
+    <p class="pw-sub">A compra é feita pelo app Biblikaboom na <b>App Store</b> e no <b>Google Play</b>, que chega em breve.</p>
+    <button type="button" class="botao sec" id="pw-restaurar">Restaurar compra</button><p class="pw-erro" id="pw-erro" role="status"></p>`;
 }
-function pwValidar(){
-  const v=($("#pw-cod").value||"").toUpperCase().trim(),e=$("#pw-erro");
-  e.textContent="A ativação dos códigos chega junto com a loja. Guarde o seu código!";
+function pwRestaurar(){
+  if(window.BKB_LOJA&&typeof window.BKB_LOJA.restaurar==="function"){window.BKB_LOJA.restaurar();return}
+  const e=$("#pw-erro");if(e)e.textContent="A restauração funciona no app da App Store e do Google Play.";
 }
 document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b||!b.closest(".paywall"))return;e.stopImmediatePropagation();SOM.clique();
   if(b.id==="pw-fechar"){document.querySelector(".paywall").remove();if(F!=="inicio")inicio()}
   else if(b.id==="pw-adulto")pwCompra();
-  else if(b.id==="pw-conta-ok"){if(Number($("#pw-conta").value)===Number(b.dataset.r))pwCompra();else{$("#pw-erro").textContent="Resposta errada. Peça ajuda a um adulto.";$("#pw-conta").value=""}}
-  else if(b.id==="pw-cod-ok")pwValidar();
+  else if(b.id==="pw-restaurar")pwRestaurar();
 },true);
-document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="pw-conta")$("#pw-conta-ok").click()});
 
 /* ================= Progresso da criança: XP, níveis, álbum, medalhas, avatares, desafio do dia, sequência, baú ================= */
 const PROG=(()=>{
