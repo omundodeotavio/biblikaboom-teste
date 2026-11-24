@@ -1,15 +1,21 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<link rel="manifest" href="manifest.webmanifest?v=2">
+<link rel="manifest" href="manifest.webmanifest?v=3">
+<link rel="apple-touch-icon" sizes="180x180" href="arte/icone-app-180.png?v=3">
+<link rel="icon" type="image/png" sizes="192x192" href="arte/icone-app-192.png?v=3">
+<meta name="apple-mobile-web-app-title" content="Biblikaboom">
+<meta name="theme-color" content="#3b1c60">
+<title>Biblikaboom</title>
+
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="description" content="Biblikaboom: o jogo de cartas da Bíblia do O Mundo de Otávio.">
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 </head><body>
 <title>Biblikaboom Duelo</title>
-<link rel="icon" type="image/png" href="arte/icone-app-192.png?v=2">
-<link rel="apple-touch-icon" href="arte/icone-app-180.png?v=2">
+<link rel="icon" type="image/png" href="arte/icone-app-192.png">
+<link rel="apple-touch-icon" href="arte/icone-app-180.png">
 <meta name="apple-mobile-web-app-title" content="Biblikaboom">
 <meta name="theme-color" content="#4b2577">
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -133,6 +139,17 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .jr-tp[aria-checked="true"]{background:var(--ouro);color:var(--tinta);box-shadow:0 0 0 3px #fff3,0 0 22px #ffc83d88;transform:translateY(-2px)}
 .jr-tp[aria-checked="true"] svg{stroke:var(--tinta)}.jr-tp[aria-checked="true"] span{color:#3a2400}
 .jr-seguir{display:block;margin:18px auto 0}
+.so-sala .miolo{display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
+.so-rot{margin:0;font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ouro)}
+.so-cod{font-family:var(--cartoon);font-size:clamp(56px,14vw,96px);letter-spacing:.12em;line-height:1;color:#fff;-webkit-text-stroke:.06em var(--tinta);paint-order:stroke fill;text-shadow:0 6px 0 var(--tinta)}
+.so-lista{list-style:none;margin:8px 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;width:min(100%,640px)}
+@media (max-width:560px){.so-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.so-j{display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--roxo-esc);border:3px solid #000;border-radius:18px;padding:12px 8px;min-width:0}
+.so-j img{width:72px;height:72px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover;background:#fff}
+.so-j b{font-size:14px;overflow-wrap:anywhere}.so-j small{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ouro)}
+.so-j.vazio{opacity:.55;border-style:dashed}.so-j.vazio span{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;border:3px dashed var(--lilas);font-family:var(--cartoon);font-size:32px;color:var(--lilas)}
+.so-regra{display:flex;flex-direction:column;align-items:center;gap:8px}
+#so-comecar[disabled]{opacity:.6;cursor:default}
 .rodape{background:var(--roxo-esc);padding-block:24px 32px;text-align:center}
 .rodape .linha-r{display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
 .rodape img{width:34px}
@@ -185,6 +202,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 @media (max-width:640px){.modos-mini{grid-template-columns:1fr}}
 .modo-mini{background:var(--branco);color:var(--tinta);border:4px solid var(--tinta);border-radius:18px;padding:14px;box-shadow:0 6px 0 var(--tinta)}
 .modo-mini b{font-family:var(--cartoon);font-weight:400;font-size:30px;color:var(--cor);-webkit-text-stroke:1px var(--tinta);paint-order:stroke fill;text-shadow:2px 2px 0 var(--tinta)}
+.modo-mini b{display:flex;align-items:center;gap:10px}.modo-mini .ic-mini{width:46px;height:46px;object-fit:contain;flex:none;filter:drop-shadow(0 3px 0 rgba(26,11,43,.35))}
 .modo-mini p{margin:6px 0 0;font-size:14px;line-height:1.4;color:#4b3a5e}
 
 /* ---------- Mesa ---------- */
@@ -1117,7 +1135,7 @@ function fimPorTempo(J){
 
 /* ================= Som: efeitos e trilha (Web Audio, sem arquivos) ================= */
 const SOM=(()=>{
-  let ctx=null,mestre,busFx,busMus,ruidoBuf=null,musOn=true,fxOn=true,tocando=false,proxTempo=0,passo=0,timer=null,volMus=.5;
+  let ctx=null,mestre,busFx,busMus,ruidoBuf=null,musOn=true,fxOn=true,tocando=false,proxTempo=0,passo=0,timer=null,volMus=.42;
   try{const s=JSON.parse(localStorage.getItem("bkb-som")||"{}");if(s.mus===false)musOn=false;if(s.fx===false)fxOn=false}catch(e){}
   const salvar=()=>{try{localStorage.setItem("bkb-som",JSON.stringify({mus:musOn,fx:fxOn}))}catch(e){}};
   function iniciar(){
@@ -1165,21 +1183,38 @@ const SOM=(()=>{
       [60,64,67,72].forEach(n=>tom(N(n),{t:t+.62,dur:1.2,tipo:"triangle",vol:.12}));ruido({t:t+.62,dur:1,vol:.12,f:7000,q:.5})},
     derrota(){const t=t0();[[67,0],[66,.25],[65,.5],[64,.75]].forEach(([n,d])=>tom(N(n),{t:t+d,dur:.32,tipo:"triangle",vol:.16,det:-15}));tom(N(52),{t:t+1,dur:.9,tipo:"sine",vol:.18})}
   };
-  /* trilha: loop alegre em Dó, I–V–vi–IV, 112 bpm, gerado ao vivo */
-  const ACORDES=[[48,60,64,67],[43,59,62,67],[45,60,64,69],[41,60,65,69]];
-  const MEL=[[76,null,79,76,74,null,72,74],[74,null,71,74,79,null,76,74],[72,null,76,79,81,null,79,76],[77,76,74,null,72,74,76,null]];
-  const SEM=60/112/2;
+  /* trilha: suave e acolhedora (Fá maior, 84 bpm): piano elétrico, pad quente, baixo macio e uma melodia de sininho que aparece de vez em quando */
+  const PROG=[[41,[57,60,64,65]],[38,[57,60,62,65]],[46,[57,62,65,69]],[48,[58,60,65,67]],[45,[55,60,64,67]],[38,[57,60,62,65]],[43,[58,62,65,67]],[48,[58,60,64,67]]];
+  const FRASES=[[72,null,null,74,76,null,74,null],[72,null,69,null,67,null,null,null],[69,null,72,null,74,null,72,69],[67,null,null,null,65,null,null,null],
+                [76,null,74,null,72,null,null,69],[74,null,72,null,69,null,null,null],[70,null,72,null,74,null,77,null],[76,null,null,null,72,null,null,null]];
+  const SEM=60/84/2;let rev=null,padBus=null;
+  function prepararTrilha(){
+    if(rev)return;
+    rev=ctx.createConvolver();const L=ctx.sampleRate*2.4,ir=ctx.createBuffer(2,L,ctx.sampleRate);
+    for(let ch=0;ch<2;ch++){const d=ir.getChannelData(ch);for(let i=0;i<L;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/L,3.2)}
+    rev.buffer=ir;const rg=ctx.createGain();rg.gain.value=.38;rev.connect(rg);rg.connect(busMus);
+    padBus=ctx.createBiquadFilter();padBus.type="lowpass";padBus.frequency.value=1100;padBus.Q.value=.4;padBus.connect(busMus);padBus.connect(rev);
+  }
+  function nota(f,{t,dur,vol,tipo="sine",ataque=.01,saida=busMus,molhado=.6,det=0}){
+    const o=ctx.createOscillator(),g=ctx.createGain();o.type=tipo;o.frequency.value=f;o.detune.value=det;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+ataque);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g);g.connect(saida);if(molhado&&rev){const w=ctx.createGain();w.gain.value=molhado;g.connect(w);w.connect(rev)}
+    o.start(t);o.stop(t+dur+.1);
+  }
+  function piano(n,t,vol){const f=N(n);nota(f,{t,dur:1.6,vol,ataque:.008});nota(f*2,{t,dur:.5,vol:vol*.18,ataque:.004,molhado:.3});nota(f*3,{t,dur:.18,vol:vol*.05,ataque:.002,molhado:0})}
+  function pad(notas,t,dur){notas.forEach(n=>{[-7,7].forEach(d=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type="triangle";o.frequency.value=N(n);o.detune.value=d;
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.018,t+.9);g.gain.setValueAtTime(.018,t+dur-.4);g.gain.linearRampToValueAtTime(0,t+dur+.6);
+    o.connect(g);g.connect(padBus);o.start(t);o.stop(t+dur+.7)})})}
   function agenda(){
-    while(proxTempo<ctx.currentTime+.25){
-      const c=Math.floor(passo/8)%4,i=passo%8,t=proxTempo,a=ACORDES[c];
-      if(i===0||i===4)tom(N(a[0]),{t,dur:SEM*3.5,tipo:"triangle",vol:.32,bus:busMus});
-      if(i%2===1)tom(N(a[0]+12),{t,dur:SEM*.9,tipo:"triangle",vol:.12,bus:busMus});
-      tom(N(a[1+(i%3)]),{t,dur:SEM*1.4,tipo:"sine",vol:.07,bus:busMus});
-      const volta=Math.floor(passo/32)%2;const m=MEL[c][i];
-      if(m&&volta===1)tom(N(m),{t,dur:SEM*1.8,tipo:"square",vol:.035,bus:busMus,ataque:.01});
-      if(m&&volta===0&&i%2===0)tom(N(m),{t,dur:SEM*1.2,tipo:"sine",vol:.06,bus:busMus});
-      ruido({t,dur:.04,vol:i%2?.035:.05,tipo:"highpass",f:7000,q:.5,bus:busMus});
-      if(i===2||i===6)ruido({t,dur:.12,vol:.06,f:1800,q:.8,bus:busMus});
+    prepararTrilha();
+    while(proxTempo<ctx.currentTime+.3){
+      const bar=Math.floor(passo/8),c=bar%8,i=passo%8,t=proxTempo,[baixo,ac]=PROG[c],volta=Math.floor(bar/8)%4;
+      if(i===0){pad(ac,t,SEM*8);nota(N(baixo),{t,dur:SEM*5,vol:.16,ataque:.02,molhado:.1})}
+      if(i===5)nota(N(baixo+7),{t,dur:SEM*2.5,vol:.08,ataque:.02,molhado:.1});
+      const padrao=[0,null,1,2,null,3,2,1];const k=padrao[i];
+      if(k!==null&&(i!==0||volta>0))piano(ac[k]+(volta===2?12:0),t+(i%2?SEM*.06:0),i===0?.05:.035);
+      if(volta>=1){const m=FRASES[c][i];if(m){nota(N(m+12),{t,dur:1.3,vol:.032,ataque:.006,molhado:.9});nota(N(m+24),{t,dur:.5,vol:.008,ataque:.003,molhado:.9})}}
+      if(volta!==3&&i%2===1)ruido({t,dur:.05,vol:.012,tipo:"highpass",f:8000,q:.4,bus:busMus});
       proxTempo+=SEM;passo++;
     }
   }
@@ -1410,7 +1445,7 @@ function supIniciar(){
 function supMontar(){
   const S=SP,pos=SEAT_POS[S.maos.length-1];
   const assentos=S.nomes.slice(1).map((n,i)=>`<div class="assento pos-${pos[i]}" id="rival-${i+1}" style="--cor:${SEAT_COR[i+1]}">
-      <div class="retrato"><img class="av-img" src="${avatarSrc(S.av[i+1])}" alt=""><b class="qtd" id="qtd-${i+1}">12</b></div>
+      <div class="retrato"><img class="av-img" src="${S.avSrc?S.avSrc[i+1]:avatarSrc(S.av[i+1])}" alt=""><b class="qtd" id="qtd-${i+1}">12</b></div>
       <span class="rn">${n}</span>
       <div class="leque-r" id="leque-${i+1}">${[0,1,2,3,4,5,6].map(k=>`<img src="verso.webp" alt="" style="--k:${k-3}">`).join("")}</div>
     </div>`).join("");
@@ -1511,7 +1546,7 @@ function supRender(){
     const ant=parseFloat(pc.dataset.ang||"90");let d=ang-ant;while(d>180)d-=360;while(d<-180)d+=360;pc.dataset.ang=ant+d;pc.style.transform=`rotate(${ant+d}deg)`}
   $("#smetas").innerHTML=supMetaHTML(S.maos[0]);
   const ac=$("#sacoes");
-  if(S.fase==="gritar")ac.innerHTML=`<button type="button" class="botao gritar" id="gritar">Biblikaboom!</button>`;
+  if(S.fase==="gritar"&&S.vez===0)ac.innerHTML=`<button type="button" class="botao gritar" id="gritar">Biblikaboom!</button>`;
   else if(podeDescartar)ac.innerHTML=SUPSEL?`<div class="spreview"><img src="${img(SUPSEL)}" alt=""><button type="button" class="botao" id="descartar">Descartar ${SUPSEL.n}</button></div>`:`<p class="sdica">Toque numa carta para descartar</p>`;
   else ac.innerHTML="";
   atualizarMao();
@@ -1537,6 +1572,7 @@ function supComprarVoce(){
   const c=supComprar(SP);SUPSEL=null;SOM.carta();
   voar($("#monte"),$("#smao"),img(c));pulsar($("#monte .pilha"));
   SP.msg=["Você comprou "+c.n,"Toque na carta que vai descartar. Toque de novo para confirmar."];
+  if(SP.online)supOnEnviar("c",c);
   setTimeout(()=>{supRender();const n=maoEls.get(c.p);if(n){n.focus({preventScroll:true});if(!calmo)n.animate([{translate:"0 -60px",scale:"1.25"},{translate:"0 0",scale:"1"}],{duration:420,easing:"cubic-bezier(.2,1.4,.4,1)"})}},calmo?0:380);
 }
 function supSelecionar(p){
@@ -1548,11 +1584,11 @@ function supDescartarVoce(){
   if(!SUPSEL||SP.vez!==0||SP.fase!=="descartar")return;
   const c=SUPSEL,el=maoEls.get(c.p);voar(el,$("#monte"),img(c),{virada:false});
   const fecha=supDescartar(SP,c);SUPSEL=null;SOM.virar();setTimeout(()=>pulsar($("#monte .pilha")),520);
-  if(fecha){supRelogioParar();SP.fase="gritar";SP.msg=["Você fechou os 3 grupos!","Aperte o botão e grite bem alto!"];SOM.brilho();supRender();$("#gritar").focus({preventScroll:true});return}
+  if(fecha){supRelogioParar();SP.fase="gritar";SP.msg=["Você fechou os 3 grupos!","Aperte o botão e grite bem alto!"];SOM.brilho();if(SP.online)supOnEnviar("d",c,"gritar");supRender();$("#gritar").focus({preventScroll:true});return}
   supRelogioParar();
-  SP.msg=SP.tempoAcabou?["Tempo esgotado!",c.n+" foi para baixo do monte."]:[SP.embaralhou?"Monte embaralhado!":"Descartou "+c.n,SP.embaralhou?"O monte deu uma volta inteira e foi embaralhado.":"Agora é a vez dos robôs."];SP.tempoAcabou=false;
+  SP.msg=SP.tempoAcabou?["Tempo esgotado!",c.n+" foi para baixo do monte."]:[SP.embaralhou?"Monte embaralhado!":"Descartou "+c.n,SP.embaralhou?"O monte deu uma volta inteira e foi embaralhado.":(SP.online?"Agora é a vez de "+SP.nomes[(SP.vez+1)%SP.maos.length]+".":"Agora é a vez dos robôs.")];SP.tempoAcabou=false;
   if(SP.embaralhou){SP.embaralhou=false;SOM.embaralhar();const pi=$("#monte .pilha");if(pi&&!calmo)pi.animate([{rotate:"0deg"},{rotate:"-8deg"},{rotate:"8deg"},{rotate:"0deg"}],{duration:500,iterations:2})}
-  supProximo(SP);supRender();depois(900,supTurnoRobo);
+  supProximo(SP);supRender();if(SP.online)supOnEnviar("d",c);else depois(900,supTurnoRobo);
 }
 function supTurnoRobo(){
   if(F!=="sup")return;const S=SP;
@@ -1639,11 +1675,11 @@ document.addEventListener("click",e=>{
   if(b.dataset.sup){SUPPREF[b.dataset.sup]=b.dataset.val;salvarSup();b.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b))}
   else if(b.id==="abrir-supremo")supremoInicio();
   else if(b.id==="sup-jogar")escolherComQuem("supremo");
-  else if(b.id==="sup-denovo")supIniciar();
+  else if(b.id==="sup-denovo"){if(SP&&SP.online)supOnNovaRodada();else supIniciar()}
   else if(b.id==="monte")supComprarVoce();
   else if(b.dataset.supc)supSelecionar(Number(b.dataset.supc));
   else if(b.id==="descartar")supDescartarVoce();
-  else if(b.id==="gritar"){SP.vencedor=0;supFim(0,supGrupos(SP.maos[0],SP.avancado))}
+  else if(b.id==="gritar"){SP.vencedor=0;if(SP.online)supOnGritar();supFim(0,supGrupos(SP.maos[0],SP.avancado))}
 });
 
 /* ================= Fast (modo ao vivo com líder) ================= */
@@ -2048,6 +2084,202 @@ document.addEventListener("click",e=>{
 });
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="on-cod")onlineEntrar()});
 
+/* ================= Supremo online: até 4 amigos na mesma sala ================= */
+const SO={cod:null,host:false,unsub:null,unsubJ:null,d:null,seq:-1,k:0,jog:[],regra:"basico",guarda:null,montado:false};
+const soSala=()=>ON.db.doc("salas/"+SO.cod);
+const soJog=()=>ON.db.collection("salas/"+SO.cod+"/jog");
+const soEsc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function supOnInicio(){
+  if(!PERFIL.nome)return perfilTela(()=>supOnInicio());
+  limpar();supOnSair(true);if(typeof onlineSair==="function")onlineSair(true);F="sup-on";camada.innerHTML="";SOM.volumeMusica(.5);
+  tela.innerHTML=`
+  <div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}<img class="omdo-t" src="arte/omdo.webp" alt="O Mundo de Otávio"></span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
+  <section class="on-capa"><div class="miolo">
+    <h1 class="titulo"><span class="c1">Com amigos</span><span class="c2"><img class="ic-titulo" src="arte/ic/supremo.webp" alt="">Supremo</span></h1>
+    <p>De 2 a 4 jogadores, cada um no seu celular. Um cria a sala e os outros entram com o código de 4 letras.</p>
+  </div></section>
+  <section class="on-corpo"><div class="miolo">
+    <div class="on-eu"><img src="${omdoSrc(PERFIL.av)}" alt=""><span>Jogando como <b id="on-eu-n"></b></span></div>
+    <div class="on-cartoes">
+      <div class="on-card"><h2>Criar sala</h2><p>Crie a sala do <b>Supremo</b> e mande o código para até 3 amigos.</p>
+        <button type="button" class="botao" id="so-criar">Criar sala</button></div>
+      <div class="on-card"><h2>Entrar numa sala</h2><p>Digite o código que o seu amigo mandou.</p>
+        <input id="so-cod" class="on-cod" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCD" aria-label="Código da sala">
+        <button type="button" class="botao" id="so-entrar">Entrar</button></div>
+    </div>
+    <p class="on-aviso" id="on-aviso" role="status"></p>
+  </div></section>`;
+  $("#on-eu-n").textContent=PERFIL.nome;topo();
+  ON.carregando=(window.claude?claude.use("db"):Promise.resolve(null)).then(async db=>{ON.db=db;const u=db?await claude.use("user"):null;ON.id=u?await u.id():null;
+    if(!db||!ON.id)aviso("O jogo online com amigos chega em breve nesta versão. Por enquanto, jogue contra os adversários bíblicos.",true)}).catch(()=>{});
+}
+async function supOnCriar(){
+  if(!await pronto())return;aviso("Criando a sala…");
+  let cod,ok=false;
+  for(let t=0;t<6&&!ok;t++){cod=codigoNovo();const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);ok=!s||!s.exists||(Date.now()-(s.data().criado||0)>6*3600e3)}
+  SO.cod=cod;SO.host=true;
+  try{await soSala().set({tipo:"supremo",criado:Date.now(),host:ON.id,regra:SUPPREF.regra||"basico",fase:"espera",jog:[],estado:null,seq:0});
+    await soJog().doc(ON.id).set({id:ON.id,nome:limpaNome(PERFIL.nome),av:PERFIL.av,t:Date.now()})}
+  catch(e){aviso("Não foi possível criar a sala. Você precisa de acesso de participante a este jogo.",true);return}
+  supOnOuvir();
+}
+async function supOnEntrar(){
+  if(!await pronto())return;
+  const cod=($("#so-cod").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
+  if(cod.length!==4){aviso("O código tem 4 letras.",true);return}
+  aviso("Procurando a sala…");
+  const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);
+  if(!s||!s.exists){aviso("Não achei essa sala. Confira o código.",true);return}
+  const d=s.data();
+  if(d.tipo!=="supremo"){aviso("Esse código é de uma sala de "+((MODOS[d.modo]||{}).nome||"outro jogo")+". Entre por esse modo.",true);return}
+  SO.cod=cod;SO.host=d.host===ON.id;
+  const ja=(d.jog||[]).some(j=>j.id===ON.id);
+  if(d.fase!=="espera"&&!ja){aviso("Essa partida já começou. Peça para criarem uma sala nova.",true);return}
+  if(!ja){
+    const lista=await soJog().get().catch(()=>null);const n=lista?lista.docs.filter(x=>x.exists).length:0;
+    if(n>=4&&!(lista.docs.some(x=>x.id===ON.id))){aviso("Essa sala já está cheia (4 jogadores).",true);return}
+    try{await soJog().doc(ON.id).set({id:ON.id,nome:limpaNome(PERFIL.nome),av:PERFIL.av,t:Date.now()})}
+    catch(e){aviso("Não foi possível entrar. Você precisa de acesso de participante a este jogo.",true);return}
+  }
+  supOnOuvir();
+}
+function supOnOuvir(){
+  supOnSair(true);SO.seq=-1;SO.montado=false;F="sup-sala";
+  tela.innerHTML=`<div class="miolo on-espera"><p class="pensando">Conectando à sala…</p></div>`;
+  const t=setTimeout(()=>{if(SO.seq<0)tela.innerHTML=`<div class="miolo on-espera"><p>A sala ainda não respondeu. Confira a internet.</p><button type="button" class="botao sec" id="voltar">Voltar</button></div>`},10000);
+  SO.unsub=soSala().onSnapshot(s=>{clearTimeout(t);if(!s.exists){supOnSair();inicio();return}const d=s.data();
+      if(d.seq===SO.seq&&SO.d&&d.fase===SO.d.fase)return;SO.seq=d.seq;const ant=SO.d;SO.d=d;supOnDesenhar(d,ant)},
+    ()=>{clearTimeout(t);tela.innerHTML=`<div class="miolo on-espera"><p>A conexão com a sala caiu.</p><button type="button" class="botao sec" id="voltar">Voltar</button></div>`});
+  SO.unsubJ=soJog().onSnapshot(q=>{SO.jog=q.docs.filter(x=>x.exists).map(x=>x.data()).filter(j=>j&&j.id).sort((a,b)=>(a.t||0)-(b.t||0)).slice(0,4);if(SO.d&&SO.d.fase==="espera")supOnSalaTela(SO.d)},()=>{});
+  clearInterval(SO.guarda);SO.guarda=setInterval(supOnVigia,5000);
+}
+function supOnSair(quieto){if(SO.unsub)SO.unsub();if(SO.unsubJ)SO.unsubJ();SO.unsub=SO.unsubJ=null;clearInterval(SO.guarda);SO.guarda=null;if(!quieto){SO.cod=null;SO.d=null;SO.montado=false}}
+function supOnSalaTela(d){
+  F="sup-sala";const lista=SO.jog,host=d.host===ON.id;SO.host=host;
+  const vagas=[0,1,2,3].map(i=>{const j=lista[i];return j?`<li class="so-j${j.id===d.host?" anfitriao":""}"><img src="${omdoSrc(j.av)}" alt=""><b>${soEsc(j.nome)}${j.id===ON.id?" (você)":""}</b>${j.id===d.host?"<small>anfitrião</small>":""}</li>`:`<li class="so-j vazio"><span>?</span><b>Esperando…</b></li>`}).join("");
+  const regra=d.regra||"basico";
+  tela.innerHTML=`
+  <div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}<img class="omdo-t" src="arte/omdo.webp" alt="O Mundo de Otávio"></span><button type="button" class="sair" id="so-sair-sala">Sair da sala</button></div></div>
+  <section class="on-corpo so-sala"><div class="miolo">
+    <p class="so-rot">Código da sala</p>
+    <div class="so-cod">${soEsc(SO.cod)}</div>
+    <button type="button" class="botao sec" id="so-copiar">Copiar código</button>
+    <ul class="so-lista">${vagas}</ul>
+    <div class="so-regra"><span class="sup-rot">Regra</span><div class="chip-grupo" role="group" aria-label="Regra">${[["basico","Básico"],["avancado","Avançado"]].map(([v,t])=>`<button type="button" data-soregra="${v}" aria-pressed="${regra===v}" ${host?"":"disabled"}>${t}</button>`).join("")}</div></div>
+    ${host?`<button type="button" class="botao" id="so-comecar" ${lista.length<2?"disabled":""}>${lista.length<2?"Esperando amigos…":"Começar com "+lista.length+" jogadores!"}</button>`:`<p class="pensando">Esperando o anfitrião começar</p>`}
+    <p class="on-aviso" id="on-aviso" role="status"></p>
+  </div></section>`;
+}
+/* ---- estado da partida ---- */
+function soLocal(i){const n=SO.d.jog.length;return (i-SO.k+n)%n}
+function soAbs(i){const n=SO.d.jog.length;return (i+SO.k)%n}
+function soMontarSP(d){
+  const e=d.estado,n=d.jog.length;SO.k=Math.max(0,d.jog.findIndex(j=>j.id===ON.id));
+  const rot=a=>a.map((_,i)=>a[soAbs(i)]);
+  const maos=rot(e.maos).map(m=>m.map(cartaP));
+  const nomes=rot(d.jog).map((j,i)=>i===0?"Você":limpaNome(j.nome));
+  const avSrc=rot(d.jog).map(j=>omdoSrc(j.av||0));
+  const vez=soLocal(e.vez);
+  const S={online:true,avancado:d.regra==="avancado",nivel:"medio",parado:Array(n).fill(0),melhor:Array(n).fill(0),maos,monte:e.monte.map(cartaP),vez,jogadas:e.jogadas||0,
+    nomes,av:Array(n).fill(1),avSrc,fase:e.fase==="gritar"||e.fase==="fim"?e.fase:e.fase,nova:vez===0&&e.nova?maos[0].find(c=>c.p===e.nova)||null:null,vencedor:null,desdeEmb:e.desdeEmb||0,msg:["",""]};
+  if(SUPSEL&&!maos[0].find(c=>c.p===SUPSEL.p))SUPSEL=null;else if(SUPSEL)SUPSEL=maos[0].find(c=>c.p===SUPSEL.p);
+  return S;
+}
+function soEstadoDe(S,extra={}){
+  const n=S.maos.length,maos=Array(n);S.maos.forEach((m,i)=>maos[soAbs(i)]=m.map(c=>c.p));
+  return Object.assign({maos,monte:S.monte.map(c=>c.p),vez:soAbs(S.vez),fase:S.fase,jogadas:S.jogadas,desdeEmb:S.desdeEmb||0,nova:S.nova?S.nova.p:null,t:Date.now()},extra);
+}
+async function supOnEnviar(acao,c,fase){
+  if(!SO.d||!SO.cod)return;
+  const e=soEstadoDe(SP,{ult:{q:SO.k,a:acao,p:c?c.p:null}});if(fase)e.fase=fase;
+  const seq=(SO.d.seq||0)+1;SO.seq=seq;SO.d=Object.assign({},SO.d,{estado:e,fase:e.fase,seq});
+  try{await soSala().update({estado:e,fase:e.fase,seq})}catch(err){SP.msg=["Falhou ao enviar a jogada","Confira a internet."];supRender()}
+}
+async function supOnComecar(){
+  const d=SO.d;if(!d||d.host!==ON.id)return;
+  const jog=SO.jog.slice(0,4).map(j=>({id:j.id,nome:limpaNome(j.nome),av:j.av||0}));if(jog.length<2)return;
+  const bar=embaralhar(CARTAS.slice()).map(c=>c.p),maos=jog.map(()=>bar.splice(0,12));
+  const estado={maos,monte:bar,vez:0,fase:"comprar",jogadas:0,desdeEmb:0,nova:null,ult:{q:-1,a:"inicio",p:null},t:Date.now()};
+  try{await soSala().update({jog,estado,fase:"comprar",venc:null,seq:(d.seq||0)+1})}catch(e){aviso("Não foi possível começar.",true)}
+}
+function supOnDesenhar(d,ant){
+  if(d.fase==="espera"){SO.montado=false;supOnSalaTela(d);return}
+  if(!d.estado||!(d.jog||[]).some(j=>j.id===ON.id)){tela.innerHTML=`<div class="miolo on-espera"><p>Essa partida já começou sem você.</p><button type="button" class="botao sec" id="voltar">Voltar</button></div>`;return}
+  const e=d.estado,u=e.ult||{},n=d.jog.length;SO.k=Math.max(0,d.jog.findIndex(j=>j.id===ON.id));
+  if(!SO.montado||F!=="sup"){
+    limpar();camada.innerHTML="";SUPSEL=null;maoEls.clear();SOM.volumeMusica(.28);
+    SP=soMontarSP(d);F="sup";SO.montado=true;SP.msg=["Distribuindo as cartas…",""];supMontar();topo();
+    const segue=()=>{SP=soMontarSP(SO.d);soMensagem(SO.d);supRender();soVez(SO.d,true)};
+    if(u.a==="inicio")supDistribuir(segue);else segue();
+    return;
+  }
+  const meu=u.q===SO.k;
+  if(!meu&&u.a&&u.a!=="inicio"){
+    const l=soLocal(u.q),seat=l===0?$("#smao"):$("#rival-"+l),c=u.p?cartaP(u.p):null;
+    if(u.a==="c"){voar($("#monte"),seat,"",{virada:true});SOM.carta();pulsar($("#monte .pilha"))}
+    else if(u.a==="d"&&c){voar(seat,$("#monte"),img(c),{virada:false});SOM.virar();setTimeout(()=>pulsar($("#monte .pilha")),520)}
+  }
+  const antVez=ant&&ant.estado?ant.estado.vez:null;
+  SP=soMontarSP(d);
+  if(e.fase==="fim"){const l=soLocal(d.venc!=null?d.venc:e.vez);supRelogioParar();SP.vencedor=l;supRender();
+    if(!document.querySelector(".celebra"))setTimeout(()=>supFim(l,supGrupos(SP.maos[l],SP.avancado)||[]),meu?0:650);return}
+  soMensagem(d);
+  setTimeout(()=>{if(F==="sup"&&SP&&SP.online){supRender();soVez(d,antVez!==e.vez)}},meu?0:420);
+}
+function soMensagem(d){
+  const e=d.estado,l=soLocal(e.vez),nome=SP.nomes[l];
+  if(e.fase==="gritar")SP.msg=l===0?["Você fechou os 3 grupos!","Aperte o botão e grite bem alto!"]:[nome+" fechou os grupos!",'<span class="pensando">Vai gritar Biblikaboom</span>'];
+  else if(l===0)SP.msg=e.fase==="comprar"?["Sua vez!","Toque no monte para comprar uma carta."]:["Você comprou "+(SP.nova?SP.nova.n:"uma carta"),"Toque na carta que vai descartar. Toque de novo para confirmar."];
+  else SP.msg=[nome+" está jogando",'<span class="pensando">'+(e.fase==="comprar"?"Comprando uma carta":"Escolhendo o descarte")+"</span>"];
+}
+function soVez(d,mudou){
+  const e=d.estado;
+  if(soLocal(e.vez)===0&&(e.fase==="comprar"||e.fase==="descartar")){if(mudou||!supTimer){supRelogioIniciar();if(mudou)SOM.escolher()}}
+  else supRelogioParar();
+  if(e.fase==="gritar"&&soLocal(e.vez)===0){const g=$("#gritar");if(g)g.focus({preventScroll:true})}
+}
+/* Anfitrião destrava a mesa se alguém sumir (90 s sem jogar) */
+function supOnVigia(){
+  const d=SO.d;if(!d||!d.estado||d.host!==ON.id||F!=="sup"||!SP||!SP.online)return;
+  const e=d.estado;if(e.fase!=="comprar"&&e.fase!=="descartar"&&e.fase!=="gritar")return;
+  if(Date.now()-(e.t||0)<90000||soLocal(e.vez)===0)return;
+  if(e.fase==="gritar"){soSala().update({estado:Object.assign({},e,{fase:"fim",t:Date.now()}),fase:"fim",venc:e.vez,seq:(d.seq||0)+1}).catch(()=>{});return}
+  const S=SP,l=S.vez;
+  if(S.fase==="comprar")supComprar(S);
+  const m=S.maos[l],c=S.nova||m[m.length-1];
+  const fecha=supDescartar(S,c);
+  if(fecha){S.fase="gritar"}else supProximo(S);
+  const e2=soEstadoDe(S,{ult:{q:soAbs(l),a:"d",p:c.p}});
+  soSala().update({estado:e2,fase:e2.fase,seq:(d.seq||0)+1}).catch(()=>{});
+}
+async function supOnGritar(){
+  supRelogioParar();
+  const e=soEstadoDe(SP,{fase:"fim",ult:{q:SO.k,a:"g",p:null}});
+  SO.d=Object.assign({},SO.d,{estado:e,fase:"fim",venc:SO.k});
+  try{await soSala().update({estado:e,fase:"fim",venc:SO.k,seq:(SO.d.seq||0)+1})}catch(err){}
+}
+async function supOnNovaRodada(){
+  const d=SO.d;if(!d)return;
+  if(d.host===ON.id){try{await soSala().update({fase:"espera",estado:null,venc:null,seq:(d.seq||0)+1})}catch(e){}}
+  else{SO.montado=false;supOnSalaTela(Object.assign({},d,{fase:"espera"}))}
+}
+async function supOnSairSala(){
+  const cod=SO.cod;supOnSair();
+  if(cod&&ON.db&&ON.id){try{await ON.db.doc("salas/"+cod+"/jog/"+ON.id).delete()}catch(e){}}
+  inicio();
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;
+  if(b.id==="so-criar")supOnCriar();
+  else if(b.id==="so-entrar")supOnEntrar();
+  else if(b.id==="so-comecar")supOnComecar();
+  else if(b.id==="so-sair-sala")supOnSairSala();
+  else if(b.id==="so-copiar"){const c=SO.cod||"";try{navigator.clipboard.writeText(c).then(()=>{b.textContent="Código copiado!"},()=>{b.textContent=c})}catch(err){b.textContent=c}}
+  else if(b.dataset.soregra&&SO.d&&SO.d.host===ON.id){soSala().update({regra:b.dataset.soregra,seq:(SO.d.seq||0)+1}).catch(()=>{})}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.id==="so-cod")supOnEntrar()});
+
 </script>
 <script>
 /* ================= Tela ================= */
@@ -2183,7 +2415,7 @@ function regras(){
 
   <section class="bloco" style="--bg:var(--roxo);--t1:var(--ouro)"><div class="miolo" style="grid-template-columns:1fr">
     <h2 class="titulo"><span class="c1">Os três</span><span class="c2">duelos</span></h2>
-    <div class="modos-mini">${Object.entries(MODOS).map(([k,m])=>`<div class="modo-mini" style="--cor:${VISUAL[k].cor}"><b>${m.nome}</b><p>${VISUAL[k].qual}. ${VISUAL[k].bkb.replace(/<\/?b>/g,"")}.</p></div>`).join("")}</div>
+    <div class="modos-mini">${Object.entries(MODOS).map(([k,m])=>`<div class="modo-mini" style="--cor:${VISUAL[k].cor}"><b><img class="ic-mini" src="arte/ic/${k}.webp" alt="">${m.nome}</b><p>${VISUAL[k].qual}. ${VISUAL[k].bkb.replace(/<\/?b>/g,"")}.</p></div>`).join("")}</div>
     <div style="text-align:center;margin-top:24px"><button type="button" class="botao" id="voltar2">Bora jogar!</button></div>
   </div></section>`;
   topo();
@@ -2339,7 +2571,7 @@ document.addEventListener("click",e=>{
   else if(b.id==="ver-regras")regras();
   else if(b.id==="sair")confirmarSaida();
   else if(b.id==="sair-nao")fecharConfirma();
-  else if(b.id==="sair-sim"){fecharConfirma();if(typeof onlineSair==="function")onlineSair();if(window.supRelogioParar)supRelogioParar();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});inicio()}
+  else if(b.id==="sair-sim"){fecharConfirma();if(SP&&SP.online&&typeof supOnSair==="function"){supOnSair();SP=null}if(typeof onlineSair==="function")onlineSair();if(window.supRelogioParar)supRelogioParar();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});inicio()}
   else if(b.id==="abrir-fast")fastInicio();
   else if(b.id==="voltar"||b.id==="voltar2"||b.id==="inicio")inicio();
   else if(b.id==="continuar")continuar();
@@ -2487,7 +2719,7 @@ function jrRender(){
   if(JR.passo===1){
     const amigos=[0,4,6].map(i=>`<img src="${omdoSrc(i)}" alt="">`).join(""),riv=sortearRivais(3);
     corpo=`<div class="cq-opcoes">
-      <button type="button" class="cq-op amigos" data-jrcom="amigos"${sup?' disabled aria-disabled="true"':""}><div class="cq-rostos">${amigos}</div><b>Com amigos</b><span>${sup?"Em breve: Supremo online com até 4 amigos.":"Crie uma sala e chame um amigo com um código. Cada um no seu celular."}</span></button>
+      <button type="button" class="cq-op amigos" data-jrcom="amigos"><div class="cq-rostos">${amigos}</div><b>Com amigos</b><span>${sup?"Crie uma sala e chame até 3 amigos com um código. Cada um no seu celular.":"Crie uma sala e chame um amigo com um código. Cada um no seu celular."}</span></button>
       <button type="button" class="cq-op bot" data-jrcom="bot"><div class="cq-rostos">${riv.map(r=>`<img src="${avatarSrc(r.a)}" alt="">`).join("")}</div><b>Contra adversários</b><span>Jogue agora contra personagens da Bíblia, como ${riv[0].n} e ${riv[1].n}.</span></button>
     </div>`;
   }else if(JR.passo===2){
@@ -2515,7 +2747,7 @@ function jrIr(){
   if(!n){inp.classList.add("erro");inp.placeholder="Escreva seu apelido";inp.focus();return}
   PERFIL.nome=limpaNome(n);salvarPerfil();
   const {modo,com,nivel}=JR;fecharComQuem();SOM.brilho();
-  if(modo==="supremo"){SUPPREF.nivel=nivel;salvarSup();return supIniciar()}
+  if(modo==="supremo"){SUPPREF.nivel=nivel;salvarSup();return com==="amigos"?supOnInicio():supIniciar()}
   PREF.modo=modo;PREF.nivel=nivel;salvarPref();
   if(com==="amigos")onlineInicio(modo);else iniciar();
 }
