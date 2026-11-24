@@ -232,7 +232,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .med-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
 .med{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;background:var(--roxo-esc);border:3px solid #000;border-radius:18px;padding:14px 10px;opacity:.55}
 .med.tem{opacity:1;background:linear-gradient(160deg,#5a2d91,#3b1c60);border-color:var(--ouro);box-shadow:0 0 18px rgba(255,200,61,.35)}
-.med-img{width:88px;height:auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}.med:not(.tem) .med-img{filter:grayscale(1) brightness(.55);opacity:.7}
+.med-img{width:auto;height:118px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}.med:not(.tem) .med-img{filter:grayscale(1) brightness(.55);opacity:.7}
 .med-tier{font-weight:900;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lilas)}.med.tem.t-ouro .med-tier{color:#ffd34d}.med.tem.t-prata .med-tier{color:#dfe6f0}.med.tem.t-bronze .med-tier{color:#e0a070}.med b{font-size:15px}.med small{font-size:12px;color:var(--lilas)}.med .botao{margin-top:6px;font-size:14px}
 .med-av{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:10px}
 .mav{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.mav img{width:76px;height:76px;border-radius:50%;border:3px solid var(--ouro);object-fit:cover}.mav b{font-size:13px}.mav small{font-size:11px;color:var(--lilas)}
@@ -2556,7 +2556,7 @@ function paywall(){
     <p class="pw-sub">O seu <b>dia de degustação</b> acabou. Libere o Biblikaboom Completo e continue a sua jornada pela Bíblia.</p>
     <div class="pw-oferta">
       <span class="pw-selo">Biblikaboom Completo</span>
-      <ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Medalhas e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li></ul>
+      <ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Troféus das missões e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li></ul>
       ${PAGO.lancamento?`<p class="pw-de">de <s>${PAGO.de}</s> por</p>`:""}<p class="pw-preco">${PAGO.preco}<small> compra única</small></p>${PAGO.lancamento?`<span class="pw-lanc">Preço de lançamento</span>`:""}
       <button type="button" class="botao" id="pw-adulto">Liberar o jogo completo</button>
     </div>
@@ -2639,7 +2639,7 @@ function ganharXP(n,motivo){const S=PROG.S,antes=nivelDe(S.xp);S.xp+=n;const dep
   if(dep>antes){toast(`<b>Nível ${dep}!</b> Você subiu de nível`,{ic:"🚀",cls:"grande"});SOM.brilho();
     AV_NIVEL.forEach((nv,i)=>{if(nv===dep)toast(`Novo personagem liberado: <b>${OMDO_AV[i]}</b>`,{img:omdoSrc(i)})})}
 }
-function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Medalha de ${m.tier}: <b>${m.t}</b>`,{img:`arte/med/${m.tier}.webp`,cls:"grande"});SOM.ganhou();S.xp+=40}})}
+function checarMedalhas(){const S=PROG.S;MEDALHAS.forEach(m=>{if(!S.med[m.id]&&m.ok(S)){S.med[m.id]=hoje();toast(`Troféu de ${m.tier}: <b>${m.t}</b>`,{img:`arte/trofeu/${m.tier}.webp`,cls:"grande"});SOM.ganhou();S.xp+=40}})}
 function marcarDia(){const S=PROG.S,d=hoje();if(S.seq.dia===d)return;
   S.seq.n=S.seq.dia&&diaN(d)-diaN(S.seq.dia)===1?S.seq.n+1:1;S.seq.dia=d;if(S.seq.n>1)toast(`<b>${S.seq.n} dias seguidos!</b> Continue assim`,{ic:"🔥"})}
 /* eventos vindos do jogo */
@@ -2675,7 +2675,7 @@ function progFaixaHTML(){
     <div class="pf-desafio${S.des.feito?" feito":""}"><span class="pf-rot">Desafio do dia</span><b>${D.t}</b><span class="pf-cont">${S.des.feito?"✔ Completo! +50 XP":`${dc}/${D.meta} · vale 50 XP`}</span></div>
     <div class="pf-botoes">
       <button type="button" class="pf-b" id="abrir-album"><img src="arte/ic/album.webp" alt=""><b>Álbum</b><small>${nAlb}/66</small></button>
-      <button type="button" class="pf-b" id="abrir-medalhas"><img src="arte/ic/medalhas.webp" alt=""><b>Medalhas</b><small>${nMed}/${MEDALHAS.length}</small></button>
+      <button type="button" class="pf-b" id="abrir-medalhas"><img src="arte/ic/trofeus.webp" alt=""><b>Troféus</b><small>${nMed}/${MEDALHAS.length}</small></button>
       <button type="button" class="pf-b" id="abrir-liga"><img src="arte/ic/ranking.webp" alt=""><b>Ranking</b><small>com amigos</small></button>
     </div></div>`;
 }
@@ -2699,8 +2699,8 @@ function albumCarta(p){const c=cartaP(p);
 function medalhasTela(){
   limpar();F="medalhas";camada.innerHTML="";const S=PROG.S;
   tela.innerHTML=`<div class="regras-topo"><div class="miolo"><span class="marcas">${logo("110px")}</span><button type="button" class="sair" id="voltar">Voltar</button></div></div>
-  <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Minhas</span><span class="c2">medalhas</span></h1><p>Cada medalha vale +40 XP. Complete o álbum para ganhar o certificado de Expert da Bíblia!</p></div></section>
-  <section class="on-corpo"><div class="miolo"><div class="med-grade">${MEDALHAS.map(m=>`<div class="med${S.med[m.id]?" tem":""} t-${m.tier}"><img class="med-img" src="arte/med/${m.tier}.webp" alt="Medalha de ${m.tier}"><span class="med-tier">${m.tier}</span><b>${m.t}</b><small>${m.d}</small>${m.cert&&S.med[m.id]?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}</div>`).join("")}</div>
+  <section class="on-capa"><div class="miolo"><h1 class="titulo"><span class="c1">Meus</span><span class="c2">troféus</span></h1><p>Cada missão cumprida dá um troféu e +40 XP. Complete o álbum para ganhar o certificado de Expert da Bíblia!</p></div></section>
+  <section class="on-corpo"><div class="miolo"><div class="med-grade">${MEDALHAS.map(m=>`<div class="med${S.med[m.id]?" tem":""} t-${m.tier}"><img class="med-img" src="arte/trofeu/${m.tier}.webp" alt="Troféu de ${m.tier}"><span class="med-tier">${m.tier}</span><b>${m.t}</b><small>${m.d}</small>${m.cert&&S.med[m.id]?`<button type="button" class="botao" id="ver-cert">Ver certificado</button>`:""}</div>`).join("")}</div>
   <h2 class="ex-tit">Personagens</h2><p class="ex-sub">Suba de nível para liberar novos personagens.</p>
   <div class="med-av">${OMDO_AV.map((n,i)=>`<div class="mav${avLiberado(i)?"":" bloq"}"><img src="${omdoSrc(i)}" alt=""><b>${n}</b><small>${avLiberado(i)?"Liberado":"Nível "+AV_NIVEL[i]}</small></div>`).join("")}</div>
   </div></section>`;topo();
