@@ -1347,37 +1347,46 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .jr-ap img{width:46px;height:auto;flex:none}
 .jr-ap svg{width:40px;height:40px;flex:none;padding:6px;border-radius:12px;background:var(--ouro);fill:none;stroke:var(--tinta);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .jr-ap span{display:flex;flex-direction:column;gap:2px;min-width:0}.jr-ap b{font-size:16px;color:var(--ouro)}.jr-ap small{font-size:13px;opacity:.85;line-height:1.3}
-/* ===== Fast em modo TV: celular deitado, TV, painel ou projetor. Tudo cabe numa tela, sem rolar, e cresce com a altura =====
-   Otávio fica à esquerda (fundo); à direita: cartas | chamada + botão | rodadas */
+/* ===== Fast deitado (celular deitado, TV, painel, projetor): tudo numa tela só, sem rolar, sem cortar.
+   Medidas saem da altura da tela: barra --bh, folga --pv; a carta ocupa o resto da altura. */
 @media (orientation:landscape) and (min-aspect-ratio:4/3){
-  :root #fast.miolo{max-width:none;margin:0;padding-block:0!important;padding-left:max(20vw,env(safe-area-inset-left,0px))!important;padding-right:max(clamp(10px,1.6vw,32px),env(safe-area-inset-right,0px))!important}
-  :root #fast .app{max-width:none;height:calc(100svh - 16px);min-height:0;box-sizing:border-box;padding:clamp(6px,1.6vh,18px) 0;gap:clamp(4px,1.6vh,18px);overflow:hidden}
-  :root #fast .barra{margin:0;padding-right:clamp(96px,10vw,150px)!important;flex-wrap:nowrap;gap:1vw}
-  :root #fast .barra .emblema b{font-size:clamp(16px,3.6vh,34px)}
-  :root #fast .barra .disco{width:clamp(30px,6.5vh,62px);height:clamp(30px,6.5vh,62px)}
-  :root #fast .placar{flex-wrap:nowrap;gap:clamp(4px,.8vw,12px)}
-  :root #fast .niveis button,:root #fast .icone,:root #fast .barra .sair{font-size:clamp(11px,2.2vh,20px);padding:clamp(3px,.8vh,10px) clamp(8px,1.1vw,20px)}
-  :root #fast .fpalco{grid-template-columns:minmax(0,1fr) clamp(130px,14vw,280px);gap:clamp(8px,1.6vw,32px);min-height:0;flex:1;align-items:stretch}
-  :root #fast .centro{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:"mesa ." "mesa ch" "mesa acao" "mesa .";align-items:center;justify-items:center;gap:clamp(6px,2.4vh,28px) clamp(10px,2.4vw,48px);min-height:0}
-  :root #fast .chamada{grid-area:ch;font-size:clamp(18px,min(7.4vh,3.6vw),100px);max-width:100%;text-wrap:balance}
-  :root #fast .fmesa{grid-area:mesa;align-items:center;height:100%;min-height:0;width:auto;gap:clamp(8px,1.6vw,30px)}
-  :root #fast .carta-box{width:min(calc((100svh - 15vh - 40px) * .602),22vw)}
-  :root #fast .fpilha{width:calc(min(calc((100svh - 15vh - 40px) * .602),22vw) * .36);margin-bottom:0}
-  :root #fast .fpilha-n{bottom:auto;top:calc(100% + 4px)}
-  :root #fast .acao{grid-area:acao;font-size:clamp(14px,min(4.6vh,2.4vw),54px);padding:.45em .9em .35em;white-space:nowrap;max-width:100%}
-  :root #fast .dica-tecla{display:none}
-  :root #fast aside{min-height:0;overflow:hidden;padding:clamp(8px,1.8vh,20px);gap:clamp(6px,1.2vh,14px)}
-  :root #fast aside h2{font-size:clamp(16px,3.4vh,32px)}
-  :root #fast .num b{font-size:clamp(20px,5vh,52px)}:root #fast .num small{font-size:clamp(10px,1.7vh,16px)}
-  :root #fast ol.hist{max-height:none;flex:1;min-height:0}
-  :root #fast .hist li{font-size:clamp(12px,2.2vh,22px)}
-  :root #fast .legenda{display:none}
-  .fast-fundo{background:linear-gradient(90deg,rgba(20,6,36,0) 0%,rgba(20,6,36,.35) 28%,rgba(20,6,36,.78) 60%,rgba(20,6,36,.85) 100%),url("arte/fast-palco.webp") 0 0/auto 100% no-repeat,#1f1033!important}
+  :root #fast{--bh:clamp(34px,7.5vh,76px);--pv:clamp(8px,1.8vh,22px);--ch:min(calc(100svh - var(--bh) - var(--pv) * 3 - 6px),calc(24vw / .602));}
+  :root #fast.miolo{position:fixed;inset:0;z-index:2;overflow:hidden;max-width:none;margin:0;padding:0 max(10px,env(safe-area-inset-right,0px)) 0 max(min(44svh,26vw),calc(env(safe-area-inset-left,0px) + 12px))!important}
+  :root #fast .app{max-width:none;height:100svh;min-height:0;box-sizing:border-box;padding:var(--pv) 0;gap:var(--pv);overflow:hidden;display:grid;grid-template-rows:var(--bh) minmax(0,1fr)}
+  :root #fast .barra{margin:0;height:var(--bh);padding-right:max(112px,calc(var(--bh) * 2.4 + 14px))!important;flex-wrap:nowrap;gap:clamp(4px,.8vw,14px);align-items:center;min-width:0}
+  :root #fast .barra .emblema{display:none}
+  :root #fast .placar{flex-wrap:nowrap;gap:clamp(4px,.7vw,12px);min-width:0;margin-left:auto}
+  :root #fast .niveis{padding:2px}
+  :root #fast .niveis button,:root #fast .icone,:root #fast .barra .sair{font-size:clamp(10px,2.1vh,20px);padding:clamp(3px,.7vh,9px) clamp(7px,1vw,18px);white-space:nowrap}
+  :root #fast .barra .sair svg{width:1em;height:1em}
+  :root #fast .fpalco{display:grid;grid-template-columns:minmax(0,1fr) clamp(118px,15vw,300px);gap:clamp(8px,1.6vw,32px);min-height:0;align-items:stretch}
+  :root #fast .centro{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:"mesa ." "mesa ch" "mesa acao" "mesa .";align-items:center;justify-items:center;gap:clamp(6px,2.2vh,26px) clamp(8px,2vw,40px);min-height:0;min-width:0}
+  :root #fast .chamada{grid-area:ch;font-size:clamp(15px,min(7vh,2.7vw),96px);max-width:100%;text-wrap:balance;overflow-wrap:break-word}
+  :root #fast .fmesa{grid-area:mesa;align-items:center;height:100%;min-height:0;width:auto;gap:clamp(6px,1.2vw,26px)}
+  :root #fast .carta-box{width:calc(var(--ch) * .602);max-width:none}
+  :root #fast .carta-box::before{inset:-12% -30%}
+  :root #fast .fpilha{width:calc(var(--ch) * .602 * .34);margin-bottom:0;align-self:center}
+  :root #fast .fpilha-n{bottom:auto;top:calc(100% + 2px);font-size:clamp(9px,1.6vh,15px)}
+  :root #fast .fpilha-n b{font-size:clamp(14px,3vh,28px)}
+  :root #fast .acao{grid-area:acao;font-size:clamp(11px,min(4.4vh,1.8vw),52px);padding:.45em .8em .35em;white-space:nowrap;max-width:100%}
+  :root #fast .dica-tecla,:root #fast .legenda{display:none}
+  :root #fast aside{min-height:0;overflow:hidden;padding:clamp(6px,1.6vh,20px);gap:clamp(4px,1.2vh,14px)}
+  :root #fast aside h2{font-size:clamp(14px,3.2vh,30px)}
+  :root #fast .numeros{grid-template-columns:1fr;gap:clamp(4px,1vh,10px)}
+  :root #fast .num{display:flex;align-items:baseline;gap:.4em;padding:clamp(3px,.8vh,10px) clamp(6px,1vh,12px);min-width:0}
+  :root #fast .num b{font-size:clamp(16px,4.4vh,46px)}:root #fast .num small{font-size:clamp(9px,1.7vh,16px);line-height:1.1}
+  :root #fast ol.hist{max-height:none;flex:1;min-height:0;overflow:auto}
+  :root #fast .hist li{font-size:clamp(11px,2.1vh,22px);gap:.4em;min-width:0}
+  :root #fast .hist em{font-size:clamp(8px,1.4vh,13px)}
+  :root #fast .vazio{font-size:clamp(10px,1.9vh,18px);margin:0}
+  .fast-fundo{background:linear-gradient(90deg,rgba(31,16,51,0) 0%,rgba(31,16,51,.25) 30%,rgba(31,16,51,.75) 62%,#1f1033 100%) left top/calc(100svh * 1.5) 100% no-repeat,url("arte/fast-palco.webp") left top/auto 100% no-repeat,#1f1033!important}
+  /* Modo TV: só o essencial, letra e carta maiores */
+  :root.fast-tv #fast .niveis,:root.fast-tv #fast #reiniciar,:root.fast-tv .som-ctl{display:none}
+  :root.fast-tv #fast .barra{padding-right:0!important}
+  :root.fast-tv #fast .hist{display:none}
+  :root.fast-tv #fast aside h2{display:none}
 }
-@media (orientation:landscape) and (min-aspect-ratio:4/3) and (max-height:520px){
-  :root #fast .barra .emblema b{display:none}
-  :root #fast .num{padding:4px 8px}
-}
+.fast-tv #tela-cheia{background:var(--ouro)!important;color:var(--tinta)!important;border-color:var(--ouro)!important}
 </style>
 
 <div id="abertura" class="abertura" role="dialog" aria-modal="true" aria-label="Abertura do Biblikaboom">
@@ -2299,15 +2308,22 @@ $("reiniciar").addEventListener("click",()=>{
   $("hist").innerHTML="";$("vazio").hidden=false;$("n-rodada").textContent=0;$("n-faltam").textContent=66;
 });
 $("tela-cheia").addEventListener("click",async()=>{
-  try{if(document.fullscreenElement)await document.exitFullscreen();else{await document.documentElement.requestFullscreen({navigationUI:"hide"});try{await screen.orientation.lock("landscape")}catch(e){}}}catch(e){}
-  try{if("wakeLock"in navigator)await navigator.wakeLock.request("screen")}catch(e){}
+  const r=document.documentElement,liga=!r.classList.contains("fast-tv");r.classList.toggle("fast-tv",liga);
+  $("tela-cheia").textContent=liga?"Sair do modo TV":"Modo TV";
+  const podeCheia=!!(r.requestFullscreen||r.webkitRequestFullscreen);
+  try{if(liga){if(podeCheia&&!document.fullscreenElement){await (r.requestFullscreen?r.requestFullscreen({navigationUI:"hide"}):r.webkitRequestFullscreen());try{await screen.orientation.lock("landscape")}catch(e){}}}
+    else if(document.fullscreenElement)await document.exitFullscreen()}catch(e){}
+  try{if(liga&&"wakeLock"in navigator)FAST_WL=await navigator.wakeLock.request("screen");else if(!liga&&FAST_WL){FAST_WL.release();FAST_WL=null}}catch(e){}
+  if(liga&&innerHeight>innerWidth&&typeof toast==="function")toast("Deite o celular para o modo TV ocupar a tela toda.");
+  else if(liga&&!podeCheia&&typeof toast==="function"&&!matchMedia("(display-mode: standalone)").matches)toast("No iPhone, abra pelo ícone na Tela de Início para jogar sem as barras do Safari.");
 });
 try{const s=localStorage.getItem("bkb-fast-nivel");if(s&&PADRAO[s])document.querySelector('[data-nivel="'+s+'"]').click()}catch(e){}
 }
 document.addEventListener("keydown",e=>{if(F!=="fast"||document.querySelector(".confirma"))return;if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();avancar()}});
 return {montar};
 })();
-function fastInicio(){if(!liberar())return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
+let FAST_WL=null;
+function fastInicio(){document.documentElement.classList.remove("fast-tv");if(!liberar())return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
 
 /* ================= Online fora do Claude: salas ponto a ponto (PeerJS) =================
    Dentro do Claude usamos o banco do próprio Claude. Fora dele (site/app instalado),
@@ -3266,7 +3282,7 @@ function salvarPref(){try{localStorage.setItem("bkb-duelo",JSON.stringify(PREF))
 
 let J=null,F="inicio",ULT=null,DES=null,fimEm=null,relogio=null,timers=[];
 function depois(ms,fn){const t=setTimeout(fn,ms);timers.push(t);return t}
-function limpar(){timers.forEach(clearTimeout);timers=[];clearInterval(relogio);if(typeof rodRelParar==="function")rodRelParar()}
+function limpar(){document.documentElement.classList.remove("fast-tv");timers.forEach(clearTimeout);timers=[];clearInterval(relogio);if(typeof rodRelParar==="function")rodRelParar()}
 function topo(){scrollTo({top:0})}
 
 /* ---------- Início ---------- */
