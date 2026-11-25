@@ -1352,7 +1352,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 @media (orientation:landscape) and (min-aspect-ratio:4/3){
   :root #fast{--bh:clamp(34px,7.5vh,76px);--pv:clamp(8px,1.8vh,22px);--ch:min(calc(100svh - var(--bh) - var(--pv) * 3 - 6px),calc(24vw / .602));}
   :root #fast.miolo{position:fixed;inset:0;z-index:2;overflow:hidden;max-width:none;margin:0;padding:0 max(10px,env(safe-area-inset-right,0px)) 0 max(min(44svh,26vw),calc(env(safe-area-inset-left,0px) + 12px))!important}
-  :root #fast .app{max-width:none;height:100svh;min-height:0;box-sizing:border-box;padding:var(--pv) 0;gap:var(--pv);overflow:hidden;display:grid;grid-template-rows:var(--bh) minmax(0,1fr)}
+  :root #fast .app{max-width:none;height:100svh;min-height:0;box-sizing:border-box;padding:var(--pv) 0;gap:var(--pv);overflow:visible;display:grid;grid-template-rows:var(--bh) minmax(0,1fr)}
   :root #fast .barra{margin:0;height:var(--bh);padding-right:max(112px,calc(var(--bh) * 2.4 + 14px))!important;flex-wrap:nowrap;gap:clamp(4px,.8vw,14px);align-items:center;min-width:0}
   :root #fast .barra .emblema{display:none}
   :root #fast .placar{flex-wrap:nowrap;gap:clamp(4px,.7vw,12px);min-width:0;margin-left:auto}
@@ -1362,13 +1362,13 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
   :root #fast .fpalco{display:grid;grid-template-columns:minmax(0,1fr) clamp(118px,15vw,300px);gap:clamp(8px,1.6vw,32px);min-height:0;align-items:stretch}
   :root #fast .centro{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:1fr auto auto 1fr;grid-template-areas:"mesa ." "mesa ch" "mesa acao" "mesa .";align-items:center;justify-items:center;gap:clamp(6px,2.2vh,26px) clamp(8px,2vw,40px);min-height:0;min-width:0}
   :root #fast .chamada{grid-area:ch;font-size:clamp(15px,min(7vh,2.7vw),96px);max-width:100%;text-wrap:balance;overflow-wrap:break-word}
-  :root #fast .fmesa{grid-area:mesa;align-items:center;height:100%;min-height:0;width:auto;gap:clamp(6px,1.2vw,26px)}
+  :root #fast .fmesa{grid-area:mesa;align-items:center;height:100%;min-height:0;width:auto;padding-left:14px;gap:clamp(6px,1.2vw,26px)}
   :root #fast .carta-box{width:calc(var(--ch) * .602);max-width:none}
   :root #fast .carta-box::before{inset:-12% -30%}
   :root #fast .fpilha{width:calc(var(--ch) * .602 * .34);margin-bottom:0;align-self:center}
   :root #fast .fpilha-n{bottom:auto;top:calc(100% + 2px);font-size:clamp(9px,1.6vh,15px)}
   :root #fast .fpilha-n b{font-size:clamp(14px,3vh,28px)}
-  :root #fast .acao{grid-area:acao;font-size:clamp(11px,min(4.4vh,1.8vw),52px);padding:.45em .8em .35em;white-space:nowrap;max-width:100%}
+  :root #fast .acao{grid-area:acao;font-size:clamp(11px,min(4.4vh,1.8vw),52px);padding:.45em .8em .35em;white-space:normal;text-wrap:balance;line-height:1.05;max-width:100%}
   :root #fast .dica-tecla,:root #fast .legenda{display:none}
   :root #fast aside{min-height:0;overflow:hidden;padding:clamp(6px,1.6vh,20px);gap:clamp(4px,1.2vh,14px)}
   :root #fast aside h2{font-size:clamp(14px,3.2vh,30px)}
