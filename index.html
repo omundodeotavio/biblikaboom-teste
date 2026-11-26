@@ -116,13 +116,13 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .outros{background:var(--rosa);padding-block:40px 46px;position:relative}
 .outros::before{content:"";position:absolute;left:0;right:0;top:-1px;height:40px;background:var(--roxo);clip-path:polygon(0 0,100% 0,0 100%)}
 .outros .titulo{font-size:clamp(30px,4.4vw,46px);--t1:var(--tinta);margin:14px 0 20px}
-.outros-grade{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.outros-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:20px}
 @media (max-width:720px){.outros-grade{grid-template-columns:1fr}}
 .outro{display:grid;grid-template-columns:130px 1fr;gap:14px;align-items:center;background:var(--branco);color:var(--tinta);border:4px solid var(--tinta);border-radius:20px;padding:14px;box-shadow:0 6px 0 var(--tinta)}
 .outro img{width:130px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.3))}
 .outro h3{margin:0;font-family:var(--cartoon);font-weight:400;font-size:30px;line-height:1;color:var(--roxo)}
 .outro p{margin:4px 0 10px;font-size:14px;line-height:1.35;color:#4b3a5e}
-.outro .botao{font-size:18px;padding:8px 16px 4px}
+.outro .botao{font-size:18px;padding:8px 16px 4px;white-space:nowrap}
 .em-breve{display:inline-block;font-weight:900;font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--roxo-esc);color:var(--ouro);padding:6px 12px;border-radius:999px}
 
 .jr-tempo{margin-top:18px}
@@ -796,6 +796,104 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 @media (min-width:1000px){.mini{--w:88px}.meta span{font-size:13px}.meta b{font-size:28px}.mini-nome{font-size:12px}.monte .pilha{width:96px}}
 @media (min-width:1600px){.mini{--w:104px}.mini-nome{font-size:15px}.meta b{font-size:34px}.meta span{font-size:15px}.rival .rn{font-size:26px}.monte .pilha{width:120px}}
 @media (prefers-reduced-motion:reduce){.monte.pode .pilha,.botao.gritar,.rival.ativo .av{animation:none}}
+
+/* ---------- Quiz Bíblico ---------- */
+.quiz-fundo{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+  radial-gradient(ellipse 70% 55% at 50% 0%,rgba(124,196,255,.35),transparent 70%),
+  repeating-conic-gradient(from 0deg at 50% 0%,rgba(255,214,110,.07) 0 6deg,transparent 6deg 14deg),
+  radial-gradient(ellipse at 50% 110%,#3b1c60 0%,#1f1033 60%,#140826 100%)}
+#quiz{color:#f6f0ff}
+#quiz .app{max-width:1280px;margin:0 auto;padding-block:14px 28px;display:flex;flex-direction:column;gap:14px;min-height:100%}
+.qz-rev[hidden],.qz-tempo[hidden],.qz-placar[hidden]{display:none!important}
+.emblema .disco.qz-ic{width:48px;height:48px;border-radius:50%;border:3px solid var(--tinta);box-shadow:0 3px 0 var(--tinta);display:grid;place-items:center;overflow:hidden}
+.qz-ic{background:radial-gradient(circle at 35% 30%,#7cc4ff,#2b6fd0)!important;font-family:var(--cartoon);font-size:30px;color:#fff;-webkit-text-stroke:1.5px var(--tinta);paint-order:stroke fill;padding-top:6px}
+.qz-marca{display:flex;align-items:center;gap:2px;margin:-8px 0 -10px}
+.qz-marca img{width:clamp(110px,13vw,170px);filter:drop-shadow(0 6px 10px rgba(0,0,0,.5))}
+.qz-marca span{font-family:var(--cartoon);font-size:clamp(22px,3vw,36px);line-height:1;color:#7cc4ff;-webkit-text-stroke:.07em var(--tinta);paint-order:stroke fill;text-shadow:0 .08em 0 var(--tinta);transform:rotate(-3deg)}
+.qz-grade{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:22px;align-items:start}
+@media (max-width:900px){.qz-grade{grid-template-columns:1fr}}
+.qz-centro{display:flex;flex-direction:column;align-items:center;gap:16px;min-width:0}
+.qz-topo{width:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
+.qz-info{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.qz-info b{font-family:var(--cartoon);font-weight:400;font-size:clamp(18px,2.4vw,26px);color:var(--ouro);letter-spacing:.03em}
+.qz-nv{font:800 12px var(--texto);letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.3)}
+.qz-chamada{font-family:var(--cartoon);font-size:clamp(24px,3.6vw,44px);text-align:center;line-height:1;color:#fff;-webkit-text-stroke:.06em var(--tinta);paint-order:stroke fill;text-shadow:0 .08em 0 var(--tinta)}
+.qz-anel{justify-self:end;position:relative;width:clamp(70px,9vw,104px);aspect-ratio:1}
+.qz-anel svg{width:100%;height:100%;transform:rotate(-90deg)}
+.qz-anel circle{fill:none;stroke-width:10}
+.qz-anel .fundo{stroke:rgba(255,255,255,.14);fill:rgba(26,11,43,.75)}
+.qz-anel .arco{stroke:var(--ouro);stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p) * 100);transition:stroke-dashoffset 1s linear,stroke .3s}
+.qz-anel b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--cartoon);font-weight:400;font-size:clamp(26px,3.4vw,40px);padding-top:.12em;font-variant-numeric:tabular-nums}
+.qz-anel.urgente .arco{stroke:var(--nao)}
+.qz-anel.urgente b{color:var(--nao);animation:qzpulsa .5s ease-in-out infinite alternate}
+@keyframes qzpulsa{to{transform:scale(1.18)}}
+.qz-palco{width:100%;display:flex;flex-direction:column;gap:16px}
+.qz-palco.entra .qz-perg{animation:qzentra .55s cubic-bezier(.3,1.5,.5,1)}
+.qz-palco.entra .qz-op{animation:qzentra .5s cubic-bezier(.3,1.5,.5,1) backwards;animation-delay:calc(.15s + var(--i) * .08s)}
+@keyframes qzentra{from{transform:translateY(24px) scale(.94);opacity:0}}
+.qz-perg{position:relative;background:#fff;color:var(--tinta);border:4px solid var(--tinta);border-radius:24px;box-shadow:0 8px 0 var(--tinta),0 0 60px rgba(124,196,255,.35);
+  padding:clamp(18px,3vw,34px) clamp(18px,3vw,40px);font-family:var(--cartoon);font-weight:400;font-size:clamp(24px,3.4vw,46px);line-height:1.12;text-align:center;letter-spacing:.01em;text-wrap:balance}
+.qz-palco.vazio .qz-perg{font-family:var(--texto);font-weight:800;font-size:clamp(17px,2vw,22px);color:#4b3a5e}
+.qz-perg::before{content:"?";position:absolute;left:-14px;top:-22px;width:52px;height:52px;border-radius:50%;background:var(--ouro);border:4px solid var(--tinta);display:grid;place-items:center;font-family:var(--cartoon);font-size:32px;color:var(--tinta);padding-top:6px;transform:rotate(-12deg);box-shadow:0 4px 0 var(--tinta)}
+.qz-tempo{align-self:center;font-family:var(--cartoon);font-size:clamp(22px,3vw,34px);color:#fff;background:var(--nao);border:3px solid var(--tinta);border-radius:999px;padding:8px 22px 4px;box-shadow:0 5px 0 var(--tinta);animation:qzentra .4s}
+.qz-ops{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.qz-ops{grid-template-columns:1fr}}
+.qz-op{--cor:#6b3aa6;display:flex;align-items:center;gap:14px;min-height:clamp(64px,9vh,96px);text-align:left;cursor:pointer;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--cor) 82%,#fff),var(--cor));border:4px solid var(--tinta);border-radius:20px;padding:10px 16px;box-shadow:0 6px 0 var(--tinta);color:#fff;transition:transform .12s,opacity .3s,filter .3s}
+.qz-op:nth-child(1){--cor:#7a3cc4}.qz-op:nth-child(2){--cor:#2b8fe0}.qz-op:nth-child(3){--cor:#e8327c}.qz-op:nth-child(4){--cor:#e8851f}
+.qz-op:hover{transform:translateY(-2px)}
+.qz-op:active{transform:translateY(3px);box-shadow:0 3px 0 var(--tinta)}
+.qz-letra{flex:none;width:clamp(40px,5vw,56px);aspect-ratio:1;border-radius:50%;background:#fff;color:var(--tinta);border:3px solid var(--tinta);display:grid;place-items:center;font-family:var(--cartoon);font-size:clamp(22px,2.6vw,32px);padding-top:.12em}
+.qz-txt{font-family:var(--cartoon);font-size:clamp(20px,2.5vw,32px);line-height:1.05;letter-spacing:.02em;-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill;text-shadow:0 .07em 0 var(--tinta);min-width:0}
+.qz-op.marcada{outline:5px solid #fff;outline-offset:3px;transform:scale(1.03)}
+.qz-op.marcada .qz-letra{background:var(--ouro)}
+.qz-op.apaga:not(.errada){display:none}
+.qz-op.errada{opacity:.7;filter:none;background:linear-gradient(180deg,#ff8a95,var(--nao))}
+.qz-op.certa{--cor:#2fa35a;background:linear-gradient(180deg,#5fe08f,#22a055);transform:scale(1.04);box-shadow:0 6px 0 var(--tinta),0 0 0 6px rgba(255,255,255,.9),0 0 50px rgba(95,224,143,.8);animation:qzcerta .6s cubic-bezier(.3,1.6,.5,1)}
+.qz-op.certa .qz-letra{background:var(--ouro)}
+@keyframes qzcerta{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1.04)}}
+.qz-rev{background:linear-gradient(180deg,#fff8e1,#fff);color:var(--tinta);border:4px solid var(--tinta);border-radius:22px;box-shadow:0 8px 0 var(--tinta),0 0 60px rgba(247,181,44,.45);padding:18px clamp(16px,2.6vw,28px);display:flex;flex-direction:column;gap:12px;animation:qzentra .5s cubic-bezier(.3,1.4,.5,1)}
+.qz-resp{display:flex;align-items:center;gap:12px;font-family:var(--cartoon);font-size:clamp(24px,3.2vw,40px);line-height:1;color:#1f7a3f}
+.qz-resp .qz-letra{background:#5fe08f}
+.qz-ref{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;background:var(--roxo);color:#fff;border:3px solid var(--tinta);border-radius:999px;padding:6px 16px 6px 8px;font-weight:900;font-size:clamp(15px,1.7vw,19px)}
+.qz-ref img{width:30px;height:30px;object-fit:contain;background:#fff;border-radius:50%;padding:2px}
+.qz-pq{margin:0;font-size:clamp(16px,1.9vw,21px);line-height:1.45;font-weight:600;color:#3b2a52}
+.qz-pq b{font-family:var(--cartoon);font-weight:400;color:var(--rosa);font-size:1.15em;letter-spacing:.02em}
+.qz-marcar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.qz-marcar:empty{display:none}
+.qz-mq{font-weight:900;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#6b5a80;margin-right:4px}
+.qz-ponto{font-family:var(--cartoon);font-size:18px;padding:8px 14px 4px;border-radius:999px;border:3px solid var(--tinta);background:var(--c);color:#fff;-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill;box-shadow:0 4px 0 var(--tinta);cursor:pointer}
+.qz-ponto.feito,.qz-ponto:disabled{opacity:.45;cursor:default;box-shadow:none;transform:translateY(3px)}
+#quiz .qz-acao{font-family:var(--cartoon);font-size:clamp(24px,3.2vw,38px);letter-spacing:.05em;color:var(--tinta);background:linear-gradient(180deg,#ffd84a,#ff8a1f);border:3px solid var(--tinta);border-radius:18px;padding:12px 36px 8px;cursor:pointer;box-shadow:0 6px 0 var(--tinta)}
+#quiz .qz-acao:active{transform:translateY(4px);box-shadow:0 2px 0 var(--tinta)}
+#quiz .dica-tecla{font-size:13px;color:var(--lilas);text-align:center}
+@media (hover:none){#quiz .dica-tecla{display:none}}
+.qz-lado{background:rgba(46,26,74,.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:2px solid #4a3270;border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.qz-lado h2{margin:0;font-family:var(--cartoon);font-weight:400;font-size:26px;letter-spacing:.05em;color:var(--ouro)}
+.qz-lado h3{margin:6px 0 0;font:900 12px var(--texto);letter-spacing:.08em;text-transform:uppercase;color:var(--lilas)}
+.qz-placar{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.qz-time{background:var(--c);border:3px solid var(--tinta);border-radius:14px;padding:6px 10px;display:flex;flex-direction:column;box-shadow:0 4px 0 var(--tinta);transition:box-shadow .3s}
+.qz-time span{font-weight:900;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+.qz-lado .qz-time b{display:block;font-family:var(--cartoon);font-weight:400;font-size:38px;line-height:1;color:#fff;-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill;font-variant-numeric:tabular-nums}
+.qz-time.lider{box-shadow:0 4px 0 var(--tinta),0 0 0 3px var(--ouro),0 0 24px rgba(247,181,44,.7)}
+.qz-time.lider span::after{content:" ★";color:var(--ouro)}
+.qz-seg{display:flex;flex-wrap:wrap;background:#2e1a4a;border:2px solid #4a3270;border-radius:999px;padding:4px;gap:2px}
+.qz-seg button{flex:1;font:800 14px var(--texto);color:var(--lilas);background:none;border:0;border-radius:999px;padding:7px 8px;cursor:pointer;white-space:nowrap}
+.qz-seg button[aria-pressed="true"]{background:var(--ouro);color:var(--tinta)}
+.qz-leg{margin:0;font-size:12px;line-height:1.4;color:var(--lilas)}
+#quiz button:focus-visible{outline:3px solid var(--ouro);outline-offset:3px}
+#quiz .icone{font:700 14px var(--texto);color:var(--lilas);background:#2e1a4a;border:2px solid #4a3270;border-radius:999px;padding:7px 14px;cursor:pointer}
+.quiz-tv #qz-tv{background:var(--ouro)!important;color:var(--tinta)!important;border-color:var(--ouro)!important}
+:root.quiz-tv .qz-cfg,:root.quiz-tv .qz-lado .qz-leg,:root.quiz-tv #qz-zerar,:root.quiz-tv .som-ctl,:root.quiz-tv #quiz .dica-tecla{display:none}
+:root.quiz-tv #quiz .app{max-width:none;padding-inline:2vw}
+:root.quiz-tv .qz-grade{grid-template-columns:minmax(0,1fr) clamp(180px,16vw,260px)}
+:root.quiz-tv .qz-perg{font-size:clamp(28px,4.2vh,60px)}
+:root.quiz-tv .qz-txt{font-size:clamp(22px,3.6vh,46px)}
+:root.quiz-tv .qz-pq{font-size:clamp(18px,2.6vh,30px)}
+:root.quiz-tv .qz-placar{grid-template-columns:1fr}
+:root.quiz-tv .qz-time b{font-size:clamp(40px,7vh,80px)}
+.outro-quiz{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;justify-self:center;background:radial-gradient(circle at 35% 30%,#7cc4ff,#2b6fd0);border:4px solid var(--tinta);box-shadow:0 6px 0 var(--tinta);font-family:var(--cartoon);font-size:74px;color:#fff;-webkit-text-stroke:3px var(--tinta);paint-order:stroke fill;padding-top:12px;transform:rotate(-8deg)}
+.ic-quiz{display:inline-grid;place-items:center;width:1.3em;height:1.3em;border-radius:50%;background:#2b8fe0;color:#fff;border:2px solid var(--tinta);font-size:.7em;vertical-align:.05em;margin-right:.25em;padding-top:.15em;-webkit-text-stroke:0}
 /* ---------- Fast ---------- */
 #fast{--roxo-fundo:#1f1033;--roxo-carta:#2e1a4a;--roxo-linha:#4a3270;--ftexto:#f6f0ff;--laranja:#ff8a1f;--display:var(--cartoon);--corpo:var(--texto);color:var(--ftexto)}
 #fast .app{padding-left:0;padding-right:0}
@@ -2338,6 +2436,260 @@ return {montar};
 let FAST_WL=null;
 function fastInicio(){document.documentElement.classList.remove("fast-tv");if(!liberar())return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
 
+/* ================= Quiz Bíblico (ao vivo, com líder, times e cronômetro) ================= */
+const QUIZ=(()=>{
+/* [pergunta, [alternativas, a primeira é a certa], referência, por quê] */
+const Q={
+facil:[
+["Quem construiu uma arca enorme para salvar a família e os animais do dilúvio?",["Noé","Abraão","Moisés","Davi"],"Gênesis 6.13-22","A terra estava cheia de maldade, mas Noé andava com Deus. Deus avisou do dilúvio e Noé obedeceu em tudo, construindo a arca do jeitinho que Deus mandou."],
+["Em quantos dias Deus fez o céu, a terra e tudo o que existe?",["6 dias","3 dias","10 dias","40 dias"],"Gênesis 1.31; 2.1-3","Deus criou tudo em seis dias e, no sétimo, descansou. Ele separou esse dia como especial, para a gente também parar e lembrar dele."],
+["Quem venceu o gigante Golias?",["Davi","Saul","Sansão","Jônatas"],"1 Samuel 17.45-50","Davi era só um jovem pastor, sem armadura. Ele venceu com uma funda e uma pedra porque confiou que a batalha era de Deus."],
+["O que engoliu Jonas quando ele fugiu de Deus?",["Um grande peixe","Um leão","Uma baleia de pedra","Um crocodilo"],"Jonas 1.17","Deus mandou Jonas avisar Nínive, mas ele embarcou para o lado contrário. Durante a tempestade, foi jogado no mar e Deus mandou um grande peixe para engoli-lo e salvá-lo."],
+["Em que cidade Jesus nasceu?",["Belém","Nazaré","Jerusalém","Cafarnaum"],"Mateus 2.1; Lucas 2.4-7","José e Maria foram a Belém por causa de um recenseamento. Assim se cumpriu a profecia de que o Salvador nasceria ali, na cidade de Davi."],
+["Quem foi jogado na cova dos leões e saiu sem nenhum arranhão?",["Daniel","José","Elias","Pedro"],"Daniel 6.10-22","Uma lei proibia orar a qualquer deus que não fosse o rei. Daniel continuou orando a Deus três vezes por dia, e Deus mandou um anjo fechar a boca dos leões."],
+["Qual era o nome da mãe de Jesus?",["Maria","Marta","Isabel","Ana"],"Lucas 1.26-31","O anjo Gabriel visitou Maria em Nazaré e anunciou que ela seria a mãe do Filho de Deus, a quem daria o nome de Jesus."],
+["Quantos apóstolos Jesus escolheu para andar com ele?",["12","7","10","70"],"Marcos 3.13-19","Jesus orou e escolheu doze homens para ficar com ele, aprender e depois anunciar a boa notícia ao mundo."],
+["Quem estendeu a mão sobre o mar Vermelho para o povo atravessar a pé?",["Moisés","Josué","Arão","Elias"],"Êxodo 14.21-22","O exército do faraó vinha atrás do povo. Moisés estendeu a mão, Deus abriu o mar com um vento forte e o povo passou em terra seca."],
+["Quem a Bíblia chama de primeiro homem?",["Adão","Abel","Noé","Sete"],"1 Coríntios 15.45","Deus formou o primeiro homem do pó da terra e soprou nele o fôlego de vida. Paulo lembra que o primeiro homem foi Adão."],
+["Quantos peixes o menino entregou para Jesus multiplicar?",["2","5","7","12"],"João 6.9-13","Um menino tinha cinco pães e dois peixinhos. Jesus agradeceu a Deus e alimentou cerca de cinco mil homens, e ainda sobraram doze cestos."],
+["Qual discípulo traiu Jesus?",["Judas Iscariotes","Pedro","Tomé","Mateus"],"Mateus 26.14-16","Judas combinou entregar Jesus aos chefes dos sacerdotes em troca de trinta moedas de prata."],
+["Em que dia Jesus ressuscitou?",["No terceiro dia","No primeiro dia","No sétimo dia","No quadragésimo dia"],"Lucas 24.1-7","Jesus tinha avisado que seria morto e ressuscitaria no terceiro dia. As mulheres foram ao túmulo e os anjos disseram: ele não está aqui, ressuscitou!"],
+["Qual é o primeiro livro da Bíblia?",["Gênesis","Êxodo","Mateus","Salmos"],"Gênesis 1.1","Gênesis quer dizer começo. Ele conta o início de tudo: a criação, as primeiras famílias e as promessas de Deus a Abraão."],
+["Qual é o último livro da Bíblia?",["Apocalipse","Judas","Malaquias","Atos"],"Apocalipse 22.20-21","Apocalipse mostra a vitória final de Jesus e a promessa de que ele vai voltar. A Bíblia termina com esperança."],
+["Quem era o homem fortíssimo que nunca tinha cortado o cabelo?",["Sansão","Golias","Gideão","Davi"],"Juízes 16.17","Sansão foi dedicado a Deus desde antes de nascer, e o cabelo comprido era o sinal dessa promessa. A força vinha de Deus, não do cabelo."],
+["Que sinal Deus colocou nas nuvens prometendo nunca mais destruir a terra com água?",["O arco-íris","Uma estrela","Um relâmpago","Uma nuvem de fogo"],"Gênesis 9.12-15","Depois do dilúvio, Deus fez uma aliança com Noé e com toda a criação. O arco-íris é o sinal dessa promessa."],
+["Quem subiu numa árvore para conseguir ver Jesus passar?",["Zaqueu","Nicodemos","Bartimeu","Lázaro"],"Lucas 19.1-6","Zaqueu era baixinho e a multidão não deixava ver. Jesus parou embaixo da árvore, chamou Zaqueu pelo nome e foi à casa dele."],
+["Qual foi o primeiro milagre de Jesus?",["Transformou água em vinho","Andou sobre as águas","Curou um cego","Multiplicou pães"],"João 2.1-11","Numa festa de casamento em Caná, o vinho acabou. Jesus transformou água em vinho, e os discípulos creram nele."],
+["Quantos mandamentos Deus deu a Moisés escritos em placas de pedra?",["10","7","12","40"],"Êxodo 20.1-17; Deuteronômio 10.4","No monte Sinai, Deus deu ao povo dez mandamentos para mostrar como amar a Deus e ao próximo."],
+["Qual discípulo andou sobre as águas até começar a afundar?",["Pedro","João","André","Tiago"],"Mateus 14.28-31","Pedro saiu do barco e andou até Jesus. Quando olhou para o vento forte, teve medo e começou a afundar, e Jesus estendeu a mão e o segurou."],
+["Quem matou o próprio irmão Abel?",["Caim","Sete","Esaú","Ismael"],"Gênesis 4.3-8","Caim ficou com inveja porque Deus aceitou a oferta de Abel. Deus avisou Caim para dominar a raiva, mas ele não ouviu."],
+["Quem foi vendido pelos irmãos e depois virou governador do Egito?",["José","Benjamim","Moisés","Daniel"],"Gênesis 37.28; 41.41","Os irmãos de José tinham inveja dele. Mesmo como escravo e preso, José foi fiel, e Deus o levou a governar o Egito e salvar muita gente da fome."],
+["Que menino ouviu Deus chamar o seu nome durante a noite, no templo?",["Samuel","Davi","Josias","Isaque"],"1 Samuel 3.4-10","Samuel achou que era o sacerdote Eli chamando. Eli percebeu que era Deus e ensinou o menino a responder: fala, que o teu servo está ouvindo."],
+["As muralhas de qual cidade caíram depois que o povo deu voltas e tocou trombetas?",["Jericó","Jerusalém","Babilônia","Nínive"],"Josué 6.15-20","Deus mandou o povo marchar em volta de Jericó durante sete dias. No sétimo, tocaram as trombetas, gritaram e as muralhas caíram."],
+["Quantos livros tem a Bíblia?",["66","39","27","73"],"Toda a Bíblia","São 39 livros no Antigo Testamento e 27 no Novo Testamento, somando 66 livros."],
+["Qual rainha teve coragem de falar com o rei para salvar o seu povo?",["Ester","Rute","Jezabel","A rainha de Sabá"],"Ester 4.16; 7.3-6","Havia um plano para destruir os judeus. Ester jejuou, arriscou a vida indo ao rei sem ser chamada e pediu pela vida do seu povo."],
+["Em que forma o Espírito Santo desceu sobre Jesus no batismo?",["Como uma pomba","Como fogo","Como vento","Como uma nuvem"],"Mateus 3.16-17","Quando Jesus saiu da água, o céu se abriu, o Espírito de Deus desceu como uma pomba e uma voz disse: este é o meu Filho querido."],
+["Quem batizou Jesus no rio Jordão?",["João Batista","Pedro","João, o apóstolo","André"],"Mateus 3.13-15","João preparava o caminho para Jesus. Ele achava que não era digno, mas Jesus quis ser batizado para cumprir tudo o que Deus queria."],
+["Segundo Jesus, qual é o maior mandamento?",["Amar a Deus de todo o coração","Não roubar","Guardar o sábado","Dar o dízimo"],"Mateus 22.36-38","Jesus disse que o primeiro e maior mandamento é amar a Deus com todo o coração, alma e mente. O segundo é amar o próximo como a si mesmo."]
+],
+medio:[
+["Qual livro da Bíblia tem mais capítulos?",["Salmos","Gênesis","Isaías","Jeremias"],"Salmos 150","Salmos reúne 150 cânticos e orações, escritos por vários autores ao longo de séculos, como Davi, Asafe e os filhos de Corá."],
+["Quantos anos o povo de Israel andou pelo deserto?",["40","7","12","70"],"Números 14.33-34","Os espiões voltaram com medo e o povo não confiou em Deus. Por isso, aquela geração ficou quarenta anos no deserto, um ano para cada dia de espionagem."],
+["Quem foi o primeiro rei de Israel?",["Saul","Davi","Salomão","Samuel"],"1 Samuel 10.1, 24","O povo pediu um rei para ser como as outras nações. Samuel ungiu Saul, um jovem alto da tribo de Benjamim."],
+["Qual profeta foi levado ao céu num redemoinho, com um carro de fogo?",["Elias","Eliseu","Isaías","Enoque"],"2 Reis 2.11","Elias e Eliseu caminhavam juntos quando apareceu um carro de fogo puxado por cavalos de fogo, e Elias subiu ao céu num redemoinho."],
+["Qual discípulo disse que só acreditaria vendo as marcas dos pregos em Jesus?",["Tomé","Filipe","Pedro","Natanael"],"João 20.24-28","Tomé não estava com os outros quando Jesus apareceu. Uma semana depois, Jesus mostrou as mãos a ele, e Tomé disse: meu Senhor e meu Deus!"],
+["Em que monte Moisés recebeu as placas dos Dez Mandamentos?",["Sinai","Monte das Oliveiras","Carmelo","Moriá"],"Êxodo 19.20; 31.18","Deus desceu sobre o monte Sinai e chamou Moisés lá para cima, onde lhe entregou as placas de pedra escritas pelo dedo de Deus."],
+["Quem escreveu a maior parte das cartas do Novo Testamento?",["Paulo","Pedro","João","Tiago"],"Romanos 1.1; Gálatas 1.1","Paulo escreveu treze cartas para igrejas e amigos, como Romanos, Coríntios e Filipenses, ensinando e animando os cristãos."],
+["Qual era o trabalho de Mateus antes de seguir Jesus?",["Cobrador de impostos","Pescador","Carpinteiro","Pastor de ovelhas"],"Mateus 9.9","Mateus estava sentado no lugar onde cobrava impostos. Jesus disse: venha comigo. Ele se levantou e o seguiu."],
+["Qual foi a primeira praga do Egito?",["A água virou sangue","Rãs","Gafanhotos","Escuridão"],"Êxodo 7.17-21","O faraó não deixava o povo sair. Na primeira praga, as águas do rio Nilo viraram sangue e os peixes morreram."],
+["Que rei pediu sabedoria a Deus em vez de riquezas?",["Salomão","Davi","Ezequias","Josafá"],"1 Reis 3.9-12","Deus disse a Salomão: peça o que quiser. Ele pediu sabedoria para governar bem, e Deus deu sabedoria e também riquezas."],
+["Há quantos dias Lázaro estava morto quando Jesus o ressuscitou?",["4","1","3","7"],"João 11.17, 39-44","Jesus chegou quando Lázaro já estava no túmulo havia quatro dias, para que todos vissem que só Deus podia fazer aquilo."],
+["Quem era a sogra de Rute?",["Noemi","Orfa","Ana","Raquel"],"Rute 1.3-4, 16","Rute ficou viúva, mas não abandonou a sogra Noemi. Ela disse: o seu povo será o meu povo, e o seu Deus será o meu Deus."],
+["Em que cidade os seguidores de Jesus foram chamados de cristãos pela primeira vez?",["Antioquia","Jerusalém","Roma","Corinto"],"Atos 11.26","Barnabé e Saulo ensinaram por um ano em Antioquia, e foi ali que os discípulos ganharam o nome de cristãos."],
+["Saulo encontrou Jesus no caminho para qual cidade?",["Damasco","Tarso","Jericó","Atenas"],"Atos 9.3-6","Saulo ia prender cristãos em Damasco quando uma luz do céu brilhou e Jesus falou com ele. Dali em diante, sua vida mudou."],
+["Qual discípulo negou Jesus três vezes antes do galo cantar?",["Pedro","Judas","João","Tiago"],"Lucas 22.54-62","Pedro disse que nunca negaria Jesus, mas com medo negou três vezes. Depois, chorou amargamente, e Jesus o restaurou."],
+["Quem era o pai de João Batista?",["Zacarias","José","Simeão","Joaquim"],"Lucas 1.13, 18-20","O anjo anunciou ao sacerdote Zacarias que ele teria um filho. Como não acreditou, ficou mudo até o menino nascer."],
+["Quantas pessoas foram salvas dentro da arca de Noé?",["8","2","4","12"],"Gênesis 7.13; 1 Pedro 3.20","Entraram na arca Noé, a esposa, os três filhos e as três noras: oito pessoas ao todo."],
+["Qual bebê foi colocado num cesto no rio Nilo para escapar da morte?",["Moisés","José","Samuel","Isaque"],"Êxodo 2.1-10","O faraó mandou matar os meninos hebreus. A mãe de Moisés o escondeu num cesto no rio, e a filha do faraó o encontrou e criou."],
+["Qual discípulo cortou a orelha do empregado do Grande Sacerdote quando Jesus foi preso?",["Pedro","Judas","Tomé","André"],"João 18.10-11","Pedro tirou a espada e cortou a orelha de Malco. Jesus mandou guardar a espada e, segundo Lucas, curou a orelha do homem."],
+["Em que festa o Espírito Santo desceu sobre os discípulos?",["Pentecostes","Páscoa","Festa das Barracas","Purim"],"Atos 2.1-4","Os discípulos estavam reunidos quando veio um som como de vento forte e línguas de fogo pousaram sobre eles. Todos ficaram cheios do Espírito Santo."],
+["Quem liderou o povo depois da morte de Moisés?",["Josué","Calebe","Arão","Gideão"],"Josué 1.1-2","Deus escolheu Josué para levar o povo até a terra prometida e disse: seja forte e corajoso, pois eu estarei com você."],
+["Qual era o nome da esposa de Abraão que teve um filho já idosa?",["Sara","Rebeca","Raquel","Lia"],"Gênesis 17.15-19; 21.1-3","Sara riu quando ouviu que teria um filho tão velha. Deus cumpriu a promessa e nasceu Isaque, que quer dizer riso."],
+["O que Davi fazia antes de ser rei?",["Cuidava de ovelhas","Era soldado","Era sacerdote","Era pescador"],"1 Samuel 16.11-13; 17.34-35","Davi era o filho mais novo e cuidava das ovelhas do pai. Foi no campo que aprendeu a confiar em Deus, enfrentando até leão e urso."],
+["Quem foi o primeiro cristão morto por causa da fé em Jesus?",["Estêvão","Tiago","Pedro","Paulo"],"Atos 7.55-60","Estêvão foi apedrejado depois de anunciar Jesus. Mesmo assim, orou pedindo que Deus perdoasse quem o matava."],
+["Quantos filhos homens Jacó teve?",["12","10","7","11"],"Gênesis 35.22-26","Os doze filhos de Jacó deram origem às doze tribos de Israel. Um deles era José, o do sonho."],
+["Quem explicou o sonho do rei Nabucodonosor sobre a grande estátua?",["Daniel","José","Ezequiel","Jeremias"],"Daniel 2.19, 31-45","Nenhum sábio conseguia contar o sonho do rei. Daniel orou, Deus revelou o segredo, e ele explicou que o Reino de Deus duraria para sempre."],
+["Quantas vezes Jesus disse que devemos perdoar?",["Setenta vezes sete","Sete vezes","Três vezes","Doze vezes"],"Mateus 18.21-22","Pedro achou que perdoar sete vezes já era muito. Jesus respondeu setenta vezes sete, ou seja, perdoar sempre."],
+["O que Jesus fez ao ver Maria e os amigos chorando por Lázaro?",["Chorou","Saiu de perto","Repreendeu todos","Ficou calado no barco"],"João 11.33-35","Mesmo sabendo que ia ressuscitar Lázaro, Jesus se comoveu com a dor dos amigos e chorou. Ele sente a nossa dor."],
+["Que árvore Jesus amaldiçoou porque não tinha frutos?",["Figueira","Oliveira","Videira","Palmeira"],"Marcos 11.12-14, 20-21","A figueira tinha folhas, mas nenhum fruto. Jesus usou aquilo para ensinar sobre fé e sobre não ter só aparência."],
+["Que anjo anunciou a Maria que ela seria mãe de Jesus?",["Gabriel","Miguel","Rafael","Querubim"],"Lucas 1.26-33","Deus enviou o anjo Gabriel a Nazaré. Ele disse a Maria que o filho dela seria grande e chamado Filho do Deus Altíssimo."]
+],
+dificil:[
+["Quem é a pessoa que mais viveu segundo a Bíblia?",["Matusalém","Noé","Adão","Abraão"],"Gênesis 5.27","Matusalém, avô de Noé, viveu 969 anos, a maior idade registrada na Bíblia."],
+["Qual livro do Antigo Testamento tem um capítulo só?",["Obadias","Ageu","Jonas","Naum"],"Obadias 1","Obadias é o menor livro do Antigo Testamento. Ele anuncia o julgamento contra Edom, que se alegrou com o sofrimento de Judá."],
+["Quantos livros tem o Novo Testamento?",["27","39","24","21"],"Mateus a Apocalipse","São 4 Evangelhos, Atos, 21 cartas e Apocalipse, somando 27 livros."],
+["Qual mulher foi profetisa e juíza de Israel?",["Débora","Miriã","Hulda","Ana"],"Juízes 4.4-5","Débora julgava o povo debaixo de uma palmeira. Ela chamou Baraque e foi com ele à batalha que libertou Israel."],
+["Que rei viu uma mão escrevendo na parede durante uma festa?",["Belsazar","Nabucodonosor","Dario","Ciro"],"Daniel 5.1-5, 25-28","Belsazar usou os objetos do Templo numa festa. Uma mão escreveu na parede, e Daniel explicou que o reino dele tinha acabado."],
+["Qual profeta Deus mandou casar com Gômer?",["Oseias","Amós","Joel","Miqueias"],"Oseias 1.2-3","Gômer foi infiel, mas Oseias continuou a amá-la. Essa história mostra como Deus continua amando o seu povo mesmo quando ele se afasta."],
+["Que rei começou a reinar com 8 anos e mandou ler o Livro da Lei encontrado no Templo?",["Josias","Joás","Ezequias","Uzias"],"2 Reis 22.1, 8-13","Quando encontraram o Livro da Lei, Josias ficou abalado ao ver o quanto o povo tinha se afastado de Deus e liderou uma grande reforma."],
+["Em que ilha João recebeu a revelação do Apocalipse?",["Patmos","Malta","Chipre","Creta"],"Apocalipse 1.9","João estava preso na ilha de Patmos por anunciar a Palavra de Deus. Lá, Jesus apareceu e mostrou as visões do livro."],
+["Com quantos homens Gideão venceu o exército dos midianitas?",["300","3.000","10.000","32.000"],"Juízes 7.2-7","Deus reduziu o exército de 32 mil para 300, para que ninguém dissesse que venceu pela própria força. A vitória foi de Deus."],
+["Quem foi escolhido para o lugar de Judas entre os doze apóstolos?",["Matias","Barnabé","Silas","Timóteo"],"Atos 1.21-26","Os discípulos oraram e tiraram a sorte entre José Barsabás e Matias. Matias foi o escolhido."],
+["Qual era a profissão de Lucas, autor do Evangelho e de Atos?",["Médico","Pescador","Cobrador de impostos","Fazedor de tendas"],"Colossenses 4.14","Paulo chama Lucas de querido médico. Ele investigou tudo com cuidado antes de escrever a história de Jesus."],
+["Qual profeta confrontou o rei Davi depois do pecado com Bate-Seba?",["Natã","Gade","Samuel","Elias"],"2 Samuel 12.1-13","Natã contou a história de um rico que tomou a única ovelha de um pobre. Davi ficou indignado e Natã disse: esse homem é você. Davi se arrependeu."],
+["Quantos anos Jeremias disse que o povo ficaria no cativeiro da Babilônia?",["70","40","7","400"],"Jeremias 25.11; 29.10","Deus avisou que o cativeiro duraria setenta anos, e prometeu trazer o povo de volta depois disso."],
+["Que rei da Pérsia deixou os judeus voltarem para reconstruir o Templo?",["Ciro","Xerxes","Artaxerxes","Dario"],"Esdras 1.1-3","Deus tocou o coração de Ciro, que anunciou em todo o reino que os judeus podiam voltar a Jerusalém e reconstruir o Templo."],
+["Em quantos dias os muros de Jerusalém foram reconstruídos no tempo de Neemias?",["52","40","7","100"],"Neemias 6.15-16","Mesmo com ameaças dos inimigos, o povo trabalhou unido e terminou os muros em 52 dias. Até os inimigos viram que Deus tinha ajudado."],
+["Que mulher escondeu os espiões israelitas em Jericó?",["Raabe","Rute","Débora","Jael"],"Josué 2.1-6; 6.25","Raabe escondeu os espiões no terraço porque creu no Deus de Israel. Ela e sua família foram salvas quando Jericó caiu."],
+["Quem eram os pais do profeta Samuel?",["Elcana e Ana","Abraão e Sara","Zacarias e Isabel","Jacó e Raquel"],"1 Samuel 1.1-2, 19-20","Ana não podia ter filhos e orou chorando no templo. Deus respondeu, e ela dedicou o menino Samuel ao Senhor."],
+["Qual apóstolo foi o primeiro dos doze a ser morto por causa da fé?",["Tiago, irmão de João","Pedro","André","Bartolomeu"],"Atos 12.1-2","O rei Herodes perseguiu a igreja e mandou matar Tiago, irmão de João, com a espada."],
+["Para que cidade Jonas tentou fugir em vez de ir a Nínive?",["Társis","Jope","Tiro","Babilônia"],"Jonas 1.3","Jonas desceu até Jope e pegou um navio para Társis, que ficava no lado oposto de Nínive, tentando fugir da presença de Deus."],
+["Qual é o capítulo mais longo da Bíblia?",["Salmo 119","Salmo 23","Isaías 53","Gênesis 1"],"Salmo 119","O Salmo 119 tem 176 versículos, todos falando do valor da Palavra de Deus. Ele é dividido em 22 partes, uma para cada letra do alfabeto hebraico."],
+["De qual tribo vinham os sacerdotes e os ajudantes do Templo?",["Levi","Judá","Benjamim","Efraim"],"Deuteronômio 10.8-9","Deus separou a tribo de Levi para cuidar da arca e servir no culto. Por isso, os levitas não receberam terras como as outras tribos."],
+["Quem era o Grande Sacerdote quando Jesus foi julgado?",["Caifás","Anás","Eli","Zadoque"],"Mateus 26.57-66","Jesus foi levado à casa de Caifás, onde os líderes procuravam um motivo para condená-lo."],
+["Em que cidade Paulo pregou no Areópago sobre o Deus desconhecido?",["Atenas","Corinto","Éfeso","Roma"],"Atos 17.16-23","Paulo viu em Atenas um altar com a frase: ao Deus desconhecido. Ele aproveitou para anunciar quem é esse Deus que criou tudo."],
+["Qual Evangelho começa apresentando Jesus como a Palavra que existia desde o começo?",["João","Mateus","Marcos","Lucas"],"João 1.1-3, 14","João mostra que Jesus já existia antes de tudo, estava com Deus e é Deus. Depois, a Palavra se tornou um ser humano e morou entre nós."],
+["Quantas vezes Naamã mergulhou no rio Jordão para ser curado?",["7","3","1","12"],"2 Reis 5.10-14","Naamã ficou ofendido com uma ordem tão simples, mas obedeceu. Depois do sétimo mergulho, a pele dele ficou como a de uma criança."],
+["Em que cidade Paulo nasceu?",["Tarso","Jerusalém","Damasco","Antioquia"],"Atos 22.3","Paulo nasceu em Tarso, na Cilícia, mas foi criado em Jerusalém e estudou com o mestre Gamaliel."],
+["Que casal mentiu sobre o preço de um terreno vendido para ajudar a igreja?",["Ananias e Safira","Áquila e Priscila","Zacarias e Isabel","Elcana e Ana"],"Atos 5.1-10","Ninguém era obrigado a dar tudo. O erro foi mentir, fingindo dar tudo e guardando parte. Mentiram ao Espírito Santo."],
+["Quantos anos Abraão tinha quando Isaque nasceu?",["100","75","90","120"],"Gênesis 21.5","Deus tinha prometido um filho a Abraão havia 25 anos. Aos cem anos, a promessa se cumpriu, mostrando que nada é impossível para Deus."],
+["Qual profeta teve a visão de um vale cheio de ossos secos que voltaram a viver?",["Ezequiel","Isaías","Daniel","Zacarias"],"Ezequiel 37.1-10","Deus mostrou que podia dar vida nova a um povo sem esperança. Ezequiel profetizou e os ossos viraram um grande exército vivo."],
+["Qual era o nome do pai do rei Davi?",["Jessé","Obede","Boaz","Natã"],"1 Samuel 16.1, 10-13","Deus mandou Samuel à casa de Jessé, em Belém. Entre os oito filhos, Deus escolheu o mais novo, Davi."]
+]};
+const NIVEL_TXT={facil:"Fácil",medio:"Médio",dificil:"Difícil"};
+const TIMES=[{n:"Azul",c:"#2b8fe0"},{n:"Vermelho",c:"#ff5d6c"},{n:"Verde",c:"#2fa35a"},{n:"Amarelo",c:"#f7b52c"}];
+const LETRAS=["A","B","C","D"];
+const $=id=>document.getElementById(id);
+const embaralha=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+let nivel="facil",segs=30,nTimes=2,pts=[0,0,0,0],saco=[],atual=null,num=0,estado="pronto",escolha=null,relogio=null,resta=0,marcou=false,acertos=0;
+
+function lerPref(){try{const p=JSON.parse(localStorage.getItem("bkb-quiz")||"{}");if(Q[p.nivel])nivel=p.nivel;if([0,15,30,45,60].includes(p.segs))segs=p.segs;if([0,2,3,4].includes(p.times))nTimes=p.times}catch(e){}}
+function salvarPref(){try{localStorage.setItem("bkb-quiz",JSON.stringify({nivel,segs,times:nTimes}))}catch(e){}}
+function encher(){saco=embaralha(Q[nivel].map((x,i)=>i))}
+function pararRelogio(){clearInterval(relogio);relogio=null}
+
+function anel(){
+  const r=$("qz-anel");if(!r)return;
+  const tot=segs||1,frac=segs?resta/tot:1;
+  r.style.setProperty("--p",frac);
+  $("qz-seg").textContent=segs?resta:"∞";
+  r.classList.toggle("urgente",segs&&resta<=5&&estado==="pergunta");
+}
+function iniciarRelogio(){
+  pararRelogio();resta=segs;anel();if(!segs)return;
+  relogio=setInterval(()=>{resta--;anel();if(resta<=5&&resta>0)SOM.tic();if(resta<=0){pararRelogio();$("qz-tempo").hidden=false;SOM.boom&&SOM.boom();setTimeout(()=>{if(estado==="pergunta")revelar()},900)}},1000);
+}
+
+function placar(){
+  const el=$("qz-placar");if(!el)return;
+  el.hidden=!nTimes;
+  el.innerHTML=TIMES.slice(0,nTimes).map((t,i)=>`<div class="qz-time" style="--c:${t.c}"><span>Time ${t.n}</span><b>${pts[i]}</b></div>`).join("");
+  const mx=Math.max(...pts.slice(0,nTimes));
+  [...el.children].forEach((d,i)=>d.classList.toggle("lider",mx>0&&pts[i]===mx));
+  $("qz-marcar").innerHTML=nTimes?`<span class="qz-mq">Quem acertou?</span>`+TIMES.slice(0,nTimes).map((t,i)=>`<button type="button" class="qz-ponto" data-time="${i}" style="--c:${t.c}">+1 ${t.n}</button>`).join(""):"";
+}
+
+function mostrarPergunta(){
+  if(!saco.length)encher();
+  const i=saco.pop(),d=Q[nivel][i];num++;
+  atual={p:d[0],ops:embaralha(d[1].map((t,k)=>({t,certa:k===0}))),ref:d[2],pq:d[3]};
+  escolha=null;marcou=false;
+  $("qz-num").textContent="Pergunta "+num;
+  $("qz-nv").textContent=NIVEL_TXT[nivel];
+  $("qz-perg").textContent=atual.p;
+  $("qz-ops").innerHTML=atual.ops.map((o,k)=>`<button type="button" class="qz-op" data-op="${k}" style="--i:${k}"><span class="qz-letra">${LETRAS[k]}</span><span class="qz-txt"></span></button>`).join("");
+  [...$("qz-ops").children].forEach((b,k)=>b.querySelector(".qz-txt").textContent=atual.ops[k].t);
+  $("qz-rev").hidden=true;$("qz-tempo").hidden=true;
+  $("qz-palco").classList.remove("vazio");$("qz-palco").classList.add("entra");setTimeout(()=>$("qz-palco").classList.remove("entra"),700);
+  estado="pergunta";$("qz-acao").textContent="Revelar resposta";$("qz-chamada").textContent="Valendo!";
+  SOM.carta();iniciarRelogio();
+}
+function escolher(k){
+  if(estado!=="pergunta")return;
+  escolha=k;SOM.escolher();
+  document.querySelectorAll(".qz-op").forEach((b,j)=>b.classList.toggle("marcada",j===k));
+}
+function revelar(){
+  pararRelogio();estado="revelado";
+  const certa=atual.ops.findIndex(o=>o.certa);
+  document.querySelectorAll(".qz-op").forEach((b,j)=>{b.classList.add(j===certa?"certa":"apaga");if(j===escolha&&j!==certa)b.classList.add("errada")});
+  $("qz-resp").innerHTML=`<span class="qz-letra">${LETRAS[certa]}</span><span></span>`;$("qz-resp").lastChild.textContent=atual.ops[certa].t;
+  $("qz-ref").textContent=atual.ref;
+  $("qz-pq").textContent=atual.pq;
+  $("qz-rev").hidden=false;$("qz-tempo").hidden=true;
+  if(escolha!=null){if(escolha===certa){acertos++;SOM.ganhou()}else SOM.perdeu()}else SOM.virar();
+  $("qz-chamada").textContent=escolha==null?"Resposta certa:":(escolha===certa?"Acertou!":"Quase!");
+  $("qz-acao").textContent="Próxima pergunta";
+  placar();
+  setTimeout(()=>{const r=$("qz-rev");if(r&&r.scrollIntoView&&r.getBoundingClientRect().bottom>innerHeight)r.scrollIntoView({behavior:calmo?"auto":"smooth",block:"nearest"})},250);
+}
+function avancar(){
+  if(estado==="pergunta")revelar();
+  else{SOM.selecionar();mostrarPergunta()}
+}
+function zerar(){pararRelogio();pts=[0,0,0,0];num=0;acertos=0;estado="pronto";encher();
+  $("qz-palco").classList.add("vazio");$("qz-num").textContent="Bora jogar";$("qz-nv").textContent=NIVEL_TXT[nivel];
+  $("qz-perg").textContent="Separe a turma em times, escolha o nível e toque em Começar.";$("qz-ops").innerHTML="";$("qz-rev").hidden=true;$("qz-tempo").hidden=true;
+  $("qz-chamada").textContent="Prepare a turma!";$("qz-acao").textContent="Começar quiz";resta=segs;anel();placar()}
+
+function montar(){
+  lerPref();
+  tela.innerHTML=`<div class="quiz-fundo" aria-hidden="true"></div><div class="miolo jogo" id="quiz"><div class="app">
+  <div class="barra">
+    <div class="qz-marca"><img src="arte/logo.webp" alt="Biblikaboom!"><span>Quiz Bíblico</span></div>
+      <div class="placar">
+      <button type="button" class="icone" id="qz-tv" title="Tela cheia e deitada, para espelhar na TV ou no projetor">Modo TV</button>
+      <button type="button" class="icone" id="qz-zerar">Recomeçar</button>
+      <button type="button" class="sair" id="sair"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>Sair</button>
+    </div>
+  </div>
+  <div class="qz-grade">
+    <section class="qz-centro">
+      <div class="qz-topo">
+        <div class="qz-info"><b id="qz-num">Pergunta 0</b><span class="qz-nv" id="qz-nv">Fácil</span></div>
+        <div class="qz-chamada" id="qz-chamada" aria-live="polite">Prepare a turma!</div>
+        <div class="qz-anel" id="qz-anel" style="--p:1"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" class="fundo"/><circle cx="50" cy="50" r="44" class="arco" pathLength="100"/></svg><b id="qz-seg">30</b></div>
+      </div>
+      <div class="qz-palco vazio" id="qz-palco">
+        <div class="qz-perg" id="qz-perg"></div>
+        <div class="qz-tempo" id="qz-tempo" hidden>Tempo esgotado!</div>
+        <div class="qz-ops" id="qz-ops"></div>
+        <div class="qz-rev" id="qz-rev" hidden>
+          <div class="qz-resp" id="qz-resp"></div>
+          <div class="qz-ref"><img src="arte/ntlh.webp" alt=""><span id="qz-ref"></span></div>
+          <p class="qz-pq"><b>Por quê?</b> <span id="qz-pq"></span></p>
+          <div class="qz-marcar" id="qz-marcar"></div>
+        </div>
+      </div>
+      <button type="button" class="acao qz-acao" id="qz-acao">Começar quiz</button>
+      <div class="dica-tecla">Atalhos: espaço avança · A, B, C, D marcam a resposta da turma</div>
+    </section>
+    <aside class="qz-lado">
+      <h2>Placar</h2>
+      <div class="qz-placar" id="qz-placar"></div>
+      <div class="qz-cfg">
+        <h3>Nível</h3>
+        <div class="qz-seg" role="group" aria-label="Nível">${Object.keys(NIVEL_TXT).map(k=>`<button type="button" data-qnivel="${k}" aria-pressed="${k===nivel}">${NIVEL_TXT[k]}</button>`).join("")}</div>
+        <p class="qz-leg" id="qz-leg"></p>
+        <h3>Tempo por pergunta</h3>
+        <div class="qz-seg" role="group" aria-label="Tempo">${[15,30,45,60,0].map(s=>`<button type="button" data-qseg="${s}" aria-pressed="${s===segs}">${s?s+"s":"Livre"}</button>`).join("")}</div>
+        <h3>Times</h3>
+        <div class="qz-seg" role="group" aria-label="Times">${[0,2,3,4].map(t=>`<button type="button" data-qtimes="${t}" aria-pressed="${t===nTimes}">${t?t:"Sem"}</button>`).join("")}</div>
+      </div>
+      <p class="qz-leg">Referências e explicações com base na Bíblia NTLH. Toque numa alternativa para marcar a resposta da turma antes de revelar.</p>
+    </aside>
+  </div>
+</div></div>`;
+  legenda();zerar();
+  $("qz-acao").addEventListener("click",avancar);
+  $("qz-ops").addEventListener("click",e=>{const b=e.target.closest("[data-op]");if(b)escolher(+b.dataset.op)});
+  $("qz-marcar").addEventListener("click",e=>{const b=e.target.closest("[data-time]");if(!b||marcou&&b.disabled)return;const i=+b.dataset.time;pts[i]++;SOM.ganhou();b.disabled=true;b.classList.add("feito");
+    const v=document.querySelectorAll(".qz-time")[i];placar();const nv=document.querySelectorAll(".qz-time")[i];if(nv&&!calmo)nv.animate([{transform:"scale(1)"},{transform:"scale(1.15)"},{transform:"scale(1)"}],{duration:420});
+    document.querySelectorAll(".qz-ponto").forEach((x,j)=>{if(j===i){x.disabled=true;x.classList.add("feito")}})});
+  document.querySelectorAll("[data-qnivel]").forEach(b=>b.addEventListener("click",()=>{nivel=b.dataset.qnivel;salvarPref();marcarGrupo("qnivel",nivel);legenda();encher();if(estado!=="pergunta")$("qz-nv").textContent=NIVEL_TXT[nivel]}));
+  document.querySelectorAll("[data-qseg]").forEach(b=>b.addEventListener("click",()=>{segs=+b.dataset.qseg;salvarPref();marcarGrupo("qseg",String(segs));if(estado!=="pergunta"){resta=segs;anel()}}));
+  document.querySelectorAll("[data-qtimes]").forEach(b=>b.addEventListener("click",()=>{nTimes=+b.dataset.qtimes;salvarPref();marcarGrupo("qtimes",String(nTimes));placar()}));
+  $("qz-zerar").addEventListener("click",zerar);
+  $("qz-tv").addEventListener("click",async()=>{
+    const r=document.documentElement,liga=!r.classList.contains("quiz-tv");r.classList.toggle("quiz-tv",liga);
+    $("qz-tv").textContent=liga?"Sair do modo TV":"Modo TV";
+    const podeCheia=!!(r.requestFullscreen||r.webkitRequestFullscreen);
+    try{if(liga){if(podeCheia&&!document.fullscreenElement){await (r.requestFullscreen?r.requestFullscreen({navigationUI:"hide"}):r.webkitRequestFullscreen());try{await screen.orientation.lock("landscape")}catch(e){}}}
+      else if(document.fullscreenElement)await document.exitFullscreen()}catch(e){}
+    try{if(liga&&"wakeLock"in navigator)FAST_WL=await navigator.wakeLock.request("screen");else if(!liga&&FAST_WL){FAST_WL.release();FAST_WL=null}}catch(e){}
+    if(liga&&innerHeight>innerWidth&&typeof toast==="function")toast("Deite o celular para o modo TV ocupar a tela toda.");
+  });
+}
+function marcarGrupo(k,v){document.querySelectorAll("[data-"+k+"]").forEach(x=>x.setAttribute("aria-pressed",x.dataset[k]===v))}
+function legenda(){const t={facil:"Para crianças menores e quem está começando a conhecer a Bíblia.",medio:"Para quem já conhece as histórias principais.",dificil:"Para quem lê a Bíblia faz tempo. Desafio de verdade!"};const l=$("qz-leg");if(l)l.textContent=t[nivel]}
+document.addEventListener("keydown",e=>{if(F!=="quiz"||document.querySelector(".confirma"))return;
+  if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();avancar()}
+  const k="ABCD".indexOf(e.key.toUpperCase());if(k>=0&&k<4&&!e.ctrlKey&&!e.metaKey&&atual&&k<atual.ops.length)escolher(k)});
+return {montar,parar:pararRelogio,total:()=>Q.facil.length+Q.medio.length+Q.dificil.length};
+})();
+function quizInicio(){document.documentElement.classList.remove("fast-tv","quiz-tv");if(!liberar())return;limpar();F="quiz";camada.innerHTML="";SOM.volumeMusica(.35);QUIZ.montar();topo();}
+
 /* ================= Online fora do Claude: salas ponto a ponto (PeerJS) =================
    Dentro do Claude usamos o banco do próprio Claude. Fora dele (site/app instalado),
    quem cria a sala vira o "anfitrião": guarda a sala na memória do aparelho e os
@@ -3391,7 +3743,7 @@ function salvarPref(){try{localStorage.setItem("bkb-duelo",JSON.stringify(PREF))
 
 let J=null,F="inicio",ULT=null,DES=null,fimEm=null,relogio=null,timers=[];
 function depois(ms,fn){const t=setTimeout(fn,ms);timers.push(t);return t}
-function limpar(){document.documentElement.classList.remove("fast-tv");timers.forEach(clearTimeout);timers=[];clearInterval(relogio);if(typeof rodRelParar==="function")rodRelParar()}
+function limpar(){document.documentElement.classList.remove("fast-tv","quiz-tv");if(typeof QUIZ!=="undefined")QUIZ.parar();timers.forEach(clearTimeout);timers=[];clearInterval(relogio);if(typeof rodRelParar==="function")rodRelParar()}
 function topo(){scrollTo({top:0})}
 
 /* ---------- Início ---------- */
@@ -3426,6 +3778,7 @@ function inicio(){
     <h2 class="titulo"><span class="c1">Mais jeitos</span><span class="c2">de jogar</span></h2>
     <div class="outros-grade">
             <div class="outro"><img class="outro-ic" src="arte/ic/fast.webp" alt=""><div><h3><img class="ic-h3" src="arte/ic/fast.webp" alt="">Fast</h3><p>Para grupos ao vivo: o líder sorteia o livro e ganha quem achar primeiro na Bíblia.</p><button type="button" class="botao" id="abrir-fast">Jogar Fast</button></div></div>
+      <div class="outro"><span class="outro-quiz" aria-hidden="true">?</span><div><h3><span class="ic-quiz" aria-hidden="true">?</span>Quiz Bíblico</h3><p>Fácil, médio ou difícil, em times, no telão ou no carro. Cada resposta traz a referência e o porquê.</p><button type="button" class="botao" id="abrir-quiz">Jogar Quiz</button></div></div>
       <div class="outro"><span class="outro-fan">${leque([40,41,42,43],"quarteto")}</span><div><h3><img class="ic-h3" src="arte/ic/supremo.webp" alt="">Supremo</h3><p>Mão aberta com 12 cartas: forme 3 grupos de 4 livros do mesmo tipo e grite Biblikaboom.</p><button type="button" class="botao" id="abrir-supremo">Jogar Supremo</button></div></div>
     </div>
   </div></section>
@@ -3666,6 +4019,7 @@ document.addEventListener("click",e=>{
   else if(b.id==="sair-nao")fecharConfirma();
   else if(b.id==="sair-sim"){fecharConfirma();if(SP&&SP.online&&typeof supOnSair==="function"){supOnSair();SP=null}if(typeof onlineSair==="function")onlineSair();if(window.supRelogioParar)supRelogioParar();if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});inicio()}
   else if(b.id==="abrir-fast")fastInicio();
+  else if(b.id==="abrir-quiz")quizInicio();
   else if(b.id==="voltar"||b.id==="voltar2"||b.id==="inicio")inicio();
   else if(b.id==="continuar")continuar();
   else if(b.dataset.atr&&F==="escolher")revelar(b.dataset.atr);
