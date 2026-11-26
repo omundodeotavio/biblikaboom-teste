@@ -2953,7 +2953,7 @@ function marcarInicio(){if(!diaInicio())ls.set("bkb-degusta",hoje())}
 /* ---- conversa com o servidor ---- */
 async function pagoChamar(acao,extra={}){
   const r=await fetch(PAGO.fn,{method:"POST",headers:{"Content-Type":"application/json",apikey:PAGO.chave,Authorization:"Bearer "+PAGO.chave},
-    body:JSON.stringify({acao,token:ls.get("bkb-acesso")||undefined,...extra})});
+    body:JSON.stringify({acao,token:ls.get("bkb-acesso")||undefined,cortesia:ls.get("bkb-cortesia")||undefined,...extra})});
   const j=await r.json().catch(()=>({}));
   if(!r.ok||j.erro)throw new Error(j.erro||"Não deu certo agora. Tente de novo em instantes.");
   return j;
@@ -2965,7 +2965,7 @@ function pagoAplicar(s){
   const p=document.querySelector(".paywall");if(p&&(ehPremium()||!PAGO.ativo)&&!p.querySelector(".pw-feito"))p.remove();
   pagoSelo();
 }
-async function pagoAtualizar(){try{pagoAplicar(await pagoChamar(jaAssinou()?"situacao":"config"))}catch(e){}}
+async function pagoAtualizar(){try{pagoAplicar(await pagoChamar(jaAssinou()||ls.get("bkb-cortesia")?"situacao":"config"))}catch(e){}}
 pagoAtualizar();
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")pagoAtualizar()});
 window.bkbAssinatura=function(ateISO){ls.set("bkb-assinatura-ate",ateISO||null);const p=document.querySelector(".paywall");if(p&&ehPremium())p.remove();pagoSelo()};
@@ -2979,6 +2979,7 @@ function liberar(){
 function pagoSelo(){const s=document.querySelector("#pago-selo");if(!s)return;
   if(!PAGO.ativo&&!ehPremium()){s.hidden=true;return}s.hidden=false;
   const st=PAGO.sit&&PAGO.sit.status;
+  if(ehPremium()&&st==="cortesia"){s.innerHTML=`<b>★</b> Biblikaboom Completo · cortesia`;s.classList.add("premium");return}
   if(ehPremium()){s.innerHTML=`<b>★</b> Biblikaboom Completo · ${st==="cancelada"?"liberado até":"renova em"} ${dataBR(validaAte())}`;s.classList.add("premium");return}
   s.classList.remove("premium");
   s.innerHTML=st==="aguardando"?`Aguardando o pagamento · <b>toque para pagar</b>`:jaAssinou()?`Sua assinatura venceu · <b>renove para continuar</b>`:emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Degustação encerrada · <b>libere o jogo completo</b>`;}
@@ -3002,6 +3003,7 @@ function paywall(){
       <p class="pw-preco">${reais(PAGO.preco)}<small> por ano</small></p><span class="pw-lanc">menos de R$ 3,40 por mês</span>
       <button type="button" class="botao" id="pw-assinar">${jaAssinou()?"Renovar por 1 ano":"Assinar por 1 ano"}</button>
       <button type="button" class="pw-link" id="pw-ja">Já assinei: liberar neste aparelho</button>
+      <button type="button" class="pw-link" id="pw-cod">Tenho um código de cortesia</button>
       <p class="pw-letra">Assinatura anual com renovação automática de ${reais(PAGO.preco)} por ano. Cancele quando quiser pelo próprio jogo; nos primeiros 7 dias depois do pagamento, você recebe o valor de volta.</p></div>`);
   SOM.brilho();
 }
@@ -3035,9 +3037,15 @@ function pwJaAssinei(){
       <label>CPF<input id="pw-cpf" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" required></label>
       <p class="pw-erro" id="pw-erro" role="alert"></p><button type="submit" class="botao">Liberar neste aparelho</button></form>`);
 }
+function pwCortesia(){
+  pwCaixa(`<h2 id="pw-t">Código de cortesia</h2><p class="pw-sub">Digite o código que você recebeu.</p>
+    <form class="pw-form" id="pw-form-cod" novalidate>
+      <label>Código<input id="pw-codigo" autocapitalize="characters" autocomplete="off" spellcheck="false" maxlength="30" required style="text-transform:uppercase;letter-spacing:.08em"></label>
+      <p class="pw-erro" id="pw-erro" role="alert"></p><button type="submit" class="botao">Liberar o jogo</button></form>`);
+}
 function pwMinha(){
   const s=PAGO.sit||{},st=s.status;
-  const txt=st==="ativa"?`Assinatura ativa. Próxima cobrança em ${dataBR(s.pago_ate)}.`:st==="cancelada"?(ehPremium()?`Cancelada. Liberado até ${dataBR(validaAte())}.`:"Assinatura cancelada."):st==="atrasada"?"Pagamento em atraso. Pague a fatura para continuar.":st==="aguardando"?"Aguardando o pagamento.":"Biblikaboom Completo liberado neste aparelho.";
+  const txt=st==="cortesia"?"Cortesia: Biblikaboom Completo liberado neste aparelho.":st==="ativa"?`Assinatura ativa. Próxima cobrança em ${dataBR(s.pago_ate)}.`:st==="cancelada"?(ehPremium()?`Cancelada. Liberado até ${dataBR(validaAte())}.`:"Assinatura cancelada."):st==="atrasada"?"Pagamento em atraso. Pague a fatura para continuar.":st==="aguardando"?"Aguardando o pagamento.":"Biblikaboom Completo liberado neste aparelho.";
   pwCaixa(`<h2 id="pw-t">Minha assinatura</h2><p class="pw-sub"><b>${txt}</b></p>
     <div class="pw-oferta pw-feito">${st==="aguardando"||st==="atrasada"?`<button type="button" class="botao" id="pw-pagar">Pagar a fatura</button>`:""}
       ${s.cancelavel?`<button type="button" class="botao sec" id="pw-cancelar">Cancelar a assinatura</button>`:""}
@@ -3061,6 +3069,8 @@ async function pwEnviar(){
 document.addEventListener("input",e=>{if(e.target.id==="pw-cpf")e.target.value=cpfMasc(e.target.value)});
 document.addEventListener("submit",async e=>{
   if(e.target.id==="pw-form"){e.preventDefault();pwEnviar()}
+  else if(e.target.id==="pw-form-cod"){e.preventDefault();const c=($("#pw-codigo").value||"").trim().toUpperCase();if(!c)return pwErro("Digite o código.");
+    try{const r=await pagoChamar("cortesia",{cortesia:c});ls.set("bkb-cortesia",c);pagoAplicar(r);pwCaixa(`<h2 id="pw-t">Liberado!</h2><p class="pw-sub">Código aceito. O Biblikaboom Completo está liberado neste aparelho. Bom jogo!</p>`)}catch(err){pwErro(err.message)}}
   else if(e.target.id==="pw-form-ja"){e.preventDefault();
     try{const r=await pagoChamar("recuperar",{email:$("#pw-email").value,cpf:$("#pw-cpf").value});pagoAplicar(r);
       if(ehPremium())pwCaixa(`<h2 id="pw-t">Liberado!</h2><p class="pw-sub">O Biblikaboom Completo está liberado neste aparelho até ${dataBR(validaAte())}.</p>`);
@@ -3073,6 +3083,7 @@ document.addEventListener("click",async e=>{
   if(b.id==="pw-fechar"){document.querySelector(".paywall").remove();pagoSelo();if(F!=="inicio"&&!ehPremium())inicio()}
   else if(b.id==="pw-assinar")pwFormulario();
   else if(b.id==="pw-ja")pwJaAssinei();
+  else if(b.id==="pw-cod")pwCortesia();
   else if(b.id==="pw-pagar"){try{const r=await pagoChamar("fatura");if(!abrirFatura(r.fatura))pwErro("Não há fatura em aberto.")}catch(err){pwErro(err.message)}}
   else if(b.id==="pw-atualizar"){b.textContent="Conferindo…";await pagoAtualizar();if(ehPremium())pwCaixa(`<h2 id="pw-t">Pagamento confirmado!</h2><p class="pw-sub">O Biblikaboom Completo está liberado até ${dataBR(validaAte())}. Bom jogo!</p>`);else{b.textContent="Já paguei, atualizar";pwErro("O pagamento ainda não apareceu. Pix costuma cair em segundos; boleto pode levar até 2 dias úteis.")}}
   else if(b.id==="pw-cancelar"){if(!b.dataset.ok){b.dataset.ok="1";b.textContent="Toque de novo para confirmar o cancelamento";return}
