@@ -900,6 +900,34 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 :root.quiz-tv .qz-time b{font-size:clamp(40px,7vh,80px)}
 .outro-quiz{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;justify-self:center;background:radial-gradient(circle at 35% 30%,#7cc4ff,#2b6fd0);border:4px solid var(--tinta);box-shadow:0 6px 0 var(--tinta);font-family:var(--cartoon);font-size:74px;color:#fff;-webkit-text-stroke:3px var(--tinta);paint-order:stroke fill;padding-top:12px;transform:rotate(-8deg)}
 .ic-quiz{display:inline-grid;place-items:center;width:1.3em;height:1.3em;border-radius:50%;background:#2b8fe0;color:#fff;border:2px solid var(--tinta);font-size:.7em;vertical-align:.05em;margin-right:.25em;padding-top:.15em;-webkit-text-stroke:0}
+
+/* Quiz: quadro da resposta, confete e piscada */
+.qz-palco.revelado .qz-perg,.qz-palco.revelado .qz-ops{display:none}
+.qz-rev{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#5a2a98 0%,#2a1145 70%)!important;color:#fff!important;border:6px solid var(--ouro)!important;border-radius:28px!important;
+  box-shadow:0 0 0 4px var(--tinta),0 10px 0 4px var(--tinta),0 0 80px rgba(247,181,44,.55)!important;padding:26px clamp(18px,3vw,36px) 22px!important;transform-origin:0% 50%;animation:qzquadro .7s cubic-bezier(.25,1.4,.45,1)!important;gap:10px!important}
+@keyframes qzquadro{0%{transform:translateX(-18vw) scale(.15) rotate(-8deg);opacity:0}60%{opacity:1}100%{transform:none}}
+.qz-luzes{position:absolute;inset:6px;border-radius:20px;pointer-events:none;background:
+  radial-gradient(circle,#fff6c8 0 3px,transparent 4px) 0 0/28px 28px;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;padding:10px;opacity:.85;animation:qzluz 1s steps(2) infinite}
+@keyframes qzluz{50%{background-position:14px 0;opacity:.55}}
+.qz-rev>*:not(.qz-luzes){position:relative}
+.qz-rev-p{margin:0;font-weight:800;font-size:clamp(14px,1.6vw,18px);color:var(--lilas);text-align:center}
+.qz-rev-tit{align-self:center;font-family:var(--cartoon);font-size:clamp(14px,1.6vw,18px);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta);background:var(--ouro);border:3px solid var(--tinta);border-radius:999px;padding:5px 18px 2px}
+.qz-rev .qz-resp{justify-content:center;color:#fff!important;font-size:clamp(34px,5vw,68px)!important;-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill;text-shadow:0 .07em 0 var(--tinta),0 0 30px rgba(95,224,143,.6);text-align:center;flex-wrap:wrap}
+.qz-rev .qz-resp .qz-letra{font-size:.6em;width:1.6em;-webkit-text-stroke:0;text-shadow:none}
+.qz-rev.festa .qz-resp{animation:qzpula .6s .35s cubic-bezier(.3,1.8,.5,1) backwards}
+@keyframes qzpula{0%{transform:scale(.4)}100%{transform:scale(1)}}
+.qz-rev .qz-ref{align-self:center;background:#fff!important;color:var(--roxo)!important}
+.qz-rev .qz-pq{color:#f1e6ff!important;text-align:center;max-width:62ch;align-self:center}
+.qz-rev .qz-pq b{color:var(--ouro)!important}
+.qz-rev .qz-marcar{justify-content:center}.qz-rev .qz-mq{color:var(--lilas)}
+.qz-op.treme{animation:qztreme .09s linear 6}
+@keyframes qztreme{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.qz-pisca{position:fixed;inset:0;z-index:9000;pointer-events:none;background:radial-gradient(ellipse at center,rgba(255,40,60,.15) 30%,rgba(255,20,40,.75) 100%);opacity:0;animation:qzpisca .9s ease-out}
+@keyframes qzpisca{0%,30%,60%{opacity:0}12%,45%{opacity:1}100%{opacity:0}}
+.qz-confete{position:fixed;inset:0;z-index:9000;pointer-events:none;overflow:hidden}
+.qz-confete i{position:absolute;top:-30px;left:var(--x);animation:qzcai var(--d) var(--a) cubic-bezier(.2,.6,.4,1) forwards;opacity:0}
+@keyframes qzcai{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:1;transform:translate(var(--dx),110vh) rotate(var(--r))}}
+@media (prefers-reduced-motion:reduce){.qz-rev{animation:none!important}.qz-pisca{animation-duration:.01s}}
 /* ---------- Fast ---------- */
 #fast{--roxo-fundo:#1f1033;--roxo-carta:#2e1a4a;--roxo-linha:#4a3270;--ftexto:#f6f0ff;--laranja:#ff8a1f;--display:var(--cartoon);--corpo:var(--texto);color:var(--ftexto)}
 #fast .app{padding-left:0;padding-right:0}
@@ -1697,6 +1725,11 @@ const SOM=(()=>{
   }
   const N=n=>440*Math.pow(2,(n-69)/12);
   const fx={
+    festa(){const t=t0();[[72,0],[76,.08],[79,.16],[84,.24],[88,.34],[84,.46],[88,.54],[91,.62]].forEach(([n,d])=>{tom(N(n),{t:t+d,dur:.22,tipo:"square",vol:.08});tom(N(n-12),{t:t+d,dur:.22,tipo:"triangle",vol:.06})});
+      for(let k=0;k<5;k++){ruido({t:t+k*.11,dur:.09,vol:.28,tipo:"highpass",f:3000,q:.7})}
+      ruido({t:t+.15,dur:1.4,vol:.16,tipo:"bandpass",f:1400,q:.4});ruido({t:t+.3,dur:1.2,vol:.12,tipo:"bandpass",f:2600,q:.5});
+      for(let k=0;k<14;k++)ruido({t:t+.2+Math.random()*1.1,dur:.05,vol:.22,tipo:"highpass",f:4000+Math.random()*2000,q:1})},
+    buzina(){const t=t0();[0,.32].forEach(d=>{tom(110,{t:t+d,dur:.26,tipo:"sawtooth",vol:.22});tom(116,{t:t+d,dur:.26,tipo:"square",vol:.12});tom(55,{t:t+d,dur:.26,tipo:"sine",vol:.25})})},
     clique(){tom(880,{dur:.06,tipo:"triangle",vol:.22,f2:1320});tom(1760,{dur:.04,tipo:"sine",vol:.08})},
     passa(){tom(1400,{dur:.035,tipo:"sine",vol:.05})},
     selecionar(){const t=t0();tom(N(76),{t,dur:.09,tipo:"triangle",vol:.2});tom(N(83),{t:t+.07,dur:.16,tipo:"triangle",vol:.2})},
@@ -2586,7 +2619,7 @@ function mostrarPergunta(){
   $("qz-perg").textContent=atual.p;
   $("qz-ops").innerHTML=atual.ops.map((o,k)=>`<button type="button" class="qz-op" data-op="${k}" style="--i:${k}"><span class="qz-letra">${LETRAS[k]}</span><span class="qz-txt"></span></button>`).join("");
   [...$("qz-ops").children].forEach((b,k)=>b.querySelector(".qz-txt").textContent=atual.ops[k].t);
-  $("qz-rev").hidden=true;$("qz-tempo").hidden=true;
+  $("qz-rev").hidden=true;$("qz-tempo").hidden=true;$("qz-palco").classList.remove("revelado");
   $("qz-palco").classList.remove("vazio");$("qz-palco").classList.add("entra");setTimeout(()=>$("qz-palco").classList.remove("entra"),700);
   estado="pergunta";$("qz-acao").textContent="Revelar resposta";$("qz-chamada").textContent="Valendo!";
   SOM.carta();iniciarRelogio();
@@ -2596,27 +2629,44 @@ function escolher(k){
   escolha=k;SOM.escolher();
   document.querySelectorAll(".qz-op").forEach((b,j)=>b.classList.toggle("marcada",j===k));
 }
+function confete(){
+  if(calmo)return;const c=document.createElement("div");c.className="qz-confete";c.setAttribute("aria-hidden","true");
+  const cores=["#f7b52c","#e8327c","#2b8fe0","#3ddc84","#ffffff","#a874ff","#ff8a1f"];
+  for(let k=0;k<140;k++){const i=document.createElement("i");const lado=k%2?1:-1;
+    i.style.cssText=`--x:${(Math.random()*100).toFixed(1)}vw;--dx:${(lado*(10+Math.random()*30)).toFixed(1)}vw;--r:${Math.round(Math.random()*1080-540)}deg;--d:${(1.6+Math.random()*1.6).toFixed(2)}s;--a:${(Math.random()*.5).toFixed(2)}s;background:${cores[k%cores.length]};width:${6+Math.random()*10|0}px;height:${8+Math.random()*14|0}px;border-radius:${Math.random()<.3?"50%":"2px"}`;
+    c.appendChild(i)}
+  document.body.appendChild(c);setTimeout(()=>c.remove(),4200);
+}
+function piscarVermelho(){const f=document.createElement("div");f.className="qz-pisca";f.setAttribute("aria-hidden","true");document.body.appendChild(f);setTimeout(()=>f.remove(),900)}
+let travado=false;
 function revelar(){
-  pararRelogio();estado="revelado";
-  const certa=atual.ops.findIndex(o=>o.certa);
-  document.querySelectorAll(".qz-op").forEach((b,j)=>{b.classList.add(j===certa?"certa":"apaga");if(j===escolha&&j!==certa)b.classList.add("errada")});
-  $("qz-resp").innerHTML=`<span class="qz-letra">${LETRAS[certa]}</span><span></span>`;$("qz-resp").lastChild.textContent=atual.ops[certa].t;
-  $("qz-ref").textContent=atual.ref;
-  $("qz-pq").textContent=atual.pq;
-  $("qz-rev").hidden=false;$("qz-tempo").hidden=true;
-  if(escolha!=null){if(escolha===certa){acertos++;SOM.ganhou()}else SOM.perdeu()}else SOM.virar();
-  $("qz-chamada").textContent=escolha==null?"Resposta certa:":(escolha===certa?"Acertou!":"Quase!");
-  $("qz-acao").textContent="Próxima pergunta";
-  placar();
-  setTimeout(()=>{const r=$("qz-rev");if(r&&r.scrollIntoView&&r.getBoundingClientRect().bottom>innerHeight)r.scrollIntoView({behavior:calmo?"auto":"smooth",block:"nearest"})},250);
+  pararRelogio();estado="revelado";travado=true;
+  const certa=atual.ops.findIndex(o=>o.certa),acertou=escolha===certa,errou=escolha!=null&&!acertou;
+  const ops=[...document.querySelectorAll(".qz-op")];
+  if(errou){ops[escolha].classList.add("errada","treme");piscarVermelho();SOM.buzina();$("qz-chamada").textContent="Errou!"}
+  const mostrar=()=>{
+    $("qz-resp").innerHTML=`<span class="qz-letra">${LETRAS[certa]}</span><span></span>`;$("qz-resp").lastChild.textContent=atual.ops[certa].t;
+    $("qz-rev-p").textContent=atual.p;
+    $("qz-ref").textContent=atual.ref;
+    $("qz-pq").textContent=atual.pq;
+    $("qz-palco").classList.add("revelado");
+    $("qz-rev").hidden=false;$("qz-tempo").hidden=true;
+    if(acertou){acertos++;SOM.festa();confete();$("qz-rev").classList.add("festa")}else{$("qz-rev").classList.remove("festa");if(!errou)SOM.virar()}
+    $("qz-chamada").textContent=escolha==null?"A resposta é...":(acertou?"Acertou!":"Não foi dessa vez!");
+    $("qz-acao").textContent="Próxima pergunta";
+    placar();travado=false;
+    setTimeout(()=>{const r=$("qz-rev");if(r&&r.scrollIntoView&&(r.getBoundingClientRect().top<0||r.getBoundingClientRect().bottom>innerHeight))r.scrollIntoView({behavior:calmo?"auto":"smooth",block:"nearest"})},250);
+  };
+  if(errou)setTimeout(mostrar,1100);else mostrar();
 }
 function avancar(){
+  if(travado)return;
   if(estado==="pergunta")revelar();
   else{SOM.selecionar();mostrarPergunta()}
 }
 function zerar(){pararRelogio();pts=[0,0,0,0];num=0;acertos=0;estado="pronto";encher();
   $("qz-palco").classList.add("vazio");$("qz-num").textContent="Bora jogar";$("qz-nv").textContent=NIVEL_TXT[nivel];
-  $("qz-perg").textContent="Separe a turma em times, escolha o nível e toque em Começar.";$("qz-ops").innerHTML="";$("qz-rev").hidden=true;$("qz-tempo").hidden=true;
+  $("qz-perg").textContent="Separe a turma em times, escolha o nível e toque em Começar.";$("qz-ops").innerHTML="";$("qz-rev").hidden=true;$("qz-palco").classList.remove("revelado");travado=false;$("qz-tempo").hidden=true;
   $("qz-chamada").textContent="Prepare a turma!";$("qz-acao").textContent="Começar quiz";resta=segs;anel();placar()}
 
 function montar(){
@@ -2642,6 +2692,9 @@ function montar(){
         <div class="qz-tempo" id="qz-tempo" hidden>Tempo esgotado!</div>
         <div class="qz-ops" id="qz-ops"></div>
         <div class="qz-rev" id="qz-rev" hidden>
+          <i class="qz-luzes" aria-hidden="true"></i>
+          <p class="qz-rev-p" id="qz-rev-p"></p>
+          <div class="qz-rev-tit">Resposta certa</div>
           <div class="qz-resp" id="qz-resp"></div>
           <div class="qz-ref"><img src="arte/ntlh.webp" alt=""><span id="qz-ref"></span></div>
           <p class="qz-pq"><b>Por quê?</b> <span id="qz-pq"></span></p>
@@ -3784,7 +3837,7 @@ function inicio(){
     <h2 class="titulo"><span class="c1">Mais jeitos</span><span class="c2">de jogar</span></h2>
     <div class="outros-grade">
             <div class="outro"><img class="outro-ic" src="arte/ic/fast.webp" alt=""><div><h3><img class="ic-h3" src="arte/ic/fast.webp" alt="">Fast</h3><p>Para grupos ao vivo: o líder sorteia o livro e ganha quem achar primeiro na Bíblia.</p><button type="button" class="botao" id="abrir-fast">Jogar Fast</button></div></div>
-      <div class="outro"><span class="outro-quiz" aria-hidden="true">?</span><div><h3><span class="ic-quiz" aria-hidden="true">?</span>Quiz Bíblico</h3><p>Fácil, médio ou difícil, em times, no telão ou no carro. Cada resposta traz a referência e o porquê.</p><button type="button" class="botao" id="abrir-quiz">Jogar Quiz</button></div></div>
+      <div class="outro"><img class="outro-ic" src="arte/ic/quiz.webp" alt=""><div><h3><img class="ic-h3" src="arte/ic/quiz.webp" alt="">Quiz Bíblico</h3><p>Fácil, médio ou difícil, em times, no telão ou no carro. Cada resposta traz a referência e o porquê.</p><button type="button" class="botao" id="abrir-quiz">Jogar Quiz</button></div></div>
       <div class="outro"><span class="outro-fan">${leque([40,41,42,43],"quarteto")}</span><div><h3><img class="ic-h3" src="arte/ic/supremo.webp" alt="">Supremo</h3><p>Mão aberta com 12 cartas: forme 3 grupos de 4 livros do mesmo tipo e grite Biblikaboom.</p><button type="button" class="botao" id="abrir-supremo">Jogar Supremo</button></div></div>
     </div>
   </div></section>
