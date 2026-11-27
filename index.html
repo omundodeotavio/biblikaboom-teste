@@ -799,15 +799,16 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 
 /* ---------- Quiz Bíblico ---------- */
 .quiz-fundo{position:fixed;inset:0;z-index:-1;pointer-events:none;background:
-  linear-gradient(0deg,rgba(20,6,36,.96) 0%,rgba(20,6,36,.7) 42%,rgba(20,6,36,.15) 70%,rgba(20,6,36,.35) 100%),
-  url("arte/quiz-palco.webp") 22% 0/auto 58vh no-repeat,#1f0a3a}
+  linear-gradient(180deg,#1f0a3a 0,#1f0a3a calc(150px + env(safe-area-inset-top,0px)),rgba(31,10,58,0) calc(230px + env(safe-area-inset-top,0px))),
+  linear-gradient(0deg,rgba(20,6,36,.96) 0%,rgba(20,6,36,.75) 38%,rgba(20,6,36,0) 62%),
+  url("arte/quiz-palco.webp") 18% calc(140px + env(safe-area-inset-top,0px))/auto 54vh no-repeat,#1f0a3a}
 @media (min-width:1000px) and (min-aspect-ratio:5/4){
   .quiz-fundo{background:linear-gradient(90deg,rgba(20,6,36,0) 0%,rgba(20,6,36,0) 28%,rgba(20,6,36,.45) 52%,rgba(20,6,36,.6) 100%),url("arte/quiz-palco.webp") left center/cover no-repeat,#1f0a3a}
   #quiz.miolo{max-width:none;padding-left:0;padding-right:0}
   #quiz .app{max-width:none!important;padding-left:clamp(280px,27vw,600px)!important;padding-right:max(24px,2.5vw)!important}
   #quiz .qz-grade{grid-template-columns:minmax(0,1fr) clamp(230px,17vw,290px)}
 }
-@media (max-width:999px),(max-aspect-ratio:5/4){#quiz .qz-grade{margin-top:calc(58vh - 260px)}}
+@media (max-width:999px),(max-aspect-ratio:5/4){#quiz .qz-grade{margin-top:calc(54vh - 130px)}}
 #quiz{color:#f6f0ff}
 #quiz .app{max-width:1280px;margin:0 auto;padding-block:14px 28px;display:flex;flex-direction:column;gap:14px;min-height:100%}
 .qz-rev[hidden],.qz-tempo[hidden],.qz-placar[hidden]{display:none!important}
@@ -843,7 +844,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .qz-perg::before{content:"?";position:absolute;left:-14px;top:-22px;width:52px;height:52px;border-radius:50%;background:var(--ouro);border:4px solid var(--tinta);display:grid;place-items:center;font-family:var(--cartoon);font-size:32px;color:var(--tinta);padding-top:6px;transform:rotate(-12deg);box-shadow:0 4px 0 var(--tinta)}
 .qz-tempo{align-self:center;font-family:var(--cartoon);font-size:clamp(22px,3vw,34px);color:#fff;background:var(--nao);border:3px solid var(--tinta);border-radius:999px;padding:8px 22px 4px;box-shadow:0 5px 0 var(--tinta);animation:qzentra .4s}
 .qz-ops{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media (max-width:560px){.qz-ops{grid-template-columns:1fr}}
+@media (max-width:560px){.qz-ops{grid-template-columns:1fr}.qz-perg{padding-left:44px;padding-right:18px}}
 .qz-op{--cor:#6b3aa6;display:flex;align-items:center;gap:14px;min-height:clamp(64px,9vh,96px);text-align:left;cursor:pointer;
   background:linear-gradient(180deg,color-mix(in srgb,var(--cor) 82%,#fff),var(--cor));border:4px solid var(--tinta);border-radius:20px;padding:10px 16px;box-shadow:0 6px 0 var(--tinta);color:#fff;transition:transform .12s,opacity .3s,filter .3s}
 .qz-op:nth-child(1){--cor:#7a3cc4}.qz-op:nth-child(2){--cor:#2b8fe0}.qz-op:nth-child(3){--cor:#e8327c}.qz-op:nth-child(4){--cor:#e8851f}
@@ -3393,7 +3394,8 @@ function pagoSelo(){const s=document.querySelector("#pago-selo");if(!s)return;
   if(ehPremium()&&st==="cortesia"){s.innerHTML=`<b>★</b> Biblikaboom Completo · cortesia`;s.classList.add("premium");return}
   if(ehPremium()){s.innerHTML=`<b>★</b> Biblikaboom Completo · ${st==="cancelada"?"liberado até":"renova em"} ${dataBR(validaAte())}`;s.classList.add("premium");return}
   s.classList.remove("premium");
-  s.innerHTML=st==="aguardando"?`Aguardando o pagamento · <b>toque para pagar</b>`:jaAssinou()?`Sua assinatura venceu · <b>renove para continuar</b>`:emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Degustação encerrada · <b>libere o jogo completo</b>`;}
+  if(st!=="aguardando"&&!jaAssinou()&&emDegustacao()){s.hidden=true;return}
+  s.innerHTML=st==="aguardando"?`Aguardando o pagamento · <b>toque para pagar</b>`:jaAssinou()?`Sua assinatura venceu · <b>renove para continuar</b>`:emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Quer continuar jogando? <b>Assine por R$ 39,90 por ano</b>`;}
 
 /* ---- tela de assinar ---- */
 const PW_LISTA=`<ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Troféus das missões e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li><li><b>Novidades durante o ano</b>: temporadas, troféus e novas formas de jogar</li></ul>`;
@@ -3409,7 +3411,7 @@ function paywall(){
   if(st==="aguardando"||st==="atrasada")return pwAguardando();
   pwCaixa(`<img class="pw-heroi" src="${(typeof PERFIL!=="undefined"&&vitSrcOmdo(PERFIL.av))||"arte/vito/01.webp"}" alt="">
     <h2 id="pw-t">${jaAssinou()?"Que saudade!":"Que jogador!"}</h2>
-    <p class="pw-sub">${jaAssinou()?"A sua assinatura do Biblikaboom venceu. Renove e continue de onde parou: seus troféus, álbum e personagens estão guardados.":"O seu <b>dia de degustação</b> acabou. Libere o Biblikaboom Completo por um ano inteiro e continue a sua jornada pela Bíblia."}</p>
+    <p class="pw-sub">${jaAssinou()?"A sua assinatura do Biblikaboom venceu. Renove e continue de onde parou: seus troféus, álbum e personagens estão guardados.":"Quer continuar jogando? Assine o Biblikaboom Completo e jogue o ano inteiro, com todos os modos, troféus e o álbum dos 66 livros."}</p>
     <div class="pw-oferta"><span class="pw-selo">Biblikaboom Completo</span>${PW_LISTA}
       <p class="pw-preco">${reais(PAGO.preco)}<small> por ano</small></p><span class="pw-lanc">menos de R$ 3,40 por mês</span>
       <button type="button" class="botao" id="pw-assinar">${jaAssinou()?"Renovar por 1 ano":"Assinar por 1 ano"}</button>
