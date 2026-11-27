@@ -902,6 +902,22 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--ouro);outline-offse
 .outro-quiz{width:118px;height:118px;border-radius:50%;display:grid;place-items:center;justify-self:center;background:radial-gradient(circle at 35% 30%,#7cc4ff,#2b6fd0);border:4px solid var(--tinta);box-shadow:0 6px 0 var(--tinta);font-family:var(--cartoon);font-size:74px;color:#fff;-webkit-text-stroke:3px var(--tinta);paint-order:stroke fill;padding-top:12px;transform:rotate(-8deg)}
 .ic-quiz{display:inline-grid;place-items:center;width:1.3em;height:1.3em;border-radius:50%;background:#2b8fe0;color:#fff;border:2px solid var(--tinta);font-size:.7em;vertical-align:.05em;margin-right:.25em;padding-top:.15em;-webkit-text-stroke:0}
 
+
+.qz-mini{width:100%;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.qz-mini[hidden]{display:none}
+.qz-mt{display:flex;align-items:center;gap:8px;background:var(--c);border:3px solid var(--tinta);border-radius:999px;padding:4px 6px 4px 14px;box-shadow:0 4px 0 var(--tinta);opacity:.7;transition:opacity .3s,transform .3s}
+.qz-mt span{font:900 13px var(--texto);letter-spacing:.05em;text-transform:uppercase;color:#fff;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+.qz-mt b{min-width:34px;height:34px;border-radius:999px;background:#fff;color:var(--tinta);display:grid;place-items:center;font-family:var(--cartoon);font-weight:400;font-size:22px;padding:4px 8px 0;font-variant-numeric:tabular-nums}
+.qz-mt.vez{opacity:1;transform:scale(1.1);box-shadow:0 4px 0 var(--tinta),0 0 0 3px #fff,0 0 24px var(--c)}
+.qz-mt.lider span::after{content:" ★";color:#fff6c8}
+@media (max-width:560px){.qz-mini{gap:6px}.qz-mt{padding:2px 4px 2px 10px;gap:6px}.qz-mt span{font-size:11px}.qz-mt b{min-width:26px;height:26px;font-size:17px}.qz-mt.vez{transform:scale(1.05)}}
+.qz-time.vez{outline:3px solid #fff;outline-offset:2px}
+.qz-sorteio{display:inline-block;font-family:var(--cartoon);font-size:clamp(34px,5vw,64px);color:var(--c);-webkit-text-stroke:.05em var(--tinta);paint-order:stroke fill}
+.qz-ordem-t{display:block;font:900 14px var(--texto);letter-spacing:.1em;text-transform:uppercase;color:#6b5a80;margin-bottom:10px}
+.qz-ordem{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.qz-ordem span{font-family:var(--cartoon);font-size:clamp(22px,2.8vw,34px);color:#fff;background:var(--c);border:3px solid var(--tinta);border-radius:16px;padding:8px 16px 4px;box-shadow:0 4px 0 var(--tinta);-webkit-text-stroke:.04em var(--tinta);paint-order:stroke fill}
+.qz-ordem b{font-weight:400;color:#fff6c8}
+.qz-palco.vazio .qz-perg:has(.qz-ordem),.qz-palco.vazio .qz-perg:has(.qz-sorteio){font-family:var(--cartoon)}
 /* Quiz: quadro da resposta, confete e piscada */
 .qz-palco.revelado .qz-perg,.qz-palco.revelado .qz-ops{display:none}
 .qz-rev{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 0%,#5a2a98 0%,#2a1145 70%)!important;color:#fff!important;border:6px solid var(--ouro)!important;border-radius:28px!important;
@@ -2582,7 +2598,7 @@ const LETRAS=["A","B","C","D"];
 const $=id=>document.getElementById(id);
 const embaralha=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
 
-let nivel="facil",segs=30,nTimes=2,pts=[0,0,0,0],saco=[],atual=null,num=0,estado="pronto",escolha=null,relogio=null,resta=0,marcou=false,acertos=0;
+let nivel="facil",segs=30,nTimes=2,pts=[0,0,0,0],saco=[],atual=null,num=0,estado="pronto",escolha=null,relogio=null,resta=0,marcou=false,acertos=0,ordem=[],vez=0,timeVez=-1;
 
 function lerPref(){try{const p=JSON.parse(localStorage.getItem("bkb-quiz")||"{}");if(Q[p.nivel])nivel=p.nivel;if([0,15,30,45,60].includes(p.segs))segs=p.segs;if([0,2,3,4].includes(p.times))nTimes=p.times}catch(e){}}
 function salvarPref(){try{localStorage.setItem("bkb-quiz",JSON.stringify({nivel,segs,times:nTimes}))}catch(e){}}
@@ -2607,7 +2623,11 @@ function placar(){
   el.innerHTML=TIMES.slice(0,nTimes).map((t,i)=>`<div class="qz-time" style="--c:${t.c}"><span>Time ${t.n}</span><b>${pts[i]}</b></div>`).join("");
   const mx=Math.max(...pts.slice(0,nTimes));
   [...el.children].forEach((d,i)=>d.classList.toggle("lider",mx>0&&pts[i]===mx));
-  $("qz-marcar").innerHTML=nTimes?`<span class="qz-mq">Quem acertou?</span>`+TIMES.slice(0,nTimes).map((t,i)=>`<button type="button" class="qz-ponto" data-time="${i}" style="--c:${t.c}">+1 ${t.n}</button>`).join(""):"";
+  [...el.children].forEach((d,i)=>d.classList.toggle("vez",i===timeVez&&estado!=="pronto"));
+  const mini=$("qz-mini");mini.hidden=!nTimes;
+  const ord=ordem.length===nTimes?ordem:TIMES.slice(0,nTimes).map((t,i)=>i);
+  mini.innerHTML=ord.map(i=>`<div class="qz-mt${i===timeVez&&estado!=="pronto"?" vez":""}${mx>0&&pts[i]===mx?" lider":""}" style="--c:${TIMES[i].c}"><span>${TIMES[i].n}</span><b>${pts[i]}</b></div>`).join("");
+  $("qz-marcar").innerHTML="";
 }
 
 function mostrarPergunta(){
@@ -2615,6 +2635,7 @@ function mostrarPergunta(){
   const i=saco.pop(),d=Q[nivel][i];num++;
   atual={p:d[0],ops:embaralha(d[1].map((t,k)=>({t,certa:k===0}))),ref:d[2],pq:d[3]};
   escolha=null;marcou=false;
+  if(nTimes){timeVez=ordem[vez%nTimes];vez++}else timeVez=-1;
   $("qz-num").textContent="Pergunta "+num;
   $("qz-nv").textContent=NIVEL_TXT[nivel];
   $("qz-perg").textContent=atual.p;
@@ -2622,7 +2643,9 @@ function mostrarPergunta(){
   [...$("qz-ops").children].forEach((b,k)=>b.querySelector(".qz-txt").textContent=atual.ops[k].t);
   $("qz-rev").hidden=true;$("qz-tempo").hidden=true;$("qz-palco").classList.remove("revelado");
   $("qz-palco").classList.remove("vazio");$("qz-palco").classList.add("entra");setTimeout(()=>$("qz-palco").classList.remove("entra"),700);
-  estado="pergunta";$("qz-acao").textContent="Revelar resposta";$("qz-chamada").textContent="Valendo!";
+  estado="pergunta";$("qz-acao").textContent="Revelar resposta";
+  if(timeVez>=0){$("qz-chamada").innerHTML=`Vez do <span style="color:${TIMES[timeVez].c}">Time ${TIMES[timeVez].n}</span>!`}else $("qz-chamada").textContent="Valendo!";
+  placar();
   SOM.carta();iniciarRelogio();
 }
 function escolher(k){
@@ -2652,10 +2675,12 @@ function revelar(){
     $("qz-pq").textContent=atual.pq;
     $("qz-palco").classList.add("revelado");
     $("qz-rev").hidden=false;$("qz-tempo").hidden=true;
-    if(acertou){acertos++;SOM.festa();confete();$("qz-rev").classList.add("festa")}else{$("qz-rev").classList.remove("festa");if(!errou)SOM.virar()}
-    $("qz-chamada").textContent=escolha==null?"A resposta é...":(acertou?"Acertou!":"Não foi dessa vez!");
+    if(acertou){acertos++;SOM.festa();confete();$("qz-rev").classList.add("festa");if(timeVez>=0)pts[timeVez]++}else{$("qz-rev").classList.remove("festa");if(!errou)SOM.virar()}
+    const tn=timeVez>=0?`<span style="color:${TIMES[timeVez].c}">Time ${TIMES[timeVez].n}</span>`:"";
+    $("qz-chamada").innerHTML=escolha==null?"A resposta é...":(acertou?(tn?"Ponto para o "+tn+"!":"Acertou!"):(tn?tn+" não pontuou":"Não foi dessa vez!"));
     $("qz-acao").textContent="Próxima pergunta";
     placar();travado=false;
+    if(acertou&&timeVez>=0){const mt=document.querySelector(".qz-mt.vez"),gt=document.querySelectorAll(".qz-time")[timeVez];[mt,gt].forEach(x=>{if(x&&!calmo)x.animate([{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],{duration:600,easing:"cubic-bezier(.3,1.6,.5,1)"})})}
     setTimeout(()=>{const r=$("qz-rev");if(r&&r.scrollIntoView&&(r.getBoundingClientRect().top<0||r.getBoundingClientRect().bottom>innerHeight))r.scrollIntoView({behavior:calmo?"auto":"smooth",block:"nearest"})},250);
   };
   if(errou)setTimeout(mostrar,1100);else mostrar();
@@ -2663,11 +2688,22 @@ function revelar(){
 function avancar(){
   if(travado)return;
   if(estado==="pergunta")revelar();
+  else if(estado==="pronto"&&nTimes)sortear();
   else{SOM.selecionar();mostrarPergunta()}
 }
-function zerar(){pararRelogio();pts=[0,0,0,0];num=0;acertos=0;estado="pronto";encher();
+function sortear(){
+  travado=true;estado="sorteio";SOM.embaralhar();
+  ordem=embaralha(TIMES.slice(0,nTimes).map((t,i)=>i));vez=0;timeVez=-1;
+  const pg=$("qz-perg");$("qz-palco").classList.add("vazio");$("qz-chamada").textContent="Sorteando a ordem...";
+  let k=0;const giro=setInterval(()=>{const t=TIMES[k++%nTimes];pg.innerHTML=`<span class="qz-sorteio" style="--c:${t.c}">Time ${t.n}</span>`;SOM.tic()},110);
+  setTimeout(()=>{clearInterval(giro);SOM.ganhou();
+    pg.innerHTML=`<span class="qz-ordem-t">Ordem dos times</span><span class="qz-ordem">${ordem.map((i,n)=>`<span style="--c:${TIMES[i].c}"><b>${n+1}º</b> ${TIMES[i].n}</span>`).join("")}</span>`;
+    $("qz-chamada").innerHTML=`Começa o <span style="color:${TIMES[ordem[0]].c}">Time ${TIMES[ordem[0]].n}</span>!`;
+    $("qz-acao").textContent="Primeira pergunta";estado="ordem";travado=false;placar()},1800);
+}
+function zerar(){pararRelogio();pts=[0,0,0,0];num=0;acertos=0;estado="pronto";ordem=[];vez=0;timeVez=-1;encher();
   $("qz-palco").classList.add("vazio");$("qz-num").textContent="Bora jogar";$("qz-nv").textContent=NIVEL_TXT[nivel];
-  $("qz-perg").textContent="Separe a turma em times, escolha o nível e toque em Começar.";$("qz-ops").innerHTML="";$("qz-rev").hidden=true;$("qz-palco").classList.remove("revelado");travado=false;$("qz-tempo").hidden=true;
+  $("qz-perg").textContent=nTimes?"Separe a turma em "+nTimes+" times e toque em Começar. O app sorteia quem começa e as perguntas vão passando de time em time.":"Escolha o nível e toque em Começar.";$("qz-ops").innerHTML="";$("qz-rev").hidden=true;$("qz-palco").classList.remove("revelado");travado=false;$("qz-tempo").hidden=true;
   $("qz-chamada").textContent="Prepare a turma!";$("qz-acao").textContent="Começar quiz";resta=segs;anel();placar()}
 
 function montar(){
@@ -2688,6 +2724,7 @@ function montar(){
         <div class="qz-chamada" id="qz-chamada" aria-live="polite">Prepare a turma!</div>
         <div class="qz-anel" id="qz-anel" style="--p:1"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44" class="fundo"/><circle cx="50" cy="50" r="44" class="arco" pathLength="100"/></svg><b id="qz-seg">30</b></div>
       </div>
+      <div class="qz-mini" id="qz-mini" hidden></div>
       <div class="qz-palco vazio" id="qz-palco">
         <div class="qz-perg" id="qz-perg"></div>
         <div class="qz-tempo" id="qz-tempo" hidden>Tempo esgotado!</div>
@@ -2717,19 +2754,16 @@ function montar(){
         <h3>Times</h3>
         <div class="qz-seg" role="group" aria-label="Times">${[0,2,3,4].map(t=>`<button type="button" data-qtimes="${t}" aria-pressed="${t===nTimes}">${t?t:"Sem"}</button>`).join("")}</div>
       </div>
-      <p class="qz-leg">Referências e explicações com base na Bíblia NTLH. Toque numa alternativa para marcar a resposta da turma antes de revelar.</p>
+      <p class="qz-leg">Referências e explicações com base na Bíblia NTLH. Toque na alternativa que o time escolheu e depois em Revelar. Se acertar, o ponto vai para o time da vez.</p>
     </aside>
   </div>
 </div></div>`;
   legenda();zerar();
   $("qz-acao").addEventListener("click",avancar);
   $("qz-ops").addEventListener("click",e=>{const b=e.target.closest("[data-op]");if(b)escolher(+b.dataset.op)});
-  $("qz-marcar").addEventListener("click",e=>{const b=e.target.closest("[data-time]");if(!b||marcou&&b.disabled)return;const i=+b.dataset.time;pts[i]++;SOM.ganhou();b.disabled=true;b.classList.add("feito");
-    const v=document.querySelectorAll(".qz-time")[i];placar();const nv=document.querySelectorAll(".qz-time")[i];if(nv&&!calmo)nv.animate([{transform:"scale(1)"},{transform:"scale(1.15)"},{transform:"scale(1)"}],{duration:420});
-    document.querySelectorAll(".qz-ponto").forEach((x,j)=>{if(j===i){x.disabled=true;x.classList.add("feito")}})});
   document.querySelectorAll("[data-qnivel]").forEach(b=>b.addEventListener("click",()=>{nivel=b.dataset.qnivel;salvarPref();marcarGrupo("qnivel",nivel);legenda();encher();if(estado!=="pergunta")$("qz-nv").textContent=NIVEL_TXT[nivel]}));
   document.querySelectorAll("[data-qseg]").forEach(b=>b.addEventListener("click",()=>{segs=+b.dataset.qseg;salvarPref();marcarGrupo("qseg",String(segs));if(estado!=="pergunta"){resta=segs;anel()}}));
-  document.querySelectorAll("[data-qtimes]").forEach(b=>b.addEventListener("click",()=>{nTimes=+b.dataset.qtimes;salvarPref();marcarGrupo("qtimes",String(nTimes));placar()}));
+  document.querySelectorAll("[data-qtimes]").forEach(b=>b.addEventListener("click",()=>{nTimes=+b.dataset.qtimes;salvarPref();marcarGrupo("qtimes",String(nTimes));zerar()}));
   $("qz-zerar").addEventListener("click",zerar);
   $("qz-tv").addEventListener("click",async()=>{
     const r=document.documentElement,liga=!r.classList.contains("quiz-tv");r.classList.toggle("quiz-tv",liga);
@@ -2746,7 +2780,7 @@ function legenda(){const t={facil:"Para crianças menores e quem está começand
 document.addEventListener("keydown",e=>{if(F!=="quiz"||document.querySelector(".confirma"))return;
   if(e.code==="Space"&&e.target.tagName!=="BUTTON"){e.preventDefault();avancar()}
   const k="ABCD".indexOf(e.key.toUpperCase());if(k>=0&&k<4&&!e.ctrlKey&&!e.metaKey&&atual&&k<atual.ops.length)escolher(k)});
-return {montar,parar:pararRelogio,total:()=>Q.facil.length+Q.medio.length+Q.dificil.length};
+return {montar,parar:pararRelogio,_certa:()=>atual?atual.ops.findIndex(o=>o.certa):-1,total:()=>Q.facil.length+Q.medio.length+Q.dificil.length};
 })();
 function quizInicio(){document.documentElement.classList.remove("fast-tv","quiz-tv");if(!liberar())return;limpar();F="quiz";camada.innerHTML="";SOM.volumeMusica(.35);QUIZ.montar();topo();}
 
