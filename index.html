@@ -3380,7 +3380,7 @@ function vitoriaShow({src,retrato,nome,frase,voce},depois){
 
 /* ================= Assinatura anual do Biblikaboom (R$ 39,90/ano, renovação automática) =================
    Igual ao app O Mundo de Otávio: cobrança pelo Asaas (Pix, boleto ou cartão), função "bkb-assinatura" no Supabase.
-   1 dia de degustação grátis com tudo liberado; depois, só assinantes.
+   3 dias de degustação grátis com tudo liberado; depois, só assinantes.
    O jogo não tem login: quem assina recebe um código de acesso guardado no aparelho (bkb-acesso).
    Em outro aparelho: "Já assinei" com e-mail + CPF.
    A trava só liga quando o servidor diz cobranca_ativa (app_config.bkb_cobranca_ativa). Sem resposta, ninguém é travado. */
@@ -3393,7 +3393,7 @@ function ehPremium(){const v=validaAte();return !!v&&new Date(v+"T23:59:59").get
 function jaAssinou(){return !!ls.get("bkb-acesso")}
 const dataBR=iso=>iso?String(iso).slice(0,10).split("-").reverse().join("/"):"";
 function diaInicio(){return ls.get("bkb-degusta")}
-function emDegustacao(){const d=diaInicio();return !d||d===hoje()}
+const DIAS_DEGUSTA=3; function diasDegusta(){const d=diaInicio();if(!d)return DIAS_DEGUSTA;const n=s=>{const [a,m,x]=String(s).split("-").map(Number);return Math.floor(Date.UTC(a,m-1,x)/864e5)};return Math.max(0,DIAS_DEGUSTA-(n(hoje())-n(d)))} function emDegustacao(){return diasDegusta()>0}
 function marcarInicio(){if(!diaInicio())ls.set("bkb-degusta",hoje())}
 
 /* ---- conversa com o servidor ---- */
@@ -3429,7 +3429,7 @@ function pagoSelo(){const s=document.querySelector("#pago-selo");if(!s)return;
   if(ehPremium()){s.innerHTML=`<b>★</b> Biblikaboom Completo · ${st==="cancelada"?"liberado até":"renova em"} ${dataBR(validaAte())}`;s.classList.add("premium");return}
   s.classList.remove("premium");
   if(st!=="aguardando"&&!jaAssinou()&&emDegustacao()){s.hidden=true;return}
-  s.innerHTML=st==="aguardando"?`Aguardando o pagamento · <b>toque para pagar</b>`:jaAssinou()?`Sua assinatura venceu · <b>renove para continuar</b>`:emDegustacao()?`<b>Degustação:</b> hoje é grátis, jogue à vontade!`:`Quer continuar jogando? <b>Assine por R$ 39,90 por ano</b>`;}
+  s.innerHTML=st==="aguardando"?`Aguardando o pagamento · <b>toque para pagar</b>`:jaAssinou()?`Sua assinatura venceu · <b>renove para continuar</b>`:emDegustacao()?(diasDegusta()>1?`<b>Degustação grátis:</b> mais ${diasDegusta()} dias com tudo liberado!`:`<b>Degustação grátis:</b> hoje é o último dia, jogue à vontade!`):`Quer continuar jogando? <b>Assine por R$ 39,90 por ano</b>`;}
 
 /* ---- tela de assinar ---- */
 const PW_LISTA=`<ul><li>Jogue <b>todos os dias</b>, sem limite</li><li>Todos os modos: Mega, Origem, Revelação, Supremo e Fast</li><li><b>Álbum dos 66 livros</b> com as curiosidades de cada um</li><li>Troféus das missões e certificado de <b>Expert da Bíblia</b></li><li>16 personagens bíblicos para liberar</li><li>Desafio do dia e baú de prêmios</li><li><b>Ranking com os amigos</b> e partidas online</li><li><b>Novidades durante o ano</b>: temporadas, troféus e novas formas de jogar</li></ul>`;
