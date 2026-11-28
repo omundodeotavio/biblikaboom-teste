@@ -2028,7 +2028,7 @@ const SEAT_POS={1:["top"],2:["tl","tr"],3:["left","top","right"]};
 const SEAT_ANG={bottom:90,left:180,top:-90,right:0,tl:-130,tr:-50};
 const maoEls=new Map();
 function supIniciar(){
-  if(!liberar())return;
+  if(!liberar("supremo"))return;
   limpar();camada.innerHTML="";SUPSEL=null;maoEls.clear();
   SP=supNovo(Number(SUPPREF.robos),SUPPREF.regra==="avancado",SUPPREF.nivel);
   CARTAS.forEach(c=>{const i=new Image();i.src=img(c)});
@@ -2490,7 +2490,7 @@ document.addEventListener("keydown",e=>{if(F!=="fast"||document.querySelector(".
 return {montar};
 })();
 let FAST_WL=null;
-function fastInicio(){document.documentElement.classList.remove("fast-tv");if(!liberar())return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
+function fastInicio(){document.documentElement.classList.remove("fast-tv");if(!liberar("fast"))return;limpar();F="fast";camada.innerHTML="";SOM.volumeMusica(.35);FAST.montar();topo();}
 
 /* ================= Quiz Bíblico (ao vivo, com líder, times e cronômetro) ================= */
 const QUIZ=(()=>{
@@ -2782,7 +2782,7 @@ document.addEventListener("keydown",e=>{if(F!=="quiz"||document.querySelector(".
   const k="ABCD".indexOf(e.key.toUpperCase());if(k>=0&&k<4&&!e.ctrlKey&&!e.metaKey&&atual&&k<atual.ops.length)escolher(k)});
 return {montar,parar:pararRelogio,_certa:()=>atual?atual.ops.findIndex(o=>o.certa):-1,total:()=>Q.facil.length+Q.medio.length+Q.dificil.length};
 })();
-function quizInicio(){document.documentElement.classList.remove("fast-tv","quiz-tv");if(!liberar())return;limpar();F="quiz";camada.innerHTML="";SOM.volumeMusica(.35);QUIZ.montar();topo();}
+function quizInicio(){document.documentElement.classList.remove("fast-tv","quiz-tv");if(!liberar("quiz"))return;limpar();F="quiz";camada.innerHTML="";SOM.volumeMusica(.35);QUIZ.montar();topo();}
 
 /* ================= Online fora do Claude: salas ponto a ponto (PeerJS) =================
    Dentro do Claude usamos o banco do próprio Claude. Fora dele (site/app instalado),
@@ -2950,7 +2950,7 @@ function aviso(t,erro=false){const a=$("#on-aviso");if(a){a.textContent=t;a.clas
 function guardaNome(){return limpaNome(PERFIL.nome)}
 async function pronto(){if(ON.carregando)await ON.carregando;if(!ON.db||!ON.id){aviso("Não consegui conectar ao modo online agora. Confira se você está conectado na sua conta.",true);return false}return true}
 async function onlineCriar(){
-  if(!liberar())return;
+  if(!liberar("duelo-online"))return;
   if(!await pronto())return;const nome=guardaNome();
   aviso("Criando a sala…");
   let cod,ok=false;
@@ -3125,7 +3125,7 @@ function supOnInicio(){
     if(!db||!ON.id)aviso("O jogo online com amigos chega em breve nesta versão. Por enquanto, jogue contra os adversários bíblicos.",true)}).catch(()=>{});
 }
 async function supOnCriar(){
-  if(!liberar())return;
+  if(!liberar("supremo-online"))return;
   if(!await pronto())return;aviso("Criando a sala…");
   let cod,ok=false;
   for(let t=0;t<6&&!ok;t++){cod=codigoNovo();const s=await ON.db.doc("salas/"+cod).get().catch(()=>null);ok=!s||!s.exists||(Date.now()-(s.data().criado||0)>6*3600e3)}
@@ -3417,11 +3417,20 @@ document.addEventListener("visibilitychange",()=>{if(document.visibilityState===
 window.bkbAssinatura=function(ateISO){ls.set("bkb-assinatura-ate",ateISO||null);const p=document.querySelector(".paywall");if(p&&ehPremium())p.remove();pagoSelo()};
 
 /* devolve true se pode jogar agora; senão mostra a tela de assinar */
-function liberar(){
-  if(!PAGO.ativo||ehPremium()||(typeof TUT!=="undefined"&&TUT.on))return true;
-  if(!jaAssinou()&&emDegustacao()){marcarInicio();pagoSelo();return true}
-  paywall();return false;
+function liberar(modo){
+  if(!PAGO.ativo||ehPremium()||(typeof TUT!=="undefined"&&TUT.on)){bkbConta(modo);return true}
+  if(!jaAssinou()&&emDegustacao()){marcarInicio();pagoSelo();bkbConta(modo);return true}
+  bkbConta("trava");paywall();return false;
 }
+/* Contagem anônima para a Área do desenvolvedor: aparelho (código aleatório), plataforma, idioma, situação e modo jogado.
+   Sem nome, e-mail ou CPF. Nunca atrapalha o jogo: se falhar, nada acontece. */
+function bkbSituacao(){if(ehPremium())return PAGO.sit&&PAGO.sit.status==="cortesia"?"cortesia":"assinante";if(!PAGO.ativo)return "livre";return !jaAssinou()&&emDegustacao()?"degustacao":"vencido"}
+function bkbPlataforma(){const u=navigator.userAgent||"";if(/smart-?tv|tizen|webos|hbbtv|android tv|aft[a-z]|crkey|bravia/i.test(u))return "tv";if(/ipad|tablet/i.test(u)||(/macintosh/i.test(u)&&navigator.maxTouchPoints>1))return "tablet";if(/iphone|ipod/i.test(u))return "ios";if(/android/i.test(u))return /mobile/i.test(u)?"android":"tablet";if(/windows/i.test(u))return "windows";if(/mac os/i.test(u))return "mac";return "outro"}
+function bkbConta(modo){try{if(typeof TUT!=="undefined"&&TUT.on&&modo!=="trava")modo="tutorial";
+  const inst=matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+  fetch(PAGO.fn.replace("/functions/v1/bkb-assinatura","/rest/v1/rpc/bkb_ping"),{method:"POST",keepalive:true,headers:{"Content-Type":"application/json",apikey:PAGO.chave,Authorization:"Bearer "+PAGO.chave},
+    body:JSON.stringify({p_uid:p2pUid(),p_modo:modo||null,p_info:{plataforma:bkbPlataforma(),instalado:inst,idioma:(navigator.language||"").slice(0,10),situacao:bkbSituacao(),cortesia:ls.get("bkb-cortesia")||null,degusta:diaInicio()?diaInicio().split("-").map((x,i)=>i?x.padStart(2,"0"):x).join("-"):null}})}).catch(()=>{})}catch(e){}}
+setTimeout(()=>bkbConta(null),4000);
 function pagoSelo(){const s=document.querySelector("#pago-selo");if(!s)return;
   if(!PAGO.ativo&&!ehPremium()){s.hidden=true;return}s.hidden=false;
   const st=PAGO.sit&&PAGO.sit.status;
@@ -3951,7 +3960,7 @@ function regras(){
 
 /* ---------- Partida ---------- */
 function iniciar(){
-  if(!liberar())return;
+  if(!liberar(PREF.modo))return;
   limpar();camada.innerHTML="";J=novoJogo(PREF.modo,PREF.nivel);J.rival=sortearRivais(1)[0];ULT=null;DES=null;
   J.cartas.forEach(c=>{const i=new Image();i.src=img(c)});
   fimEm=PREF.tempo!=="0"?Date.now()+Number(PREF.tempo)*60000:null;
